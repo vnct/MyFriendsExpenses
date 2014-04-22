@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="test" >
+        <EditTextPreference
+            android:title="@string/add_title"
+            android:summary="@string/add_title"
+            android:key="add_title"/>
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Friends Expenses</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="csvread">Last Entries</string>
+    <string name="csvadd">Add Expenditure</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="add_groupe">Group Name</string>
+    <string name="add_name">Person Name</string>
+    <string name="add_title">Add Expenditure</string>
+    <string name="add_phone">Person Phone</string>
+    <string name="add_expense">Person Expense</string>
+    <string name="add_donation">Person Donation</string>
+    <string name="add_donator">Donator ?</string>
+    <string name="add_add">Add Person</string>
+    <string name="title_activity_expenditure">Expenditure</string>
+    <string name="csv_file_dir">FriendExpenses</string>
+    <string name="main_everybody">Everybody</string>
+    <string name="csv_file_name">fichier.csv</string>
+    <string name="title_activity_last_entries">LastEntries</string>
+
+</resources>
