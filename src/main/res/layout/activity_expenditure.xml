@@ -18,33 +18,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/add_title"
-                android:id="@+id/textView"
+                android:text="@string/add_title_expenditure"
+                android:id="@+id/textViewTitle"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/add_groupe"
-                android:id="@+id/addgroupetext" />
-
-            <AutoCompleteTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/addgroupe"
-                android:layout_weight="1"
-                android:hint="Groupe1"
-     />
-        </LinearLayout>
 
         <LinearLayout
                 android:orientation="horizontal"
@@ -95,14 +73,24 @@
                   />
 
             </LinearLayout>
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_donator"
-            android:id="@+id/adddonator"
-            android:layout_gravity="center_horizontal"
-            android:paddingTop="10dp"/>
+          <!--  <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/add_donator"
+                    android:id="@+id/adddonatortext" />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/adddonator"
+                  />
+                </LinearLayout>-->
 
         <LinearLayout
             android:orientation="horizontal"
@@ -126,6 +114,28 @@
                 android:layout_weight="1"
                 android:hint="10.0"
           />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/add_groupe"
+                android:id="@+id/addgroupetext" />
+
+            <AutoCompleteTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addgroupe"
+                android:layout_weight="1"
+                android:hint="Groupe1"
+     />
         </LinearLayout>
 
         <Button

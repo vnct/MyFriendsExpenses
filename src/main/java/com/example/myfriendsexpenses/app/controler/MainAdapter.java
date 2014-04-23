@@ -62,24 +62,24 @@ public class MainAdapter extends BaseAdapter {
         TextView textViewPayback = (TextView) vue.findViewById(R.id.textViewPayback);
         TextView textViewGroup = (TextView) vue.findViewById(R.id.textViewGroup);
         textViewName.setText(personList.get(position).get_name());
-        float v = personList.get(position).get_payback();
-        if (v>0)
-            textViewPayback.setTextColor(Color.parseColor("#088A08"));
-        else
-            textViewPayback.setTextColor(Color.RED);
-
-        if(samegroup.equals(true)==true)
-        {
-            textViewGroup.setVisibility(View.INVISIBLE);
-        }
-        {
-            textViewGroup.setVisibility(View.VISIBLE);
-            textViewGroup.setText("to " +personList.get(position).get_groupname());
-        }
+        // Calcul 0 - la_valeur pour mettre la donnée au bon format
+        float v = 0-personList.get(position).get_payback();
         DecimalFormat df = new DecimalFormat ( ) ;
-        df.setMaximumFractionDigits ( 2) ;
+        df.setMaximumFractionDigits(2) ;
         df.format(v);
+        if(v>0)
+        {
+            textViewPayback.setTextColor(Color.parseColor("#088A08"));
+            textViewGroup.setText("le groupe "  +personList.get(position).get_groupname() + " lui doit");
+        }
+        else {
+            textViewPayback.setTextColor(Color.RED);
+            textViewGroup.setText("doit au groupe "  +personList.get(position).get_groupname() + "");
+        }
         textViewPayback.setText(df.format(v) + " €");
+
+
+
 
 
         return vue;

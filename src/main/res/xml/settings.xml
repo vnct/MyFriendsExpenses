@@ -3,8 +3,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="test" >
         <EditTextPreference
-            android:title="@string/add_title"
-            android:summary="@string/add_title"
+            android:title="@string/add_title_expenditure"
+            android:summary="@string/add_title_expenditure"
             android:key="add_title"/>
     </PreferenceCategory>
 </PreferenceScreen>

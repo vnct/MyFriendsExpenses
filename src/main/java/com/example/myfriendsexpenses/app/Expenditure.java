@@ -3,7 +3,6 @@ package com.example.myfriendsexpenses.app;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.controler.Person;
 
@@ -33,11 +33,9 @@ public class Expenditure extends Activity {
     private AutoCompleteTextView editTextname = null,editTextGroupname = null;
     private CheckBox checkBoxdonator = null;
     private ListView listViewEntries = null;
+    private TextView textViewTitle = null, textViewExpense = null;
     private static String[] namePerson = null,nameGroup=null;
     ArrayAdapter<String> adaptername = null,adaptergroup = null;
-    // In the onCreate method
-
-   // private CSVAction csvAction = new CSVAction();
     ListAdapter simpleAdapter = null;
     List<HashMap<String, String>> listeHaspMapEntries = null;
     @Override
@@ -55,7 +53,9 @@ public class Expenditure extends Activity {
         adaptergroup = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, nameGroup);
         editTextname.setAdapter(adaptername);
         editTextGroupname.setAdapter(adaptergroup);
+
         editTextname.setOnItemClickListener(onItemClickListenertextname);
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -63,10 +63,27 @@ public class Expenditure extends Activity {
         }
 
     }
+  /*  private View.OnClickListener OnclickCheckBoxDonator = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(checkBoxdonator.isChecked()==true)
+            {
+                textViewExpense.setText(R.string.add_donation);
+                textViewTitle.setText(R.string.add_title_donation);
+                setTitle(R.string.title_activity_donation);
+            }
+            else
+            {
+                textViewExpense.setText(R.string.add_expense);
+                textViewTitle.setText(R.string.add_title_expenditure);
+                setTitle(R.string.title_activity_expenditure);
+            }
+        }
+    };*/
     private AdapterView.OnItemClickListener onItemClickListenertextname = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            editTextphone.setText(MainActivity.getDataForm().getCsvParse().getPhone(editTextname.getText().toString().trim(),editTextGroupname.getText().toString().trim(),MainActivity.getDataForm().getGroups()));
+            editTextphone.setText(MainActivity.getDataForm().getCsvParse().getPhone(editTextname.getText().toString().trim(),editTextGroupname.getText().toString().trim(),MainActivity.getDataForm().getPersons()));
         }
     };
 
@@ -98,7 +115,7 @@ public class Expenditure extends Activity {
                     System.out.println("Expenditure -> OnclickButtonAdd -> Exception");
                     e.printStackTrace();
                     editTextexpense.getText().clear();
-                    editTextexpense.setHint("00.00");
+                    editTextexpense.setHint("10.0");
 
                 }
 
@@ -119,12 +136,13 @@ public class Expenditure extends Activity {
     {
         editTextexpense = (EditText)findViewById(R.id.addexpense);
         editTextphone = (EditText)findViewById(R.id.addphone);
-       // editTextname = (EditText)findViewById(R.id.addname);
         editTextname = (AutoCompleteTextView) findViewById(R.id.addname);
         editTextGroupname = (AutoCompleteTextView)findViewById(R.id.addgroupe);
         buttonaddPerson = (Button) findViewById(R.id.addaddbutton);
-        checkBoxdonator = (CheckBox) findViewById(R.id.adddonator);
+       //   checkBoxdonator = (CheckBox) findViewById(R.id.adddonator);
         listViewEntries = (ListView) findViewById(R.id.addlistView);
+        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+        textViewExpense = (TextView) findViewById(R.id.addexpensetext);
     }
 
 
@@ -149,7 +167,7 @@ public class Expenditure extends Activity {
             // Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
             Intent ExpenditureActivity = new Intent(Expenditure.this,LastEntries.class);
             ExpenditureActivity.putExtra("CSVLocation", MainActivity.getDataForm().getCsvAction().getPath_file());
-          //  ExpenditureActivity.putExtra("CSVLocation",csvAction.getPath_file());
+            //  ExpenditureActivity.putExtra("CSVLocation",csvAction.getPath_file());
             startActivity(ExpenditureActivity);
             return true;
         }

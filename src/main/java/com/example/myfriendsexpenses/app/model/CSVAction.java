@@ -22,7 +22,7 @@ public class CSVAction {
     private String path_file="";
     private String filelocation="";
     private String filename="expenses.csv";
-
+    private String[] stringsTitleCSV = new String[]{"Name","Phone","Amount","Group"};
     public void createFile()
     {
         File fileDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "FriendExpenses");
@@ -48,9 +48,9 @@ public class CSVAction {
         if(!file.exists()){
             try {
                 //file.createNewFile();
-                String[] strings = new String[]{"name","phone","expenses","group"};
+
                 CSVWriter csvWriter = new CSVWriter(new FileWriter(path_file,true));
-                csvWriter.writeNext(strings);
+                csvWriter.writeNext(stringsTitleCSV);
                 csvWriter.close();
             } catch (IOException e) {
                 // e.printStackTrace();

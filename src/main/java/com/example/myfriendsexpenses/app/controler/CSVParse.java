@@ -69,21 +69,15 @@ public class CSVParse {
         return groups;
    }
 
-   public String getPhone(String personname,String groupname, List<Group> groups)
+   public String getPhone(String personname,String groupname, List<Person> persons)
    {
-       for(int igroups=0;igroups<groups.size();igroups++)
-       {
-           if(groups.get(igroups).get_name().equals(groupname)==true)
-           {
-               for(int ipersons=0;ipersons<groups.get(igroups).getPersons().size();ipersons++)
-               {
-                   if(groups.get(igroups).getPersons().get(ipersons).get_name().equals(personname)==true)
-                   {
-                    return groups.get(igroups).getPersons().get(ipersons).get_phoneNumber();
-                   }
-               }
-           }
 
+       for(int ipersons=0;ipersons<persons.size();ipersons++)
+       {
+           if(persons.get(ipersons).get_name().equals(personname)==true)
+           {
+                return persons.get(ipersons).get_phoneNumber();
+           }
        }
     return "";
    }
