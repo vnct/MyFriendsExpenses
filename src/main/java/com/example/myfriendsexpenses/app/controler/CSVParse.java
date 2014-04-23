@@ -197,6 +197,7 @@ public class CSVParse {
                 else
                 {
                     person.set_expenses(Float.valueOf(strings1[2].trim()));
+
                     //person.set_expenses(Float.parseFloat(strings1[2].trim()));
                     persons.add(person);
                 }

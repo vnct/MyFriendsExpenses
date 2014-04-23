@@ -21,7 +21,7 @@
     <string name="add_expense">Person Expense</string>
     <string name="add_donation">Person Donation</string>
     <string name="add_donator">Donator</string>
-    <string name="add_add">Add Person</string>
+    <string name="add_add">Add</string>
     <string name="title_activity_expenditure">Expenditure</string>
     <string name="title_activity_donation">Donation</string>
     <string name="csv_file_dir">FriendExpenses</string>

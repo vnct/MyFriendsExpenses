@@ -8,6 +8,7 @@ public class Person {
     private String _phoneNumber;
     private float _expenses;
     private float _payback;
+    private float _balance;
     private Group _group;
     private String _groupname;
 
@@ -75,4 +76,11 @@ public class Person {
         this._groupname = _groupname;
     }
 
+    public float get_balance() {
+        return _balance;
+    }
+
+    public void set_balance(float _balance) {
+        this._balance = _balance;
+    }
 }

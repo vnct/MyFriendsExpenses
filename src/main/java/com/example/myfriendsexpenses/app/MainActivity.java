@@ -18,7 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,6 +46,7 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
     private ListView listViewPerson = null;
+
     public static DataForm getDataForm() {
         return dataForm;
     }
@@ -89,16 +93,16 @@ public class MainActivity extends Activity
 
     public void operatepayback()
     {
-        System.out.println("Groups " + dataForm.getGroups().size());
+     //   System.out.println("Groups " + dataForm.getGroups().size());
         for(int igroups=0;igroups<dataForm.getGroups().size();igroups++)
         {
             dataForm.getGroups().get(igroups).totalExpenses();
             float exp = dataForm.getGroups().get(igroups).expensesPerPerson();
-            System.out.println("Persons " + dataForm.getGroups().get(igroups).getPersons().size());
+            //System.out.println("Persons " + dataForm.getGroups().get(igroups).getPersons().size());
             for(int ipersons=0;ipersons<dataForm.getGroups().get(igroups).getPersons().size();ipersons++)
             {
                 dataForm.getGroups().get(igroups).getPersons().get(ipersons).operatePayback(exp);
-                System.out.println("Calcul Payback Person " + exp);
+       //         System.out.println("Calcul Payback Person " + exp);
             }
         }
     }
@@ -114,14 +118,18 @@ public class MainActivity extends Activity
         }
         else
         {
+            System.out.println("-------------- onSectionAttached");
             List<Group> groups = dataForm.getGroups();
             for(int igroups=0;igroups<groups.size();igroups++)
             {
                 if(dataForm.getGroups().get(igroups).get_name().equals(group)==true)
                 {
+                    dataForm.getGroups().get(igroups).doBalance();
                     mainAdapter.setSamegroup(true);
+                    mainAdapter.setBalanceList(dataForm.getGroups().get(igroups).getBalances());
                     mainAdapter.setPersonList(dataForm.getGroups().get(igroups).getPersons());
                     listViewPerson.setAdapter(mainAdapter);
+                  //  listViewPerson.setVisibility(View.INVISIBLE);
                 }
 
             }
