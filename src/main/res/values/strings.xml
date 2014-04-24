@@ -10,7 +10,7 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="csvread">Last Entries</string>
-    <string name="csvadd">Add Expenditure</string>
+    <string name="csvadd">Add</string>
     <string name="csvadd_donation">Add Donation</string>
     <string name="hello_world">Hello world!</string>
     <string name="add_groupe">Group Name</string>
@@ -28,5 +28,15 @@
     <string name="main_everybody">Everybody</string>
     <string name="csv_file_name">fichier.csv</string>
     <string name="title_activity_last_entries">LastEntries</string>
+    <string name="balancetextpay">should pay</string>
+    <string name="grouptextTotalExpenses">Total Expenses :</string>
+    <string name="grouptextExpensesPerson">Expenses/Person :</string>
+    <string name="balancetextto"> € to </string>
+    <string name="title_activity_add">Add</string>
+    <string name="title_activity_add_Expenditure">Expenditure</string>
+    <string name="title_activity_add_Person">Person</string>
+    <string name="title_activity_main_activity2">MainActivity2</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_central_display">CentralDisplay</string>
 
 </resources>

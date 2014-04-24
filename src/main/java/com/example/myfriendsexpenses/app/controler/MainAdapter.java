@@ -23,10 +23,10 @@ import java.util.List;
 public class MainAdapter extends BaseAdapter {
 
     private List<Person> personList;
-    private List<Balance> balanceList;
     private LayoutInflater mInflater;
+    private Group group;
     // Si samegroup on calcul les balances
-    private Boolean samegroup = false;
+
     private Context mContext;
 
     public MainAdapter(Context context){
@@ -35,24 +35,16 @@ public class MainAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        if(samegroup==false) {
+
             return personList.size();
-        }
-        else
-        {
-            return balanceList.size();
-        }
+
     }
 
     @Override
     public Object getItem(int i) {
-        if(samegroup==false) {
+
             return personList.get(i);
-        }
-        else
-        {
-            return balanceList.get(i);
-        }
+
     }
 
     @Override
@@ -76,14 +68,14 @@ public class MainAdapter extends BaseAdapter {
         TextView textViewPayback = (TextView) vue.findViewById(R.id.textViewPayback);
         TextView textViewGroup = (TextView) vue.findViewById(R.id.textViewGroup);
 
-        if(samegroup==false) {
+
             textViewName.setText(personList.get(position).get_name());
             // Calcul 0 - la_valeur pour mettre la donnée au bon format
             float v = 0 - personList.get(position).get_payback();
             DecimalFormat df = new DecimalFormat();
             df.setMaximumFractionDigits(2);
             df.format(v);
-            if (v > 0) {
+            if (v < 0) {
                 textViewPayback.setTextColor(Color.parseColor("#088A08"));
                 textViewGroup.setText("is owed from " + personList.get(position).get_groupname());
             } else {
@@ -91,17 +83,6 @@ public class MainAdapter extends BaseAdapter {
                 textViewGroup.setText("owes to " + personList.get(position).get_groupname() + "");
             }
             textViewPayback.setText(df.format(v) + " €");
-        }
-        else
-        {
-            textViewName.setText(balanceList.get(position).getPersonput().get_name());
-            float v = balanceList.get(position).getValue();
-            DecimalFormat df = new DecimalFormat();
-            df.setMaximumFractionDigits(2);
-            df.format(v);
-            textViewPayback.setText(df.format(v) + " € to " + balanceList.get(position).getPersonget().get_name());
-            textViewGroup.setText("should pay");
-        }
 
         return vue;
 
@@ -111,11 +92,12 @@ public class MainAdapter extends BaseAdapter {
         this.personList = personList;
     }
 
-    public void setSamegroup(Boolean samegroup) {
-        this.samegroup = samegroup;
+
+    public Group getGroup() {
+        return group;
     }
 
-    public void setBalanceList(List<Balance> balanceList) {
-        this.balanceList = balanceList;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

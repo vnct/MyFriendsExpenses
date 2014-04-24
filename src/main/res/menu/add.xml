@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.myfriendsexpenses.app.Expenditure" >
+    tools:context="com.example.myfriendsexpenses.app.Add" >
     <item android:id="@+id/csvread"
         android:title="@string/csvread"
         android:showAsAction="ifRoom" />

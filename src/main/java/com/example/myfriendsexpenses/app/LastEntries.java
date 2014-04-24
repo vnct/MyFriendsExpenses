@@ -94,7 +94,7 @@ public class LastEntries extends Activity {
         }
         if (item.getItemId() == R.id.csvadd) {
             // Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            Intent ExpenditureActivity = new Intent(LastEntries.this,Expenditure.class);
+            Intent ExpenditureActivity = new Intent(LastEntries.this,Add.class);
            // ExpenditureActivity.putExtra("CSVLocation",csvAction.getPath_file());
             startActivity(ExpenditureActivity);
             return true;

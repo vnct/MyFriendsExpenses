@@ -20,14 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.myfriendsexpenses.app.Expenditure"
-            android:label="@string/title_activity_expenditure"
-            android:parentActivityName="com.example.myfriendsexpenses.app.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="MainActivity" />
-        </activity>
-        <activity
             android:name="com.example.myfriendsexpenses.app.LastEntries"
             android:label="@string/title_activity_last_entries"
             android:parentActivityName="com.example.myfriendsexpenses.app.MainActivity" >
@@ -42,6 +34,19 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfriendsexpenses.app.Add"
+            android:label="@string/title_activity_add"
+            android:parentActivityName="com.example.myfriendsexpenses.app.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfriendsexpenses.app.CentralDisplay"
+            android:label="@string/title_activity_central_display" >
+
         </activity>
     </application>
 
