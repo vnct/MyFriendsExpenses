@@ -24,6 +24,7 @@ public class MainAdapter extends BaseAdapter {
 
     private List<Person> personList;
     private LayoutInflater mInflater;
+
     private Group group;
     // Si samegroup on calcul les balances
 

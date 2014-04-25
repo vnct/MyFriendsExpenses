@@ -3,32 +3,18 @@ package com.example.myfriendsexpenses.app;
 import android.app.Activity;
 
 import android.app.ActionBar;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.fragments.Main_Fragment_EveryBody;
 import com.example.myfriendsexpenses.app.fragments.Main_Fragment_Group;
-import com.example.myfriendsexpenses.app.view.BalanceAdapter;
 import com.example.myfriendsexpenses.app.controler.DataForm;
-import com.example.myfriendsexpenses.app.controler.Group;
-import com.example.myfriendsexpenses.app.view.GroupAdapter;
-import com.example.myfriendsexpenses.app.view.ListTitleAdapter;
-import com.example.myfriendsexpenses.app.controler.MainAdapter;
-import com.example.myfriendsexpenses.app.view.MergeAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class MainActivity extends Activity
      implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -72,6 +58,7 @@ public class MainActivity extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
+
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
@@ -114,7 +101,6 @@ public class MainActivity extends Activity
     // Action principale
     public void onSectionAttached(int number,String group) {
         mTitle = group;
-
 
     }
 

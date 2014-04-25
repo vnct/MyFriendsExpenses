@@ -36,8 +36,6 @@ public class LastEntries extends Activity {
         listViewlastentries.setOnItemClickListener(OnItemClickListenerlastentries);
     }
 
-
-
     private AdapterView.OnItemClickListener OnItemClickListenerlastentries = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {

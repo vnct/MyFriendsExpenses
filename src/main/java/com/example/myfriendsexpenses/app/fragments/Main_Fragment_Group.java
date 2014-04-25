@@ -26,6 +26,7 @@ public class Main_Fragment_Group extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private BalanceAdapter balanceAdapter;
 
+
     /**
      * Returns a new instance of this fragment for the given section
      * number.

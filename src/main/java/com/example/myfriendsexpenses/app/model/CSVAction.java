@@ -136,7 +136,6 @@ public class CSVAction {
             csvReader.close();
         } catch (IOException e) {
             System.out.println("CSVAction -> getCSV -> IOException");
-            e.printStackTrace();
         }
         return questionList;
     }
