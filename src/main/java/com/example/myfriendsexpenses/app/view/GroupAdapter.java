@@ -4,16 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.controler.Group;
-import com.example.myfriendsexpenses.app.controler.MainAdapter;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -23,7 +19,6 @@ public class GroupAdapter extends BaseAdapter {
     private List<Group> GroupList;
     private LayoutInflater mInflater;
     private MainAdapter mainAdapter;
-    // Si samegroup on calcul les balances
     private Context mContext;
 
     public GroupAdapter(Context context){

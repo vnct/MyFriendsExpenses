@@ -55,11 +55,11 @@ public class LastEntriesAdapter extends BaseAdapter {
         TextView textViewName = (TextView) vue.findViewById(R.id.textViewLastEntriesName);
         TextView textViewGroup = (TextView) vue.findViewById(R.id.textViewLastEntriesGroup);
         TextView textViewExpense = (TextView) vue.findViewById(R.id.textViewLastEntriesExpenses);
-        TextView textViewPhone = (TextView) vue.findViewById(R.id.textViewLastEntriesPhone);
-        textViewName.setText(personList.get(position).get_name() );
-        textViewPhone.setText(personList.get(position).get_phoneNumber());
-        textViewExpense.setText(""+personList.get(position).get_expenses());
-        textViewGroup.setText(personList.get(position).get_groupname());
+        TextView textViewComment = (TextView) vue.findViewById(R.id.textViewLastEntriesComment);
+        textViewName.setText(personList.get(position).get_name() + " - " + personList.get(position).get_phoneNumber());
+        textViewComment.setText(personList.get(position).getExpenseList().get(0).getComments());
+        textViewExpense.setText(""+personList.get(position).getExpenseList().get(0).getExpenses());
+        textViewGroup.setText(personList.get(position).get_groupname().toUpperCase());
         return vue;
     }
     public void setPersonList(List<Person> personList) {

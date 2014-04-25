@@ -1,4 +1,4 @@
-package com.example.myfriendsexpenses.app.controler;
+package com.example.myfriendsexpenses.app.view;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.MainActivity;
 import com.example.myfriendsexpenses.app.R;
+import com.example.myfriendsexpenses.app.controler.Group;
+import com.example.myfriendsexpenses.app.controler.Person;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class MainAdapter extends BaseAdapter {
             DecimalFormat df = new DecimalFormat();
             df.setMaximumFractionDigits(2);
             df.format(v);
-            if (v < 0) {
+            if (v <= 0) {
                 textViewPayback.setTextColor(Color.parseColor("#088A08"));
                 textViewGroup.setText("is owed from " + personList.get(position).get_groupname());
             } else {

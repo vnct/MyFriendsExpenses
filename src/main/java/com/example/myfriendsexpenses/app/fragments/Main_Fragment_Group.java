@@ -7,12 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.MainActivity;
 import com.example.myfriendsexpenses.app.R;
+import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.controler.Group;
+import com.example.myfriendsexpenses.app.controler.Person;
 import com.example.myfriendsexpenses.app.view.BalanceAdapter;
+import com.example.myfriendsexpenses.app.view.ExpenseAdapter;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +31,7 @@ public class Main_Fragment_Group extends Fragment {
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
     private BalanceAdapter balanceAdapter;
+    private ExpenseAdapter expenseAdapter;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -51,17 +58,47 @@ public class Main_Fragment_Group extends Fragment {
            /* System.out.println("---> getArguments()" + getArguments().getInt(ARG_SECTION_NUMBER));
             System.out.println("---> getArguments()" + dataForm.getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER)-1));*/
         List<Group> groups = MainActivity.getDataForm().getGroups();
+        TextView textViewGroupBaseAdapterExpensesPerson = (TextView) rootView.findViewById(R.id.textViewgrouptextExpensesPerson);
+        TextView textViewGroupExpense = (TextView) rootView.findViewById(R.id.textViewGroupExpense);
+        TextView textViewGroupBaseAdapterTotalExpense = (TextView) rootView.findViewById(R.id.textViewgrouptextTotalExpenses);
+        TextView textViewGroupBalancing = (TextView) rootView.findViewById(R.id.textViewGroupBalancing);
+        expenseAdapter = new ExpenseAdapter(getActivity());
+        expenseAdapter.setPersonList(new ArrayList<Person>());
         balanceAdapter = new BalanceAdapter(getActivity());
         String group = MainActivity.getDataForm().getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER)-1);
         for(int igroups=0;igroups<groups.size();igroups++)
         {
             if(MainActivity.getDataForm().getGroups().get(igroups).get_name().equals(group)==true)
             {
+                Group group1 = MainActivity.getDataForm().getGroups().get(igroups);
                 MainActivity.getDataForm().getGroups().get(igroups).doBalance();
+                float v = group1.get_expensePerPerson();
+                DecimalFormat df = new DecimalFormat();
+                df.setMaximumFractionDigits(2);
+                textViewGroupBaseAdapterExpensesPerson.setText(df.format(v) + " €");
+                textViewGroupBaseAdapterTotalExpense.setText(group1.get_totalExpenses()+ " €");
+                expenseAdapter.setPersonList(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(),false),group,true));
+                if(expenseAdapter.getCount()==0)
+                {
+                    textViewGroupExpense.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    textViewGroupExpense.setVisibility(View.VISIBLE);
+                }
                 balanceAdapter.setBalanceList(MainActivity.getDataForm().getGroups().get(igroups).getBalances());
+                if(balanceAdapter.getCount()==0)
+                {
+                    textViewGroupBalancing.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    textViewGroupBalancing.setVisibility(View.VISIBLE);
+                }
             }
         }
         ((ListView)rootView.findViewById(R.id.listViewGroupAdapter)).setAdapter(balanceAdapter);
+        ((ListView)rootView.findViewById(R.id.listViewExpenseAdapter)).setAdapter(expenseAdapter);
         return rootView;
     }
 

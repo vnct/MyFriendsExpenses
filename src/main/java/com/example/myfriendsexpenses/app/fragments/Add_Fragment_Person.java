@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.MainActivity;
 import com.example.myfriendsexpenses.app.R;
+import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.controler.Person;
 
 import java.util.ArrayList;
@@ -91,13 +92,13 @@ public class Add_Fragment_Person extends Fragment {
                 try{
 
                     float ExpensesValue = Float.valueOf("0");
-                    Person person = new Person(editTextname.getText().toString().trim(),editTextphone.getText().toString().trim(),ExpensesValue,editTextGroupname.getText().toString().trim());
-                    MainActivity.getDataForm().getCsvParse().addPerson(person, MainActivity.getDataForm().getCsvAction());
+                    Expense expense = new Expense(ExpensesValue,"");
+                    Person person = new Person(editTextname.getText().toString().trim(),editTextphone.getText().toString().trim(),expense,editTextGroupname.getText().toString().trim());
+                    MainActivity.getDataForm().getCsvParse().addPerson(person,expense, MainActivity.getDataForm().getCsvAction());
                     HashMap<String, String> element = new HashMap<String, String>();
                     element.put("text1", person.get_name());
                     element.put("text2",person.get_groupname());
                     listeHaspMapEntries.add(element);
-                    listViewEntries.setAdapter(simpleAdapter);
                     clear_EditText();
                 }
                 catch(Exception e)

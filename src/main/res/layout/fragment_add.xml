@@ -67,7 +67,30 @@
             />
 
     </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/add_comment"
+                android:id="@+id/addcommenttext" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:maxLength="30"
+                android:ems="10"
+                android:id="@+id/addcomment"
+                android:hint="Reason for Expense"
+                />
+        </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
@@ -113,6 +136,8 @@
             android:layout_weight="1"
             android:hint="Groupe1"
             />
+
+
     </LinearLayout>
 
     <Button

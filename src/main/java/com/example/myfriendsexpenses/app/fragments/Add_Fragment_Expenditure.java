@@ -17,6 +17,7 @@ import android.widget.SimpleAdapter;
 
 import com.example.myfriendsexpenses.app.MainActivity;
 import com.example.myfriendsexpenses.app.R;
+import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.controler.Person;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import java.util.List;
 public class Add_Fragment_Expenditure extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private Button buttonaddPerson = null;
-    private EditText editTextexpense = null,editTextphone = null;
+    private EditText editTextexpense = null,editTextphone = null,editTextcomment = null;
     private AutoCompleteTextView editTextname = null,editTextGroupname = null;
     private ListView listViewEntries = null;
     private static String[] namePerson = null,nameGroup=null;
@@ -89,11 +90,17 @@ public class Add_Fragment_Expenditure extends Fragment {
                 try{
                     String Expenses = editTextexpense.getText().toString();
                     float ExpensesValue = Float.valueOf(Expenses);
-                    Person person = new Person(editTextname.getText().toString().trim(),editTextphone.getText().toString().trim(),ExpensesValue,editTextGroupname.getText().toString().trim());
-                    MainActivity.getDataForm().getCsvParse().addPerson(person, MainActivity.getDataForm().getCsvAction());
+                    Expense expense = new Expense(ExpensesValue,editTextcomment.getText().toString().trim());
+                    Person person = new Person(editTextname.getText().toString().trim(),editTextphone.getText().toString().trim(),expense,editTextGroupname.getText().toString().trim());
+                    MainActivity.getDataForm().getCsvParse().addPerson(person,expense, MainActivity.getDataForm().getCsvAction());
                     HashMap<String, String> element = new HashMap<String, String>();
                     element.put("text1", "" + person.get_name() + " (" + person.get_groupname() +")");
-                    element.put("text2","Expenditure : " +  editTextexpense.getText().toString() + " €");
+                    String expenditure=editTextexpense.getText().toString() + " €";
+                    if(expense.getComments().length()>0)
+                    {
+                        expenditure = expenditure.concat(" for " + expense.getComments());
+                    }
+                    element.put("text2","" + expenditure);
                     listeHaspMapEntries.add(element);
                     listViewEntries.setAdapter(simpleAdapter);
                     clear_EditText();
@@ -115,14 +122,17 @@ public class Add_Fragment_Expenditure extends Fragment {
         editTextphone.getText().clear();
         editTextname.getText().clear();
         editTextGroupname.getText().clear();
+        editTextcomment.getText().clear();
     }
     private void initialization_widget(View rootView)
     {
         editTextexpense = (EditText)rootView.findViewById(R.id.addexpense);
         editTextphone = (EditText)rootView.findViewById(R.id.addphone);
         editTextname = (AutoCompleteTextView) rootView.findViewById(R.id.addname);
+        editTextcomment = (EditText) rootView.findViewById(R.id.addcomment);
         editTextGroupname = (AutoCompleteTextView)rootView.findViewById(R.id.addgroupe);
         buttonaddPerson = (Button) rootView.findViewById(R.id.addaddbutton);
         listViewEntries = (ListView) rootView.findViewById(R.id.addlistView);
-         }
+
+       }
 }

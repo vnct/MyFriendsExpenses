@@ -1,5 +1,8 @@
 package com.example.myfriendsexpenses.app.controler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by lapie on 19/04/14.
  */
@@ -9,17 +12,20 @@ public class Person {
     private float _expenses;
     private float _payback;
     private float _balance;
+    private List<Expense> expenseList;
     private Group _group;
     private String _groupname;
 
     public Person()
     {
-
+        expenseList = new ArrayList<Expense>();
     }
-    public Person(String name,String phone,Float expenses,String groupname)
+    public Person(String name,String phone,Expense expenses,String groupname)
     {
         _name = name;
-        _expenses = expenses;
+        expenseList = new ArrayList<Expense>();
+        expenseList.add(expenses);
+
         _phoneNumber = phone;
         _groupname = groupname;
     }
@@ -48,9 +54,9 @@ public class Person {
         return _expenses;
     }
 
-    public void set_expenses(float _expenses) {
+   /* public void set_expenses(float _expenses) {
         this._expenses = _expenses;
-    }
+    }*/
 
     public float get_payback() {
         return _payback;
@@ -82,5 +88,18 @@ public class Person {
 
     public void set_balance(float _balance) {
         this._balance = _balance;
+    }
+
+    public void addExpenseList(Expense expense)
+    {
+        this.expenseList.add(expense);
+        _expenses = _expenses + expense.getExpenses();
+    }
+    public List<Expense> getExpenseList() {
+        return expenseList;
+    }
+
+    public void setExpenseList(List<Expense> expenseList) {
+        this.expenseList = expenseList;
     }
 }

@@ -12,11 +12,11 @@ import java.util.Set;
  */
 public class CSVParse {
 
-    public void addPerson(Person person,CSVAction csvAction)
+    public void addPerson(Person person,Expense expense, CSVAction csvAction)
     {
         try{
       //  System.out.println("addPerson Try Person = " + person.get_name() + " - " + person.get_phoneNumber());
-        csvAction.addPersonCSV(person);
+        csvAction.addPersonCSV(person,expense);
         }
         catch (Exception e)
         {
@@ -149,7 +149,38 @@ public class CSVParse {
         return  strings;
     }
 
-        public List<Person> fillPerson(List<String[]> strings,boolean concatenation)
+    public List<Person> inverselistperson(List<Person> persons)
+    {
+        List<Person> personList = new ArrayList<Person>();
+        for(int i=persons.size()-1; i>=0; i--)
+        {
+            personList.add(persons.get(i));
+        }
+        return personList;
+    }
+    public List<Person> parsePersonbyGroups(List<Person> persons,String namegroup,boolean parseExpenses)
+    {
+        List<Person> personList = new ArrayList<Person>();
+        for (Person person : persons) {
+            if (person.get_groupname().equals(namegroup) == true) {
+                if(parseExpenses)
+                {
+                    if(person.getExpenseList().get(0).getExpenses()!=0)
+                    {
+                        personList.add(person);
+                    }
+                }
+                else
+                {
+                    personList.add(person);
+                }
+
+            }
+        }
+        return personList;
+    }
+
+    public List<Person> fillPerson(List<String[]> strings,boolean concatenation)
     {
         // La concatenation permet d'additionner les memes dépenses pour une seule personne.
         List<Person> persons = new ArrayList<Person>();
@@ -163,13 +194,16 @@ public class CSVParse {
                 if (concatenation) {
                     int positionPerson = personExist(person, persons);
                     if (positionPerson < 0) {
-                        person.set_expenses(Float.parseFloat(strings1[2]));
+                        person.addExpenseList(new Expense(Float.parseFloat(strings1[2]),strings1[4].trim()));
+                      //  person.set_expenses(Float.parseFloat(strings1[2]));
                         persons.add(person);
                     } else {
-                        persons.get(positionPerson).set_expenses(persons.get(positionPerson).get_expenses() + Float.parseFloat(strings1[2].trim()));
+                        persons.get(positionPerson).addExpenseList(new Expense(Float.parseFloat(strings1[2]),strings1[4].trim()));
+                      //  persons.get(positionPerson).set_expenses(persons.get(positionPerson).get_expenses() + Float.parseFloat(strings1[2].trim()));
                     }
                 } else {
-                    person.set_expenses(Float.valueOf(strings1[2].trim()));
+                    person.addExpenseList(new Expense(Float.parseFloat(strings1[2]),strings1[4].trim()));
+                  //  person.set_expenses(Float.valueOf(strings1[2].trim()));
 
                     //person.set_expenses(Float.parseFloat(strings1[2].trim()));
                     persons.add(person);

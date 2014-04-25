@@ -3,6 +3,7 @@ package com.example.myfriendsexpenses.app.model;
 
 import android.os.Environment;
 
+import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.controler.Person;
 
 import java.io.File;
@@ -19,7 +20,7 @@ public class CSVAction {
     private String path_file="";
     private String filelocation="";
     private String filename="expenses.csv";
-    private String[] stringsTitleCSV = new String[]{"Name","Phone","Amount","Group"};
+    private String[] stringsTitleCSV = new String[]{"Name","Phone","Amount","Group","Comment"};
     public void createFile()
     {
         File fileDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "FriendExpenses");
@@ -58,20 +59,20 @@ public class CSVAction {
         }
     }
 
-    public void removePerson(Person person,int position)
+    public void removePerson(Person person,Expense expense, int position)
     {
         try
         {
-            String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(person.get_expenses()),person.get_groupname()};
+           // String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(expense.getExpenses()),person.get_groupname(),expense.getComments()};
+
+            String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(expense.getExpenses()),person.get_groupname(),expense.getComments()};
             List<String[]> strings1 = getCSV();
             for(int istrings1=0;istrings1<strings1.size();istrings1++)
             {
-                if((strings1.get(istrings1)[0].equals(strings[0]))&&(strings1.get(istrings1)[1].equals(strings[1]))&&(Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2]))&&(strings1.get(istrings1)[3].equals(strings[3])))
+                if((strings1.get(istrings1)[0].equals(strings[0]))&&(strings1.get(istrings1)[1].equals(strings[1]))&&(Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2]))&&(strings1.get(istrings1)[3].equals(strings[3]))&&(strings1.get(istrings1)[4].equals(strings[4])))
                 {
-                    if(position==istrings1)
-                    {
-                        strings1.remove(istrings1);
-                    }
+                    strings1.remove(istrings1);
+
                 }
             }
             File file = new File(path_file);
@@ -90,11 +91,20 @@ public class CSVAction {
         }
 
     }
-    public void addPersonCSV(Person person)
+    public List<String[]> inversestrings(List<String[]> strings)
+    {
+        List<String[]> strings1 = new ArrayList<String[]>();
+        for(int i=strings.size()-1; i>=0; i--)
+        {
+            strings1.add(strings.get(i));
+        }
+        return strings1;
+    }
+    public void addPersonCSV(Person person,Expense expense)
     {
         try {
            // System.out.println("addPersonCSV Try 1 ");
-            String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(person.get_expenses()),person.get_groupname()};
+            String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(expense.getExpenses()),person.get_groupname(),expense.getComments()};
            /* strings[0] = person.get_name();
             strings[1] = person.get_phoneNumber();
             strings[2] = Float.toString(person.get_expenses());

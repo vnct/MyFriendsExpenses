@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SyncStatusObserver;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.view.LastEntriesAdapter;
 import com.example.myfriendsexpenses.app.controler.Person;
 
@@ -29,7 +31,8 @@ public class LastEntries extends Activity {
         initialization_widget();
 
         MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvAction().getCSV());
-        List<Person> persons = MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false);
+     //   List<Person> persons = MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false);
+        List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false));
         lastEntriesAdapter = new LastEntriesAdapter(this);
         lastEntriesAdapter.setPersonList(persons);
         listViewlastentries.setAdapter(lastEntriesAdapter);
@@ -47,9 +50,12 @@ public class LastEntries extends Activity {
             adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     Person person = (Person) lastEntriesAdapter.getItem(positionToRemove);
-                    MainActivity.getDataForm().getCsvAction().removePerson(person,positionToRemove);
+                    Expense expense = new Expense(person.getExpenseList().get(0).getExpenses(),person.getExpenseList().get(0).getComments());
+                    System.out.println("positionToRemove = " +positionToRemove);
+                    MainActivity.getDataForm().getCsvAction().removePerson(person,expense,positionToRemove);
                     MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvAction().getCSV());
-                    List<Person> persons = MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false);
+                    List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false));
+                  //  List<Person> persons = MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false);
                     lastEntriesAdapter.setPersonList(persons);
                     listViewlastentries.setAdapter(lastEntriesAdapter);
                     listViewlastentries.setOnItemClickListener(OnItemClickListenerlastentries);

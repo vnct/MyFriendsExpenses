@@ -7,16 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.MainActivity;
 import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.view.ListTitleAdapter;
-import com.example.myfriendsexpenses.app.controler.MainAdapter;
+import com.example.myfriendsexpenses.app.view.MainAdapter;
 import com.example.myfriendsexpenses.app.view.MergeAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by lapie on 24/04/14.
@@ -69,7 +67,7 @@ public class Main_Fragment_EveryBody extends Fragment {
             mergeAdapter.addAdapter(mainAdapter.get(iMainadapter));
         }
         System.out.println("mergeAdapter.addAdapter = " + mergeAdapter.getCount());
-        mergeAdapter.setNoItemsText("Nothing to display. This list is empty.");
+        mergeAdapter.setNoItemsText("Nothing to display. Add an expenditure");
         ((ListView)rootView.findViewById(R.id.listViewMainAdapter)).setAdapter(mergeAdapter);
         return rootView;
     }

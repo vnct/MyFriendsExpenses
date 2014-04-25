@@ -18,7 +18,7 @@
     <string name="add_title_expenditure">Add Expenditure</string>
     <string name="add_title_donation">Add Donation</string>
     <string name="add_phone">Person Phone</string>
-    <string name="add_expense">Person Expense</string>
+    <string name="add_expense">Cost</string>
     <string name="add_donation">Person Donation</string>
     <string name="add_donator">Donator</string>
     <string name="add_add">Add</string>
@@ -35,8 +35,11 @@
     <string name="title_activity_add">Add</string>
     <string name="title_activity_add_Expenditure">Expenditure</string>
     <string name="title_activity_add_Person">Person</string>
-    <string name="title_activity_main_activity2">MainActivity2</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_central_display">CentralDisplay</string>
+    <string name="add_comment">What</string>
+    <string name="grouptextExpenses">Expenses</string>
+    <string name="grouptextBalancing">Balancing</string>
+    <string name="expenseUntitled">Untitled</string>
 
 </resources>
