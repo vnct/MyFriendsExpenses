@@ -20,53 +20,43 @@ public class Group {
         List<Person> personsnegative= new ArrayList<Person>();
         float positive = 0;
         float negative = 0;
-        for (int iPerson=0; iPerson < persons.size(); iPerson++)
-        {
-            persons.get(iPerson).set_balance(persons.get(iPerson).get_payback());
-            if(persons.get(iPerson).get_payback()>0)
-            {
-                personspositive.add(persons.get(iPerson));
+        for (Person person : persons) {
+            person.set_balance(person.get_payback());
+            if (person.get_payback() > 0) {
+                personspositive.add(person);
 
-                positive = positive + persons.get(iPerson).get_payback();
-            }
-            else
-            {
-                personsnegative.add(persons.get(iPerson));
+                positive = positive + person.get_payback();
+            } else {
+                personsnegative.add(person);
 
-                negative = negative + persons.get(iPerson).get_payback();
+                negative = negative + person.get_payback();
             }
         }
-        for(int iPersonNegative=0;iPersonNegative<personsnegative.size();iPersonNegative++)
-        {
-            for(int iPersonPositive=0;iPersonPositive<personspositive.size();iPersonPositive++)
-            {
-                if(personsnegative.get(iPersonNegative).get_balance()<0)
-                {
-                    if(personspositive.get(iPersonPositive).get_balance()>0)
-                    {
+        for (Person aPersonsnegative : personsnegative) {
+            for (Person aPersonspositive : personspositive) {
+                if (aPersonsnegative.get_balance() < 0) {
+                    if (aPersonspositive.get_balance() > 0) {
 
-                        float giveto = 0-personsnegative.get(iPersonNegative).get_balance();
-                        float receivefrom = personspositive.get(iPersonPositive).get_balance();
+                        float giveto = 0 - aPersonsnegative.get_balance();
+                        float receivefrom = aPersonspositive.get_balance();
                         //System.out.println("Cette personne doit : " + giveto + " dont à " + personspositive.get(iPersonPositive).get_name() + " sachant qu'il peut recevoir " + receivefrom);
-                        if(giveto>receivefrom) {
-                          //  System.out.println("Cette personne donne donc : " + receivefrom + " à  " + personspositive.get(iPersonPositive).get_name());
-                            personsnegative.get(iPersonNegative).set_balance(personsnegative.get(iPersonNegative).get_balance()+receivefrom);
-                            personspositive.get(iPersonPositive).set_balance(personspositive.get(iPersonPositive).get_balance()-receivefrom);
-                            balances.add(new Balance(personsnegative.get(iPersonNegative),personspositive.get(iPersonPositive),receivefrom));
-                        }
-                        else
-                        {
+                        if (giveto > receivefrom) {
+                            //  System.out.println("Cette personne donne donc : " + receivefrom + " à  " + personspositive.get(iPersonPositive).get_name());
+                            aPersonsnegative.set_balance(aPersonsnegative.get_balance() + receivefrom);
+                            aPersonspositive.set_balance(aPersonspositive.get_balance() - receivefrom);
+                            balances.add(new Balance(aPersonsnegative, aPersonspositive, receivefrom));
+                        } else {
                             //System.out.println("Cette personne donne donc : " + giveto + " à  " + personspositive.get(iPersonPositive).get_name());
-                            personsnegative.get(iPersonNegative).set_balance(personsnegative.get(iPersonNegative).get_balance()+giveto);
-                            personspositive.get(iPersonPositive).set_balance(personspositive.get(iPersonPositive).get_balance()-giveto);
-                            balances.add(new Balance(personsnegative.get(iPersonNegative),personspositive.get(iPersonPositive),giveto));
+                            aPersonsnegative.set_balance(aPersonsnegative.get_balance() + giveto);
+                            aPersonspositive.set_balance(aPersonspositive.get_balance() - giveto);
+                            balances.add(new Balance(aPersonsnegative, aPersonspositive, giveto));
                         }
                         //System.out.println("Il me reste à rembourser " + personsnegative.get(iPersonNegative).get_balance());
                         //System.out.println("Suis je a l'équilibre " + personspositive.get(iPersonPositive).get_balance());
 
                     }
                 }
-           }
+            }
         }
       /*  for(int ibalances=0;ibalances<balances.size();ibalances++)
         {
@@ -78,9 +68,8 @@ public class Group {
     public float totalExpenses()
     {
         _totalExpenses = 0;
-        for (int iPerson=0; iPerson < persons.size(); iPerson++)
-        {
-            _totalExpenses += persons.get(iPerson).get_expenses();
+        for (Person person : persons) {
+            _totalExpenses += person.get_expenses();
 
         }
         return _totalExpenses;

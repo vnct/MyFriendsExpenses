@@ -1,7 +1,6 @@
 package com.example.myfriendsexpenses.app.model;
 
-import android.content.Context;
-import android.content.res.AssetManager;
+
 import android.os.Environment;
 
 import com.example.myfriendsexpenses.app.controler.Person;
@@ -10,8 +9,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 

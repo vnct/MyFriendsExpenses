@@ -9,20 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
-import com.example.myfriendsexpenses.app.controler.CSVParse;
-import com.example.myfriendsexpenses.app.controler.LastEntriesAdapter;
+import com.example.myfriendsexpenses.app.view.LastEntriesAdapter;
 import com.example.myfriendsexpenses.app.controler.Person;
-import com.example.myfriendsexpenses.app.model.CSVAction;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class LastEntries extends Activity {

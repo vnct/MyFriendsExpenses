@@ -31,29 +31,21 @@ public class CSVParse {
         List<Group> groups = new ArrayList<Group>();
         try
         {
-            for (int istrings=0;istrings<strings.size();istrings++)
-            {
-                String[] strings1 = strings.get(istrings);
+            for (String[] strings1 : strings) {
                 Group group = new Group();
                 group.set_name(strings1[3].trim());
                 group.setPersons(new ArrayList<Person>());
-                if(groups.isEmpty()==true)
-                {
+                if (groups.isEmpty()) {
                     groups.add(group);
-                }
-                else
-                {
-                    int correspondancegroup=0;
-                    for(int igroups=0;igroups<groups.size();igroups++)
-                    {
-                        if(group.get_name().equals(groups.get(igroups).get_name())==true)
-                        {
-                            correspondancegroup=1;
+                } else {
+                    int correspondancegroup = 0;
+                    for (Group group1 : groups) {
+                        if (group.get_name().equals(group1.get_name()) == true) {
+                            correspondancegroup = 1;
                             break;
                         }
                     }
-                    if(correspondancegroup==0)
-                    {
+                    if (correspondancegroup == 0) {
                         groups.add(group);
                     }
                 }
@@ -72,11 +64,9 @@ public class CSVParse {
    public String getPhone(String personname,String groupname, List<Person> persons)
    {
 
-       for(int ipersons=0;ipersons<persons.size();ipersons++)
-       {
-           if(persons.get(ipersons).get_name().equals(personname)==true)
-           {
-                return persons.get(ipersons).get_phoneNumber();
+       for (Person person : persons) {
+           if (person.get_name().equals(personname) == true) {
+               return person.get_phoneNumber();
            }
        }
     return "";
@@ -87,15 +77,10 @@ public class CSVParse {
        List<Group> groups1 = groups;
        try
        {
-           for (int ipersons=0;ipersons<persons.size();ipersons++)
-           {
-               Person person = persons.get(ipersons);
-               for(int igroups=0;igroups<groups1.size();igroups++)
-               {
-                   Group group = groups1.get(igroups);
-                   if(group.get_name().equals(person.get_groupname())==true)
-                   {
-                       groups1.get(igroups).addPerson(person);
+           for (Person person : persons) {
+               for (Group group : groups1) {
+                   if (group.get_name().equals(person.get_groupname()) == true) {
+                       group.addPerson(person);
 
                    }
                }
@@ -112,11 +97,9 @@ public class CSVParse {
     public List<Person> fillPersonbyGroups(List<Group> groups)
     {
         List<Person> persons = new ArrayList<Person>();
-        for(int igroups=0;igroups<groups.size();igroups++)
-        {
-            for(int ipersons=0;ipersons<groups.get(igroups).getPersons().size();ipersons++)
-            {
-                persons.add(groups.get(igroups).getPersons().get(ipersons));
+        for (Group group : groups) {
+            for (int ipersons = 0; ipersons < group.getPersons().size(); ipersons++) {
+                persons.add(group.getPersons().get(ipersons));
             }
         }
         return persons;
@@ -142,9 +125,8 @@ public class CSVParse {
     public String[] namePerson(List<Person> persons)
     {
         List<String> stringsnamelist = new ArrayList<String>();
-        for(int ipersons=0;ipersons<persons.size();ipersons++)
-        {
-            stringsnamelist.add(persons.get(ipersons).get_name());
+        for (Person person : persons) {
+            stringsnamelist.add(person.get_name());
         }
         String[] strings = new String[stringsnamelist.size()];
         for(int istrings=0;istrings<stringsnamelist.size();istrings++)
@@ -156,9 +138,8 @@ public class CSVParse {
     public String[] nameGroup(List<Group> groups)
     {
         List<String> stringsgrouplist = new ArrayList<String>();
-        for(int igroups=0;igroups<groups.size();igroups++)
-        {
-            stringsgrouplist.add(groups.get(igroups).get_name());
+        for (Group group : groups) {
+            stringsgrouplist.add(group.get_name());
         }
         String[] strings = new String[stringsgrouplist.size()];
         for(int istrings=0;istrings<stringsgrouplist.size();istrings++)
@@ -174,28 +155,20 @@ public class CSVParse {
         List<Person> persons = new ArrayList<Person>();
         try
         {
-            for (int istrings=0;istrings<strings.size();istrings++)
-            {
-                String[] strings1 = strings.get(istrings);
-                Person person=new Person();
+            for (String[] strings1 : strings) {
+                Person person = new Person();
                 person.set_name(strings1[0].trim());
                 person.set_phoneNumber(strings1[1].trim());
                 person.set_groupname(strings1[3].trim());
-                if(concatenation==true)
-                {
-                    int positionPerson=personExist(person,persons);
-                    if(positionPerson<0)
-                    {
+                if (concatenation) {
+                    int positionPerson = personExist(person, persons);
+                    if (positionPerson < 0) {
                         person.set_expenses(Float.parseFloat(strings1[2]));
                         persons.add(person);
+                    } else {
+                        persons.get(positionPerson).set_expenses(persons.get(positionPerson).get_expenses() + Float.parseFloat(strings1[2].trim()));
                     }
-                    else
-                    {
-                        persons.get(positionPerson).set_expenses(persons.get(positionPerson).get_expenses()+Float.parseFloat(strings1[2].trim()));
-                    }
-                }
-                else
-                {
+                } else {
                     person.set_expenses(Float.valueOf(strings1[2].trim()));
 
                     //person.set_expenses(Float.parseFloat(strings1[2].trim()));
