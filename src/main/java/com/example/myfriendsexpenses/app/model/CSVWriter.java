@@ -12,6 +12,7 @@ public class CSVWriter {
 
     private char separator;
 
+
     private char quotechar;
 
     private char escapechar;

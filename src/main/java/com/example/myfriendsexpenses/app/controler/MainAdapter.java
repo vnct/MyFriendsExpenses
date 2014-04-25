@@ -40,7 +40,6 @@ public class MainAdapter extends BaseAdapter {
             return personList.size();
 
     }
-
     @Override
     public Object getItem(int i) {
 

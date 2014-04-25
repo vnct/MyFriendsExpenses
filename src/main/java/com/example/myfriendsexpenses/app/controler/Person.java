@@ -22,7 +22,6 @@ public class Person {
         _expenses = expenses;
         _phoneNumber = phone;
         _groupname = groupname;
-
     }
 
     public void operatePayback(float iExpensesPerPerson)

@@ -46,7 +46,6 @@ public class CSVReader {
      *
      */
 
-
         private BufferedReader br;
 
         private boolean hasNext = true;

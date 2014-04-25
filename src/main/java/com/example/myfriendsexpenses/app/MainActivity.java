@@ -101,7 +101,6 @@ public class MainActivity extends Activity
     // Action principale
     public void onSectionAttached(int number,String group) {
         mTitle = group;
-
     }
 
     public void restoreActionBar() {

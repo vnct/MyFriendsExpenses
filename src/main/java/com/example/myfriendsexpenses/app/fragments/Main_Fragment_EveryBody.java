@@ -29,7 +29,6 @@ public class Main_Fragment_EveryBody extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private ArrayList<MainAdapter> mainAdapter;
 
-
     /**
      * Returns a new instance of this fragment for the given section
      * number.

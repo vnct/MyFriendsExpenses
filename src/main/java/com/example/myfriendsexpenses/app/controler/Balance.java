@@ -7,7 +7,6 @@ public class Balance {
     private Person personput;
     private Person personget;
     private float value;
-
     public Balance() {
     }
 

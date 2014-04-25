@@ -76,7 +76,6 @@ public class ListTitleAdapter extends BaseAdapter {
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
         textViewGroupExpensesPerson.setText(df.format(v) + " €");
-
         return vue;
     }
 }

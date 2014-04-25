@@ -60,7 +60,6 @@ public class LastEntriesAdapter extends BaseAdapter {
         textViewPhone.setText(personList.get(position).get_phoneNumber());
         textViewExpense.setText(""+personList.get(position).get_expenses());
         textViewGroup.setText(personList.get(position).get_groupname());
-
         return vue;
     }
     public void setPersonList(List<Person> personList) {

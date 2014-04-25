@@ -86,7 +86,6 @@ public class Group {
 
     public void set_expensePerPerson(float _expensePerPerson) {
         this._expensePerPerson = _expensePerPerson;
-
     }
 
     public float get_totalExpenses() {

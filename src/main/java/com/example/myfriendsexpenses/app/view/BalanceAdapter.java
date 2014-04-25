@@ -25,7 +25,6 @@ public class BalanceAdapter extends BaseAdapter {
     public BalanceAdapter(Context context){
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
-
     }
 
 

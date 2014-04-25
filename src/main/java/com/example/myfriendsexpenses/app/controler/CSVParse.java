@@ -155,7 +155,6 @@ public class CSVParse {
         List<Person> persons = new ArrayList<Person>();
         try
         {
-
             for (String[] strings1 : strings) {
                 Person person = new Person();
                 person.set_name(strings1[0].trim());

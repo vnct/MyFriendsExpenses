@@ -16,8 +16,6 @@ public class DataForm {
     private List<Person> persons = new ArrayList<Person>();
     private List<String> groupname = new ArrayList<String>();
 
-
-
     public void fillgroupname()
     {
         groupname = new ArrayList<String>();

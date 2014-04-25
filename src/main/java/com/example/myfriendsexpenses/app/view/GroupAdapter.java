@@ -53,7 +53,6 @@ public class GroupAdapter extends BaseAdapter {
         if(view != null)
         {
             vue = view;
-
         }
         else
         {

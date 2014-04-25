@@ -32,7 +32,6 @@ public class Add_Fragment_Expenditure extends Fragment {
     private EditText editTextexpense = null,editTextphone = null;
     private AutoCompleteTextView editTextname = null,editTextGroupname = null;
     private ListView listViewEntries = null;
-
     private static String[] namePerson = null,nameGroup=null;
     ArrayAdapter<String> adaptername = null,adaptergroup = null;
     ListAdapter simpleAdapter = null;

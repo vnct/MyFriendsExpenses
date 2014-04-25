@@ -53,6 +53,7 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
 
             position -= size;
         }
+
         return (null);
     }
 
