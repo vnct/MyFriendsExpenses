@@ -22,6 +22,8 @@
     <string name="add_donation">Person Donation</string>
     <string name="add_donator">Donator</string>
     <string name="add_add">Add</string>
+    <string name="add_update">Update</string>
+    <string name="add_validate">Validate</string>
     <string name="title_activity_expenditure">Expenditure</string>
     <string name="title_activity_donation">Donation</string>
     <string name="csv_file_dir">FriendExpenses</string>
@@ -41,5 +43,8 @@
     <string name="grouptextExpenses">Expenses</string>
     <string name="grouptextBalancing">Balancing</string>
     <string name="expenseUntitled">Untitled</string>
+    <string name="menu_last_entries_new">New</string>
+    <string name="menu_last_entries_edit">Edit</string>
+    <string name="menu_last_entries_discard">Delete</string>
 
 </resources>

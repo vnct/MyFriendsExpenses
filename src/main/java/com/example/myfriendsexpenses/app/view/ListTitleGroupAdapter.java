@@ -5,9 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.R;
@@ -18,21 +15,21 @@ import java.text.DecimalFormat;
 /**
  * Created by lapie on 24/04/14.
  */
-public class ListTitleAdapter extends BaseAdapter {
+public class ListTitleGroupAdapter extends BaseAdapter {
 
     private Context context;
-    private Group group;
+    private boolean bexpense;
     private BaseAdapter parentAdapter;
     private LayoutInflater mInflater;
 
-    public ListTitleAdapter(Context c, Group _group) {
-        this(c, _group, null);
+    public ListTitleGroupAdapter(Context c,boolean expense) {
+        this(c, null,expense);
     }
 
-    public ListTitleAdapter(Context c, Group _group, BaseAdapter dependentAdapter) {
+    public ListTitleGroupAdapter(Context c, BaseAdapter dependentAdapter,boolean expense) {
         super();
         context = c;
-        group = _group;
+        bexpense=expense;
         mInflater = LayoutInflater.from(c);
         if(dependentAdapter != null){
             parentAdapter = dependentAdapter;
@@ -64,20 +61,17 @@ public class ListTitleAdapter extends BaseAdapter {
         }
         else
         {
-            vue = mInflater.inflate(R.layout.groupbaseadapter, parent, false);
+            vue = mInflater.inflate(R.layout.groupname, parent, false);
         }
-        TextView textViewGroupTitle = (TextView) vue.findViewById(R.id.textViewGroupBaseAdapterName);
-        TextView textViewGroupTotalExpenses = (TextView) vue.findViewById(R.id.textViewGroupBaseAdapterTotalExpense);
-        TextView textViewGroupExpensesPerson = (TextView) vue.findViewById(R.id.textViewGroupBaseAdapterExpensesPerson);
-
-        textViewGroupTitle.setText(group.get_name().toUpperCase());
-
-
-        float v = group.get_expensePerPerson();
-        DecimalFormat df = new DecimalFormat();
-        df.setMaximumFractionDigits(2);
-        textViewGroupExpensesPerson.setText(df.format(v) + " €");
-        textViewGroupTotalExpenses.setText(df.format(group.get_totalExpenses())+ " €");
+        TextView textViewGroupExpenseorBalance = (TextView) vue.findViewById(R.id.textViewGroupExpenseorBalance);
+        if(bexpense)
+        {
+            textViewGroupExpenseorBalance.setText(R.string.grouptextExpenses);
+        }
+        else
+        {
+            textViewGroupExpenseorBalance.setText(R.string.grouptextBalancing);
+        }
         return vue;
     }
 }

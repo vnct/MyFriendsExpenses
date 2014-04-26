@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <item
+        android:id="@+id/menu_last_entries_new"
+
+        android:icon="@drawable/ic_action_content_new"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_last_entries_new"/>
+    <item
+        android:id="@+id/menu_last_entries_edit"
+
+        android:icon="@drawable/ic_action_content_edit"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_last_entries_edit"/>
+    <item
+        android:id="@+id/menu_last_entries_delete"
+
+        android:icon="@drawable/ic_action_content_discard"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_last_entries_discard"/>
+</menu>

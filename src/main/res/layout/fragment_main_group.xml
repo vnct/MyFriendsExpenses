@@ -58,39 +58,13 @@
                 android:id="@+id/textViewgrouptextExpensesPerson"
                 android:paddingTop="20dp"
                 android:padding="2dp"/>
+
         </TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/grouptextExpenses"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textViewGroupExpense"
-            android:layout_gravity="center_horizontal"
-            android:padding="2dp"/>
-
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/listViewExpenseAdapter"
-            android:layout_gravity="left|top"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/grouptextBalancing"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textViewGroupBalancing"
-            android:layout_gravity="center_horizontal"
-            android:padding="2dp"/>
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listViewGroupAdapter"
             android:layout_gravity="left|top"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

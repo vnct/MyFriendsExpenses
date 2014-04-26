@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.example.myfriendsexpenses.app.MainActivity;
 import com.example.myfriendsexpenses.app.R;
+import com.example.myfriendsexpenses.app.controler.Person;
 import com.example.myfriendsexpenses.app.view.ListTitleAdapter;
 import com.example.myfriendsexpenses.app.view.MainAdapter;
 import com.example.myfriendsexpenses.app.view.MergeAdapter;
@@ -53,6 +54,7 @@ public class Main_Fragment_EveryBody extends Fragment {
 
         mainAdapter = new ArrayList<MainAdapter>();
         MergeAdapter mergeAdapter = new MergeAdapter();
+
         for(int iGroups=0;iGroups<MainActivity.getDataForm().getGroups().size();iGroups++)
         {
             MainAdapter mainAdapter1 = new MainAdapter(getActivity());
@@ -66,7 +68,7 @@ public class Main_Fragment_EveryBody extends Fragment {
             mergeAdapter.addAdapter(new ListTitleAdapter(getActivity(), mainAdapter.get(iMainadapter).getGroup() , mainAdapter.get(iMainadapter)));
             mergeAdapter.addAdapter(mainAdapter.get(iMainadapter));
         }
-        System.out.println("mergeAdapter.addAdapter = " + mergeAdapter.getCount());
+        //System.out.println("mergeAdapter.addAdapter = " + mergeAdapter.getCount());
         mergeAdapter.setNoItemsText("Nothing to display. Add an expenditure");
         ((ListView)rootView.findViewById(R.id.listViewMainAdapter)).setAdapter(mergeAdapter);
         return rootView;

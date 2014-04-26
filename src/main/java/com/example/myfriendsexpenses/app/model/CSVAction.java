@@ -71,7 +71,54 @@ public class CSVAction {
             {
                 if((strings1.get(istrings1)[0].equals(strings[0]))&&(strings1.get(istrings1)[1].equals(strings[1]))&&(Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2]))&&(strings1.get(istrings1)[3].equals(strings[3]))&&(strings1.get(istrings1)[4].equals(strings[4])))
                 {
-                    strings1.remove(istrings1);
+
+                    if(position==istrings1)
+                    {
+
+                        strings1.remove(istrings1);
+                    }
+
+
+                }
+            }
+            File file = new File(path_file);
+            file.delete();
+            createFile();
+            CSVWriter csvWriter = new CSVWriter(new FileWriter(path_file,true));
+            for (String[] aStrings1 : strings1) {
+                csvWriter.writeNext(aStrings1);
+            }
+            csvWriter.close();
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("CSVAction -> removePerson -> Exception");
+        }
+
+    }
+    public void changePerson(Person person_old,Expense expense_old,Person person_new,Expense expense_new, int position)
+    {
+        try
+        {
+            // String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(expense.getExpenses()),person.get_groupname(),expense.getComments()};
+
+            String[] strings = new String[]{person_old.get_name(),person_old.get_phoneNumber(),Float.toString(expense_old.getExpenses()),person_old.get_groupname(),expense_old.getComments()};
+            List<String[]> strings1 = getCSV();
+            for(int istrings1=0;istrings1<strings1.size();istrings1++)
+            {
+                if((strings1.get(istrings1)[0].equals(strings[0]))&&(strings1.get(istrings1)[1].equals(strings[1]))&&(Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2]))&&(strings1.get(istrings1)[3].equals(strings[3]))&&(strings1.get(istrings1)[4].equals(strings[4])))
+                {
+                    if(position==istrings1)
+                    {
+
+                        strings1.get(istrings1)[0] = person_new.get_name();
+                        strings1.get(istrings1)[1] = person_new.get_phoneNumber();
+                        strings1.get(istrings1)[2] = Float.toString(expense_new.getExpenses());
+                        strings1.get(istrings1)[3] = person_new.get_groupname();
+                        strings1.get(istrings1)[4] = expense_new.getComments();
+
+                    }
 
                 }
             }

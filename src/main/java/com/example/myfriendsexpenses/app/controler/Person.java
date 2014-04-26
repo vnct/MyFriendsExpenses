@@ -1,12 +1,15 @@
 package com.example.myfriendsexpenses.app.controler;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by lapie on 19/04/14.
  */
-public class Person {
+public class Person implements Parcelable {
     private String _name;
     private String _phoneNumber;
     private float _expenses;
@@ -101,5 +104,22 @@ public class Person {
 
     public void setExpenseList(List<Expense> expenseList) {
         this.expenseList = expenseList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(_name);
+        parcel.writeString(_phoneNumber);
+        parcel.writeString(_groupname);
+        if(expenseList.size()>0) {
+            parcel.writeFloat(expenseList.get(0).getExpenses());
+            parcel.writeString(expenseList.get(0).getComments());
+        }
+
     }
 }

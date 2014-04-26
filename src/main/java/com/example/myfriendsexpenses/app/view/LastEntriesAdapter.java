@@ -60,6 +60,7 @@ public class LastEntriesAdapter extends BaseAdapter {
         textViewComment.setText(personList.get(position).getExpenseList().get(0).getComments());
         textViewExpense.setText(""+personList.get(position).getExpenseList().get(0).getExpenses());
         textViewGroup.setText(personList.get(position).get_groupname().toUpperCase());
+
         return vue;
     }
     public void setPersonList(List<Person> personList) {

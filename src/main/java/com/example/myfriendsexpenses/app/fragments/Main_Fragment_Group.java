@@ -16,6 +16,10 @@ import com.example.myfriendsexpenses.app.controler.Group;
 import com.example.myfriendsexpenses.app.controler.Person;
 import com.example.myfriendsexpenses.app.view.BalanceAdapter;
 import com.example.myfriendsexpenses.app.view.ExpenseAdapter;
+import com.example.myfriendsexpenses.app.view.ListTitleAdapter;
+import com.example.myfriendsexpenses.app.view.ListTitleGroupAdapter;
+import com.example.myfriendsexpenses.app.view.MainAdapter;
+import com.example.myfriendsexpenses.app.view.MergeAdapter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -57,7 +61,44 @@ public class Main_Fragment_Group extends Fragment {
             textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
            /* System.out.println("---> getArguments()" + getArguments().getInt(ARG_SECTION_NUMBER));
             System.out.println("---> getArguments()" + dataForm.getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER)-1));*/
+
+
+        List<ExpenseAdapter> expenseAdapter1 = new ArrayList<ExpenseAdapter>();
+        MergeAdapter mergeAdapter = new MergeAdapter();
+        TextView textViewGroupBaseAdapterExpensesPerson = (TextView) rootView.findViewById(R.id.textViewgrouptextExpensesPerson);
+        TextView textViewGroupBaseAdapterTotalExpense = (TextView) rootView.findViewById(R.id.textViewgrouptextTotalExpenses);
         List<Group> groups = MainActivity.getDataForm().getGroups();
+        String group = MainActivity.getDataForm().getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER)-1);
+        for(int igroups=0;igroups<groups.size();igroups++)
+        {
+            if(MainActivity.getDataForm().getGroups().get(igroups).get_name().equals(group)==true) {
+                ExpenseAdapter expenseAdapterexpense = new ExpenseAdapter(getActivity(), true);
+                Group group1 = MainActivity.getDataForm().getGroups().get(igroups);
+                MainActivity.getDataForm().getGroups().get(igroups).doBalance();
+                float v = group1.get_expensePerPerson();
+                DecimalFormat df = new DecimalFormat();
+                df.setMaximumFractionDigits(2);
+                textViewGroupBaseAdapterExpensesPerson.setText(df.format(v) + " €");
+                textViewGroupBaseAdapterTotalExpense.setText(df.format(group1.get_totalExpenses()) + " €");
+                expenseAdapterexpense.setPersonList(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false), group, true));
+                expenseAdapter1.add(expenseAdapterexpense);
+                ExpenseAdapter expenseAdapterbalance = new ExpenseAdapter(getActivity(), false);
+                expenseAdapterbalance.setBalanceList(MainActivity.getDataForm().getGroups().get(igroups).getBalances());
+                expenseAdapter1.add(expenseAdapterbalance);
+            }
+        }
+        for(int iExpenseAdapter=0;iExpenseAdapter<expenseAdapter1.size();iExpenseAdapter++)
+        {
+            mergeAdapter.addAdapter(new ListTitleGroupAdapter(getActivity(),expenseAdapter1.get(iExpenseAdapter),expenseAdapter1.get(iExpenseAdapter).getBooleanExpense()));
+            mergeAdapter.addAdapter(expenseAdapter1.get(iExpenseAdapter));
+        }
+        //System.out.println("mergeAdapter.addAdapter = " + mergeAdapter.getCount());
+        mergeAdapter.setNoItemsText("Nothing to display. Add an expenditure");
+        ((ListView)rootView.findViewById(R.id.listViewExpenseAdapter)).setAdapter(mergeAdapter);
+        return rootView;
+
+
+       /* List<Group> groups = MainActivity.getDataForm().getGroups();
         TextView textViewGroupBaseAdapterExpensesPerson = (TextView) rootView.findViewById(R.id.textViewgrouptextExpensesPerson);
         TextView textViewGroupExpense = (TextView) rootView.findViewById(R.id.textViewGroupExpense);
         TextView textViewGroupBaseAdapterTotalExpense = (TextView) rootView.findViewById(R.id.textViewgrouptextTotalExpenses);
@@ -99,7 +140,7 @@ public class Main_Fragment_Group extends Fragment {
         }
         ((ListView)rootView.findViewById(R.id.listViewGroupAdapter)).setAdapter(balanceAdapter);
         ((ListView)rootView.findViewById(R.id.listViewExpenseAdapter)).setAdapter(expenseAdapter);
-        return rootView;
+        return rootView;*/
     }
 
     @Override

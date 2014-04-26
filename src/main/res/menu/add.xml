@@ -4,6 +4,11 @@
     <item android:id="@+id/csvread"
         android:title="@string/csvread"
         android:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_add_validate"
+        android:icon="@drawable/ic_action_navigation_accept"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/add_validate"/>
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

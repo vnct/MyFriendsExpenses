@@ -1,5 +1,6 @@
 package com.example.myfriendsexpenses.app;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -14,6 +15,8 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.myfriendsexpenses.app.controler.Expense;
+import com.example.myfriendsexpenses.app.controler.Person;
 import com.example.myfriendsexpenses.app.fragments.Add_Fragment_Expenditure;
 import com.example.myfriendsexpenses.app.fragments.Add_Fragment_Person;
 
@@ -77,7 +80,7 @@ public class Add extends Activity implements ActionBar.TabListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.add, menu);
         return true;
@@ -132,7 +135,20 @@ public class Add extends Activity implements ActionBar.TabListener {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return Add_Fragment_Expenditure.newInstance(position+1);
+                    Bundle bundle = getIntent().getExtras();
+                    ArrayList<String> strings = new ArrayList<String>();
+                    if(bundle != null)
+                    {
+                        strings.add(bundle.getString("Position"));
+                        strings.add(bundle.getString("Action"));
+                        strings.add(bundle.getString("Name"));
+                        strings.add(bundle.getString("Phone"));
+                        strings.add(bundle.getString("Group"));
+                        strings.add(bundle.getString("Cost"));
+                        strings.add(bundle.getString("What"));
+
+                  }
+                    return Add_Fragment_Expenditure.newInstance(position+1,strings);
                 case 1:
                     return Add_Fragment_Person.newInstance(position + 1);
             }

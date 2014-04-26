@@ -19,11 +19,12 @@ import java.util.List;
 public class BalanceAdapter extends BaseAdapter {
     private List<Balance> balanceList;
     private LayoutInflater mInflater;
-    // Si samegroup on calcul les balances
+    private boolean Expense;
     private Context mContext;
 
     public BalanceAdapter(Context context){
         mContext = context;
+        Expense = true;
         mInflater = LayoutInflater.from(mContext);
     }
 
