@@ -5,8 +5,13 @@
         android:title="@string/csvread"
         android:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_add_validate"
+        android:id="@+id/menu_add_update"
         android:icon="@drawable/ic_action_navigation_accept"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/add_update"/>
+    <item
+        android:id="@+id/menu_add_validate"
+        android:icon="@drawable/ic_action_content_new"
         android:showAsAction="ifRoom|collapseActionView"
         android:title="@string/add_validate"/>
     <item android:id="@+id/action_settings"

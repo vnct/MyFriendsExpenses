@@ -36,7 +36,7 @@ public class Add_Fragment_Expenditure extends Fragment {
     private static final String iposa = "section_number";
     private static final String myPerson = "section_number";
 
-    private Button buttonaddPerson = null;
+
     private EditText editTextexpense = null, editTextphone = null, editTextcomment = null;
     private AutoCompleteTextView editTextname = null, editTextGroupname = null;
     private ListView listViewEntries = null;
@@ -48,18 +48,55 @@ public class Add_Fragment_Expenditure extends Fragment {
     private String My_action="";
     Person person_old;
     Expense expense_old;
+    MenuItem menu_add_update=null,menu_add_validate=null;
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.add, menu);
+        System.out.println("onCreateOptionsMenu");
+        menu_add_update = menu.findItem(R.id.menu_add_update);
+        menu_add_validate = menu.findItem(R.id.menu_add_validate);
+        if (My_action.equals("1")) {
+            menu_add_update.setVisible(true);
+            menu_add_validate.setVisible(false);
+        }
+        else
+        {
+            menu_add_update.setVisible(false);
+            menu_add_validate.setVisible(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_add_validate:
+               OnclickButtonAdd();
+                return true;
+            case R.id.menu_add_update:
+                OnclickButtonUpdate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add, container, false);
+        setHasOptionsMenu(true);
+
+
         initialization_widget(rootView);
         Bundle args = getArguments();
-        buttonaddPerson.setOnClickListener(OnclickButtonAdd);
+
         if(args != null)
         {
             ArrayList<String> strings1 = args.getStringArrayList(myPerson);
@@ -114,8 +151,8 @@ public class Add_Fragment_Expenditure extends Fragment {
 
         }
             if (My_action.equals("1")) {
-                buttonaddPerson.setText(R.string.add_update);
-                buttonaddPerson.setOnClickListener(OnclickButtonUpdate);
+
+
                 String Expenses = editTextexpense.getText().toString();
                 editTextphone.setFocusable(false);
                 float ExpensesValue = Float.valueOf(Expenses);
@@ -133,6 +170,7 @@ public class Add_Fragment_Expenditure extends Fragment {
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         args.putStringArrayList(myPerson,Position);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -142,10 +180,9 @@ public class Add_Fragment_Expenditure extends Fragment {
     }
 
 
-    private View.OnClickListener OnclickButtonUpdate = new View.OnClickListener() {
+    private void OnclickButtonUpdate() {
 
-        @Override
-        public void onClick(View view) {
+
             if (editTextexpense.getText().equals("") == true || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
             } else {
                 try {
@@ -167,7 +204,8 @@ public class Add_Fragment_Expenditure extends Fragment {
                     editTextphone.setFocusable(true);
                     My_action="0";
 
-                    buttonaddPerson.setOnClickListener(OnclickButtonAdd);
+                    menu_add_update.setVisible(false);
+                    menu_add_validate.setVisible(true);
                 } catch (Exception e) {
                     System.out.println("Expenditure -> OnclickButtonUpdate -> Exception");
                     e.printStackTrace();
@@ -175,7 +213,7 @@ public class Add_Fragment_Expenditure extends Fragment {
                     editTextexpense.setHint("10.0");
                 }
             }
-        }
+
     };
 
 
@@ -185,9 +223,8 @@ public class Add_Fragment_Expenditure extends Fragment {
                 editTextphone.setText(MainActivity.getDataForm().getCsvParse().getPhone(editTextname.getText().toString().trim(), editTextGroupname.getText().toString().trim(), MainActivity.getDataForm().getPersons()));
             }
         };
-        private View.OnClickListener OnclickButtonAdd = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        private void OnclickButtonAdd() {
+
                 if (editTextexpense.getText().equals("") == true || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
                 } else {
                     try {
@@ -213,7 +250,7 @@ public class Add_Fragment_Expenditure extends Fragment {
                         editTextexpense.setHint("10.0");
 
                     }
-                }
+
             }
         };
 
@@ -231,7 +268,7 @@ public class Add_Fragment_Expenditure extends Fragment {
             editTextname = (AutoCompleteTextView) rootView.findViewById(R.id.addname);
             editTextcomment = (EditText) rootView.findViewById(R.id.addcomment);
             editTextGroupname = (AutoCompleteTextView) rootView.findViewById(R.id.addgroupe);
-            buttonaddPerson = (Button) rootView.findViewById(R.id.addaddbutton);
+
             listViewEntries = (ListView) rootView.findViewById(R.id.addlistView);
             //     buttonaddValidate = (Button) rootView.findViewById(R.id.menu_add_validate);
 

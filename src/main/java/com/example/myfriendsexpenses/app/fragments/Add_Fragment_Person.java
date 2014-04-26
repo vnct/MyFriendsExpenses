@@ -3,6 +3,9 @@ package com.example.myfriendsexpenses.app.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,14 +33,14 @@ import java.util.List;
  */
 public class Add_Fragment_Person extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private Button buttonaddPerson = null;
-    private EditText editTextphone = null;
+      private EditText editTextphone = null;
     private AutoCompleteTextView editTextname = null,editTextGroupname = null;
     private ListView listViewEntries = null;
     private static String[] namePerson = null,nameGroup=null;
     ArrayAdapter<String> adaptername = null,adaptergroup = null;
     ListAdapter simpleAdapter = null;
     List<HashMap<String, String>> listeHaspMapEntries = null;
+    MenuItem menu_add_update=null,menu_add_validate=null;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -45,9 +48,9 @@ public class Add_Fragment_Person extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_add_person, container, false);
         initialization_widget(rootView);
-        buttonaddPerson.setOnClickListener(OnclickButtonAdd);
         listeHaspMapEntries = new ArrayList<HashMap<String, String>>();
         simpleAdapter = new SimpleAdapter(getActivity(),listeHaspMapEntries,android.R.layout.simple_list_item_2,new String[] {"text1", "text2"},new int[] {android.R.id.text1, android.R.id.text2 });
         MainActivity.getDataForm().setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(),true));
@@ -71,7 +74,31 @@ public class Add_Fragment_Person extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.add, menu);
+        menu_add_update = menu.findItem(R.id.menu_add_update);
+        menu_add_validate = menu.findItem(R.id.menu_add_validate);
+        menu_add_update.setVisible(false);
+        menu_add_validate.setVisible(true);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_add_validate:
+                OnclickButtonAdd();
+                return true;
+            case R.id.menu_add_update:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     public Add_Fragment_Person() {
     }
     private AdapterView.OnItemClickListener onItemClickListenertextname = new AdapterView.OnItemClickListener() {
@@ -80,9 +107,8 @@ public class Add_Fragment_Person extends Fragment {
             editTextphone.setText(MainActivity.getDataForm().getCsvParse().getPhone(editTextname.getText().toString().trim(),editTextGroupname.getText().toString().trim(),MainActivity.getDataForm().getPersons()));
         }
     };
-    private View.OnClickListener OnclickButtonAdd = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    private void OnclickButtonAdd()
+    {
 
             if(editTextphone.getText().toString().trim().equals("")||editTextname.getText().toString().trim().equals("")||editTextGroupname.getText().toString().trim().equals(""))
             {
@@ -99,6 +125,7 @@ public class Add_Fragment_Person extends Fragment {
                     element.put("text1", person.get_name());
                     element.put("text2",person.get_groupname());
                     listeHaspMapEntries.add(element);
+                    listViewEntries.setAdapter(simpleAdapter);
                     clear_EditText();
                 }
                 catch(Exception e)
@@ -108,7 +135,7 @@ public class Add_Fragment_Person extends Fragment {
 
                 }
              }
-        }
+
     };
     private void clear_EditText()
     {
@@ -124,7 +151,7 @@ public class Add_Fragment_Person extends Fragment {
         editTextphone = (EditText)rootView.findViewById(R.id.addpersonphone);
         editTextname = (AutoCompleteTextView) rootView.findViewById(R.id.addpersonname);
         editTextGroupname = (AutoCompleteTextView)rootView.findViewById(R.id.addpersongroupe);
-        buttonaddPerson = (Button) rootView.findViewById(R.id.addpersonaddbutton);
+
         listViewEntries = (ListView) rootView.findViewById(R.id.addpersonlistView);
 
     }

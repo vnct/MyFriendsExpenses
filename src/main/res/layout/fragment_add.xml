@@ -115,6 +115,7 @@
             android:id="@+id/addexpense"
             android:layout_weight="1"
             android:hint="10.0"
+            android:maxLength="10"
             />
     </LinearLayout>
 
@@ -142,17 +143,11 @@
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_add"
-        android:id="@+id/addaddbutton"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"/>
 
-    <ListView
+        <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:paddingTop="20dp"
         android:id="@+id/addlistView"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
