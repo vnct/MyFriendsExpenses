@@ -120,6 +120,7 @@ public class LastEntries extends Activity {
             public void onDestroyActionMode(ActionMode actionMode) {
                 view1.setBackgroundColor(Color.TRANSPARENT);
 
+             //   System.out.println("FINISH");
             }
         });
 

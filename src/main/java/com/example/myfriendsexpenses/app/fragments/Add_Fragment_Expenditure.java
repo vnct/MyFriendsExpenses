@@ -1,11 +1,14 @@
 package com.example.myfriendsexpenses.app.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +22,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 
+import com.example.myfriendsexpenses.app.LastEntries;
 import com.example.myfriendsexpenses.app.MainActivity;
 import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.controler.Expense;
@@ -36,7 +40,7 @@ public class Add_Fragment_Expenditure extends Fragment {
     private static final String iposa = "section_number";
     private static final String myPerson = "section_number";
 
-
+    private boolean ready_to_validate = false;
     private EditText editTextexpense = null, editTextphone = null, editTextcomment = null;
     private AutoCompleteTextView editTextname = null, editTextGroupname = null;
     private ListView listViewEntries = null;
@@ -48,7 +52,7 @@ public class Add_Fragment_Expenditure extends Fragment {
     private String My_action="";
     Person person_old;
     Expense expense_old;
-    MenuItem menu_add_update=null,menu_add_validate=null;
+    MenuItem menu_add_update=null,menu_add_validate=null,menu_add_person=null;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -58,17 +62,20 @@ public class Add_Fragment_Expenditure extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.add, menu);
-        System.out.println("onCreateOptionsMenu");
+       // System.out.println("onCreateOptionsMenu");
         menu_add_update = menu.findItem(R.id.menu_add_update);
         menu_add_validate = menu.findItem(R.id.menu_add_validate);
+        menu_add_person = menu.findItem(R.id.menu_add_person);
         if (My_action.equals("1")) {
             menu_add_update.setVisible(true);
             menu_add_validate.setVisible(false);
+            menu_add_person.setVisible(false);
         }
         else
         {
             menu_add_update.setVisible(false);
             menu_add_validate.setVisible(true);
+            menu_add_person.setVisible(false);
         }
     }
 
@@ -102,8 +109,8 @@ public class Add_Fragment_Expenditure extends Fragment {
             ArrayList<String> strings1 = args.getStringArrayList(myPerson);
             generate_widget(strings1);
         }
-        System.out.println("Mon My_action " + My_action);
-        System.out.println("Mon My_Position " + My_Position);
+      //  System.out.println("Mon My_action " + My_action);
+        //System.out.println("Mon My_Position " + My_Position);
 
         listeHaspMapEntries = new ArrayList<HashMap<String, String>>();
         simpleAdapter = new SimpleAdapter(getActivity(), listeHaspMapEntries, android.R.layout.simple_list_item_2, new String[]{"text1", "text2"}, new int[]{android.R.id.text1, android.R.id.text2});
@@ -114,13 +121,42 @@ public class Add_Fragment_Expenditure extends Fragment {
         adaptergroup = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, nameGroup);
         editTextname.setAdapter(adaptername);
         editTextGroupname.setAdapter(adaptergroup);
-
         editTextname.setOnItemClickListener(onItemClickListenertextname);
+
+
 
 
 
         return rootView;
     }
+
+
+
+    private void CheckItem()
+    {
+    /*    System.out.println("Taille = editTextname" + editTextname.getText().toString().trim().length());
+        System.out.println("Taille = editTextGroupname" + editTextGroupname.getText().toString().trim().length());
+        System.out.println("Taille = editTextphone" + editTextphone.getText().toString().trim().length());
+        System.out.println("Taille = editTextexpense" + editTextexpense.getText().toString().trim().length());*/
+        if((editTextname.getText().toString().trim().length()>0)&&(editTextGroupname.getText().toString().trim().length()>0)&&(editTextphone.getText().toString().trim().length()>0)&&(editTextexpense.getText().toString().trim().length()>0))
+        {
+
+            ready_to_validate=true;
+        }
+        else
+        {
+            ready_to_validate=false;
+        }
+        if(ready_to_validate)
+        {
+            menu_add_validate.setIcon(R.drawable.ic_action_navigation_accept);
+        }
+        else
+        {
+            menu_add_validate.setIcon(R.drawable.ic_action_content_new);
+        }
+    }
+
 
     private void generate_widget(ArrayList<String> strings1) {
         for(int i=0;i<strings1.size();i++) {
@@ -203,9 +239,8 @@ public class Add_Fragment_Expenditure extends Fragment {
                     clear_EditText();
                     editTextphone.setFocusable(true);
                     My_action="0";
-
-                    menu_add_update.setVisible(false);
-                    menu_add_validate.setVisible(true);
+                    Intent ExpenditureActivity = new Intent(getActivity(),LastEntries.class);
+                    startActivity(ExpenditureActivity);
                 } catch (Exception e) {
                     System.out.println("Expenditure -> OnclickButtonUpdate -> Exception");
                     e.printStackTrace();
@@ -221,7 +256,7 @@ public class Add_Fragment_Expenditure extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 editTextphone.setText(MainActivity.getDataForm().getCsvParse().getPhone(editTextname.getText().toString().trim(), editTextGroupname.getText().toString().trim(), MainActivity.getDataForm().getPersons()));
-            }
+              }
         };
         private void OnclickButtonAdd() {
 
@@ -260,6 +295,7 @@ public class Add_Fragment_Expenditure extends Fragment {
             editTextname.getText().clear();
             editTextGroupname.getText().clear();
             editTextcomment.getText().clear();
+            menu_add_validate.setIcon(R.drawable.ic_action_content_new);
         }
 
         private void initialization_widget(View rootView) {

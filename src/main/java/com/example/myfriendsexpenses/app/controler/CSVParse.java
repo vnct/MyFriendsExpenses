@@ -72,6 +72,7 @@ public class CSVParse {
        }
     return "";
    }
+
    public List<Group> fillGroups(List<Person> persons,List<Group> groups)
    {
        // Création des groupes

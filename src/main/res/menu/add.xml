@@ -3,17 +3,23 @@
     tools:context="com.example.myfriendsexpenses.app.Add" >
     <item android:id="@+id/csvread"
         android:title="@string/csvread"
-        android:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_action_collections_view_as_list"
+        android:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/menu_add_update"
-        android:icon="@drawable/ic_action_navigation_accept"
+        android:icon="@drawable/ic_action_content_edit"
         android:showAsAction="ifRoom|collapseActionView"
         android:title="@string/add_update"/>
     <item
         android:id="@+id/menu_add_validate"
-        android:icon="@drawable/ic_action_content_new"
+        android:icon="@drawable/ic_action_navigation_accept"
         android:showAsAction="ifRoom|collapseActionView"
         android:title="@string/add_validate"/>
+    <item
+        android:id="@+id/menu_add_person"
+        android:icon="@drawable/ic_action_social_add_person"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/add_person"/>
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

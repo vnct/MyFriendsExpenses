@@ -44,7 +44,7 @@ public class MainActivity extends Activity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle =   getTitle();
-        System.out.println("------------- MainActivity -------------");
+     //   System.out.println("------------- MainActivity -------------");
         dataForm.getCsvAction().createFile();
         dataForm.setStrings(dataForm.getCsvAction().getCSV());
         dataForm.setGroups(dataForm.getCsvParse().createGroups(dataForm.getStrings()));
@@ -78,7 +78,7 @@ public class MainActivity extends Activity
                 break;
         }
 
-        System.out.println("MainActivity --> onNavigationDrawerItemSelected ==> " + position );
+   //     System.out.println("MainActivity --> onNavigationDrawerItemSelected ==> " + position );
     }
 
     public void operatepayback()
@@ -131,7 +131,7 @@ public class MainActivity extends Activity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            System.out.println("Settings");
+      //      System.out.println("Settings");
 
             return true;
         }

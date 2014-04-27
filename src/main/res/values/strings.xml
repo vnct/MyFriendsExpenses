@@ -18,12 +18,13 @@
     <string name="add_title_expenditure">Add Expenditure</string>
     <string name="add_title_donation">Add Donation</string>
     <string name="add_phone">Person Phone</string>
-    <string name="add_expense">Cost</string>
+    <string name="add_expense">Amount</string>
     <string name="add_donation">Person Donation</string>
     <string name="add_donator">Donator</string>
     <string name="add_add">Add</string>
     <string name="add_update">Update</string>
     <string name="add_validate">Validate</string>
+    <string name="add_person">New Person</string>
     <string name="title_activity_expenditure">Expenditure</string>
     <string name="title_activity_donation">Donation</string>
     <string name="csv_file_dir">FriendExpenses</string>

@@ -40,7 +40,7 @@ public class Add_Fragment_Person extends Fragment {
     ArrayAdapter<String> adaptername = null,adaptergroup = null;
     ListAdapter simpleAdapter = null;
     List<HashMap<String, String>> listeHaspMapEntries = null;
-    MenuItem menu_add_update=null,menu_add_validate=null;
+    MenuItem menu_add_update=null,menu_add_validate=null,menu_add_person=null;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -80,8 +80,11 @@ public class Add_Fragment_Person extends Fragment {
         inflater.inflate(R.menu.add, menu);
         menu_add_update = menu.findItem(R.id.menu_add_update);
         menu_add_validate = menu.findItem(R.id.menu_add_validate);
+        menu_add_person = menu.findItem(R.id.menu_add_person);
         menu_add_update.setVisible(false);
-        menu_add_validate.setVisible(true);
+        menu_add_validate.setVisible(false);
+        menu_add_person.setVisible(true);
+
 
     }
 
@@ -89,7 +92,7 @@ public class Add_Fragment_Person extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle item selection
         switch (item.getItemId()) {
-            case R.id.menu_add_validate:
+            case R.id.menu_add_person:
                 OnclickButtonAdd();
                 return true;
             case R.id.menu_add_update:

@@ -1,12 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myfriendsexpenses.app.MainActivity" >
-    <item android:id="@+id/csvadd"
-        android:title="@string/csvadd"
-        android:showAsAction="ifRoom" />
     <item android:id="@+id/csvread"
         android:title="@string/csvread"
-        android:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_action_collections_view_as_list"
+        android:showAsAction="ifRoom|collapseActionView" />
+    <item android:id="@+id/csvadd"
+        android:title="@string/csvadd"
+        android:icon="@drawable/ic_action_content_new"
+        android:showAsAction="ifRoom|collapseActionView" />
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:showAsAction="never"
