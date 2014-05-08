@@ -26,6 +26,34 @@ public class CSVParse {
 
     }
 
+    public List<Person> parsePersonbyName(List<Person> persons, String nameperson)
+    {
+        List<Person> personList = new ArrayList<Person>();
+        for (Person person : persons) {
+            if (person.get_name().equals(nameperson) == true) {
+
+
+                    personList.add(person);
+                }
+
+
+        }
+        return personList;
+    }
+    public List<Person> parsePersonbyComments(List<Person> persons, String comments)
+    {
+        List<Person> personList = new ArrayList<Person>();
+        for (Person person : persons) {
+            if (person.getExpenseList().get(0).getComments().equals(comments) == true) {
+
+
+                personList.add(person);
+            }
+
+
+        }
+        return personList;
+    }
 
     public List<Group> createGroups(List<String[]> strings)
     {

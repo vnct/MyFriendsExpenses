@@ -150,7 +150,14 @@ public class Add extends Activity implements ActionBar.TabListener {
                   }
                     return Add_Fragment_Expenditure.newInstance(position+1,strings);
                 case 1:
-                    return Add_Fragment_Person.newInstance(position + 1);
+                    Bundle bundle_person = getIntent().getExtras();
+                    ArrayList<String> strings_person = new ArrayList<String>();
+                    if(bundle_person != null)
+                    {
+                        strings_person.add(bundle_person.getString("Group"));
+
+                    }
+                    return Add_Fragment_Person.newInstance(position + 1,strings_person);
             }
             return null;
         }

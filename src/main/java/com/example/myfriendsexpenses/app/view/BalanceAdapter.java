@@ -63,6 +63,7 @@ public class BalanceAdapter extends BaseAdapter {
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
         df.format(v);
+
         textViewPayback.setText(df.format(v) + " € to " + balanceList.get(position).getPersonget().get_name());
         textViewGroup.setText(R.string.balancetextpay);
         return vue;

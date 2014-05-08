@@ -66,20 +66,18 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MainActivity.getDataForm().getCsvAction().createFile();
-        MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvAction().getCSV());
-        MainActivity.getDataForm().setGroups(MainActivity.getDataForm().getCsvParse().createGroups(MainActivity.getDataForm().getStrings()));
-        MainActivity.getDataForm().fillgroupname();
+       MainActivity.fillDataForm();
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
-     //   System.out.println("------------- NavigationDrawerFragment -------------");
+
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
 
+       // System.out.println("------------- NavigationDrawerFragment - onCreate -------------" + mCurrentSelectedPosition);
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
     }

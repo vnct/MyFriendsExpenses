@@ -21,6 +21,7 @@ import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.view.LastEntriesAdapter;
 import com.example.myfriendsexpenses.app.controler.Person;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LastEntries extends Activity {
@@ -29,6 +30,7 @@ public class LastEntries extends Activity {
 
     LastEntriesAdapter lastEntriesAdapter = null;
     boolean selected=true;
+    private final String myArgs = "myArgs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +39,78 @@ public class LastEntries extends Activity {
 
         initialization_widget();
 
-
-        MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvAction().getCSV());
-        List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false));
-        lastEntriesAdapter = new LastEntriesAdapter(this);
-        lastEntriesAdapter.setPersonList(persons);
-        listViewlastentries.setAdapter(lastEntriesAdapter);
         listViewlastentries.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listViewlastentries.setOnItemClickListener(OnItemClickListenerlastentries);
 
     }
+
+    private List<Person> parsePerson(ArrayList<String> strings1,List<Person> persons) {
+        List<Person> personList = new ArrayList<Person>();
+        for(int i=0;i<strings1.size();i++) {
+            switch (i) {
+                case 0:
+
+                    if(strings1.get(i).trim().equals("")==false) {
+                        personList = MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(persons, strings1.get(i).trim(), false);
+                    }
+                    break;
+                case 1:
+                    if(strings1.get(i).trim().equals("")==false) {
+                        if (personList.size() > 0) {
+
+                            personList = MainActivity.getDataForm().getCsvParse().parsePersonbyName(personList, strings1.get(i).trim());
+                        } else {
+                            personList = MainActivity.getDataForm().getCsvParse().parsePersonbyName(persons, strings1.get(i).trim());
+                        }
+                    }
+                    break;
+                case 2:
+                    if(strings1.get(i).trim().equals("")==false) {
+                        if (personList.size() > 0) {
+                           // System.out.println(strings1.get(i).trim());
+                            personList = MainActivity.getDataForm().getCsvParse().parsePersonbyComments(personList, strings1.get(i).trim());
+                        } else {
+                            personList = MainActivity.getDataForm().getCsvParse().parsePersonbyComments(persons, strings1.get(i).trim());
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+      //  System.out.println(personList.size());
+        return personList;
+    }
+
+    public void onResume() {
+        super.onResume();
+
+
+        if(actionMode!=null)
+        {
+            actionMode.finish();
+        }
+
+        Bundle args = getIntent().getExtras();
+        ArrayList<String> strings = new ArrayList<String>();
+        MainActivity.fillDataForm();
+        List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false));
+
+        if(args != null)
+        {
+            strings.add(args.getString("GroupName"));
+            strings.add(args.getString("PersonName"));
+            strings.add(args.getString("CommentExpense"));
+
+            persons= parsePerson(strings,persons);
+        }
+        lastEntriesAdapter = new LastEntriesAdapter(this);
+        lastEntriesAdapter.setPersonList(persons);
+        listViewlastentries.setAdapter(lastEntriesAdapter);
+    }
+
+
     ActionMode actionMode;
     public void changeContextual(View view, final int position_to_remove) {
         final int positionToRemove = position_to_remove;
@@ -87,7 +151,8 @@ public class LastEntries extends Activity {
                         Expense expense_delete = new Expense(person_delete.getExpenseList().get(0).getExpenses(), person_delete.getExpenseList().get(0).getComments());
                         int real_position = lastEntriesAdapter.getCount() - position_to_remove - 1;
                         // System.out.println("positionToRemove = " +toto);
-                        MainActivity.getDataForm().getCsvAction().removePerson(person_delete, expense_delete, real_position);
+                        //      MainActivity.getDataForm().getCsvAction().removePerson(person_delete, expense_delete, real_position);
+                        MainActivity.getDataForm().getCsvAction().removePerson(person_delete, expense_delete);
                         MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvAction().getCSV());
                         List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(), false));
                         //  List<Person> persons = MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false);
@@ -120,12 +185,15 @@ public class LastEntries extends Activity {
             public void onDestroyActionMode(ActionMode actionMode) {
                 view1.setBackgroundColor(Color.TRANSPARENT);
 
-             //   System.out.println("FINISH");
+                //   System.out.println("FINISH");
             }
         });
 
     }
-int position1=-1;
+
+
+   int position1=-1;
+
     private AdapterView.OnItemClickListener OnItemClickListenerlastentries = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -139,15 +207,7 @@ int position1=-1;
             view.setBackgroundColor(Color.LTGRAY);
             changeContextual(view, position);
             position1=position;
-          /* AlertDialog.Builder adb=new AlertDialog.Builder(LastEntries.this);
-            adb.setTitle("Delete?");
-            adb.setMessage("Are you sure you want to delete");
-            final int positionToRemove = position;
-            adb.setNegativeButton("Cancel", null);
-            adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                }});
-            adb.show();*/
+          /* */
         }
     };
 
@@ -157,7 +217,7 @@ int position1=-1;
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.last_entries, menu);
         return true;
@@ -175,7 +235,7 @@ int position1=-1;
         if (item.getItemId() == R.id.csvadd) {
             // Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
             Intent ExpenditureActivity = new Intent(LastEntries.this,Add.class);
-           // ExpenditureActivity.putExtra("CSVLocation",csvAction.getPath_file());
+            // ExpenditureActivity.putExtra("CSVLocation",csvAction.getPath_file());
             startActivity(ExpenditureActivity);
             return true;
         }

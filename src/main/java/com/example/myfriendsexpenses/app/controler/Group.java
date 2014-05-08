@@ -13,7 +13,7 @@ public class Group {
     private List<Person> persons;
     private List<Balance> balances;
 
-    public void doBalance()
+    public List<Balance> doBalance()
     {
         balances = new ArrayList<Balance>();
         List<Person> personspositive= new ArrayList<Person>();
@@ -63,6 +63,7 @@ public class Group {
         //    System.out.println(balances.get(ibalances).getPersonput().get_name() + " Envoie : " + balances.get(ibalances).getValue());
           //  System.out.println("Recoit  " + balances.get(ibalances).getPersonget().get_name()+ " : " + balances.get(ibalances).getValue());
         }*/
+        return balances;
 
     }
     public float totalExpenses()

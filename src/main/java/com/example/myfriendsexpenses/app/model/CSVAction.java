@@ -58,8 +58,30 @@ public class CSVAction {
 
         }
     }
+    public void removeGroup(List<Person> persons)
+    {
+        try
+        {
+            List<String[]> strings1 = getCSV();
+            for(int ipersons=0;ipersons<persons.size();ipersons++)
+            {
+                String[] strings = new String[]{persons.get(ipersons).get_name(),persons.get(ipersons).get_phoneNumber(),Float.toString(persons.get(ipersons).getExpenseList().get(0).getExpenses()),persons.get(ipersons).get_groupname(),persons.get(ipersons).getExpenseList().get(0).getComments()};
 
-    public void removePerson(Person person,Expense expense, int position)
+                for(int istrings1=0;istrings1<strings1.size();istrings1++) {
+                    if ((strings1.get(istrings1)[0].equals(strings[0])) && (strings1.get(istrings1)[1].equals(strings[1])) && (Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2])) && (strings1.get(istrings1)[3].equals(strings[3])) && (strings1.get(istrings1)[4].equals(strings[4]))) {
+                        strings1.remove(istrings1);
+                    }
+                }
+            }
+            rewritefile(strings1);
+        }
+        catch (Exception e)
+        {
+            System.out.println("CSVAction -> removeGroup -> Exception");
+        }
+
+    }
+    public void removePerson(Person person,Expense expense)
     {
         try
         {
@@ -72,23 +94,13 @@ public class CSVAction {
                 if((strings1.get(istrings1)[0].equals(strings[0]))&&(strings1.get(istrings1)[1].equals(strings[1]))&&(Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2]))&&(strings1.get(istrings1)[3].equals(strings[3]))&&(strings1.get(istrings1)[4].equals(strings[4])))
                 {
 
-                    if(position==istrings1)
-                    {
 
                         strings1.remove(istrings1);
-                    }
 
 
                 }
             }
-            File file = new File(path_file);
-            file.delete();
-            createFile();
-            CSVWriter csvWriter = new CSVWriter(new FileWriter(path_file,true));
-            for (String[] aStrings1 : strings1) {
-                csvWriter.writeNext(aStrings1);
-            }
-            csvWriter.close();
+            rewritefile(strings1);
 
         }
         catch (Exception e)
@@ -97,7 +109,31 @@ public class CSVAction {
         }
 
     }
-    public void changePerson(Person person_old,Expense expense_old,Person person_new,Expense expense_new, int position)
+    public void changeGroup(List<Person> persons,String new_name)
+    {
+        try {
+            List<String[]> strings1 = getCSV();
+            for (int ipersons = 0; ipersons < persons.size(); ipersons++) {
+                String[] strings = new String[]{persons.get(ipersons).get_name(),persons.get(ipersons).get_phoneNumber(),Float.toString(persons.get(ipersons).getExpenseList().get(0).getExpenses()),persons.get(ipersons).get_groupname(),persons.get(ipersons).getExpenseList().get(0).getComments()};
+                for(int istrings1=0;istrings1<strings1.size();istrings1++)
+                {
+                    if ((strings1.get(istrings1)[0].equals(strings[0])) && (strings1.get(istrings1)[1].equals(strings[1])) && (Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2])) && (strings1.get(istrings1)[3].equals(strings[3])) && (strings1.get(istrings1)[4].equals(strings[4]))) {
+                        strings1.get(istrings1)[0] = persons.get(ipersons).get_name();
+                        strings1.get(istrings1)[1] = persons.get(ipersons).get_phoneNumber();
+                        strings1.get(istrings1)[2] = Float.toString(persons.get(ipersons).getExpenseList().get(0).getExpenses());
+                        strings1.get(istrings1)[3] = new_name;
+                        strings1.get(istrings1)[4] = persons.get(ipersons).getExpenseList().get(0).getComments();
+                    }
+                }
+            }
+            rewritefile(strings1);
+        }
+        catch (Exception e)
+        {
+            System.out.println("CSVAction -> changeGroup -> Exception");
+        }
+    }
+    public void changePerson(Person person_old,Expense expense_old,Person person_new,Expense expense_new)
     {
         try
         {
@@ -109,8 +145,7 @@ public class CSVAction {
             {
                 if((strings1.get(istrings1)[0].equals(strings[0]))&&(strings1.get(istrings1)[1].equals(strings[1]))&&(Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2]))&&(strings1.get(istrings1)[3].equals(strings[3]))&&(strings1.get(istrings1)[4].equals(strings[4])))
                 {
-                    if(position==istrings1)
-                    {
+
 
                         strings1.get(istrings1)[0] = person_new.get_name();
                         strings1.get(istrings1)[1] = person_new.get_phoneNumber();
@@ -118,18 +153,10 @@ public class CSVAction {
                         strings1.get(istrings1)[3] = person_new.get_groupname();
                         strings1.get(istrings1)[4] = expense_new.getComments();
 
-                    }
 
                 }
             }
-            File file = new File(path_file);
-            file.delete();
-            createFile();
-            CSVWriter csvWriter = new CSVWriter(new FileWriter(path_file,true));
-            for (String[] aStrings1 : strings1) {
-                csvWriter.writeNext(aStrings1);
-            }
-            csvWriter.close();
+            rewritefile(strings1);
 
         }
         catch (Exception e)
@@ -137,6 +164,24 @@ public class CSVAction {
             System.out.println("CSVAction -> removePerson -> Exception");
         }
 
+    }
+    private void rewritefile(List<String[]> strings1)
+    {
+        File file = new File(path_file);
+        file.delete();
+        createFile();
+        CSVWriter csvWriter = null;
+        try {
+            csvWriter = new CSVWriter(new FileWriter(path_file,true));
+
+        for (String[] aStrings1 : strings1) {
+            csvWriter.writeNext(aStrings1);
+        }
+
+        csvWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public List<String[]> inversestrings(List<String[]> strings)
     {
@@ -168,20 +213,16 @@ public class CSVAction {
         }
 
     }
-
     public List<String[]> getCSV()
     {
         List<String[]> questionList = new ArrayList<String[]>();
-      //  AssetManager assetManager = context.getAssets();
 
 
         try {
 
             FileReader fileReader = new FileReader(path_file);
             CSVReader csvReader = new CSVReader(fileReader);
-            /*InputStream csvStream = assetManager.open(path_file);
-            InputStreamReader csvStreamReader = new InputStreamReader(csvStream);
-            CSVReader csvReader = new CSVReader(csvStreamReader);*/
+
             String[] line;
 
             // throw away the header
@@ -197,7 +238,6 @@ public class CSVAction {
         }
         return questionList;
     }
-
     public String getPath_file() {
         return path_file;
     }

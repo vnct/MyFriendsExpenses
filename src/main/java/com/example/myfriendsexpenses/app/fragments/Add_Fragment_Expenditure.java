@@ -21,6 +21,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.example.myfriendsexpenses.app.LastEntries;
 import com.example.myfriendsexpenses.app.MainActivity;
@@ -52,6 +53,7 @@ public class Add_Fragment_Expenditure extends Fragment {
     private String My_action="";
     Person person_old;
     Expense expense_old;
+    private boolean bargs=false;
     MenuItem menu_add_update=null,menu_add_validate=null,menu_add_person=null;
 
     /**
@@ -108,17 +110,23 @@ public class Add_Fragment_Expenditure extends Fragment {
         {
             ArrayList<String> strings1 = args.getStringArrayList(myPerson);
             generate_widget(strings1);
+            if(strings1.size()>0)
+            {
+                bargs=true;
+
+            }
+            else
+            {
+                bargs=false;
+
+            }
         }
       //  System.out.println("Mon My_action " + My_action);
         //System.out.println("Mon My_Position " + My_Position);
 
         listeHaspMapEntries = new ArrayList<HashMap<String, String>>();
         simpleAdapter = new SimpleAdapter(getActivity(), listeHaspMapEntries, android.R.layout.simple_list_item_2, new String[]{"text1", "text2"}, new int[]{android.R.id.text1, android.R.id.text2});
-        MainActivity.getDataForm().setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), true));
-        namePerson = MainActivity.getDataForm().getCsvParse().namePerson(MainActivity.getDataForm().getPersons());
-        nameGroup = MainActivity.getDataForm().getCsvParse().nameGroup(MainActivity.getDataForm().getGroups());
-        adaptername = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, namePerson);
-        adaptergroup = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, nameGroup);
+
         editTextname.setAdapter(adaptername);
         editTextGroupname.setAdapter(adaptergroup);
         editTextname.setOnItemClickListener(onItemClickListenertextname);
@@ -134,10 +142,7 @@ public class Add_Fragment_Expenditure extends Fragment {
 
     private void CheckItem()
     {
-    /*    System.out.println("Taille = editTextname" + editTextname.getText().toString().trim().length());
-        System.out.println("Taille = editTextGroupname" + editTextGroupname.getText().toString().trim().length());
-        System.out.println("Taille = editTextphone" + editTextphone.getText().toString().trim().length());
-        System.out.println("Taille = editTextexpense" + editTextexpense.getText().toString().trim().length());*/
+
         if((editTextname.getText().toString().trim().length()>0)&&(editTextGroupname.getText().toString().trim().length()>0)&&(editTextphone.getText().toString().trim().length()>0)&&(editTextexpense.getText().toString().trim().length()>0))
         {
 
@@ -196,6 +201,13 @@ public class Add_Fragment_Expenditure extends Fragment {
                 person_old = new Person(editTextname.getText().toString().trim(), editTextphone.getText().toString().trim(), expense_old, editTextGroupname.getText().toString().trim());
 
             }
+            if (My_action.equals("2")) {
+
+
+                editTextexpense.getText().clear();
+
+            }
+
 
 
     }
@@ -211,9 +223,21 @@ public class Add_Fragment_Expenditure extends Fragment {
     }
 
 
-
     public Add_Fragment_Expenditure() {
     }
+
+    public void onResume() {
+        super.onResume();
+        MainActivity.fillDataForm();
+        MainActivity.getDataForm().setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), true));
+        namePerson = MainActivity.getDataForm().getCsvParse().namePerson(MainActivity.getDataForm().getPersons());
+        MainActivity.getDataForm().setGroups(MainActivity.getDataForm().getCsvParse().createGroups(MainActivity.getDataForm().getCsvAction().getCSV()));
+        nameGroup = MainActivity.getDataForm().getCsvParse().nameGroup(MainActivity.getDataForm().getGroups());
+        adaptername = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, namePerson);
+        adaptergroup = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, nameGroup);
+
+    }
+
 
 
     private void OnclickButtonUpdate() {
@@ -226,7 +250,8 @@ public class Add_Fragment_Expenditure extends Fragment {
                     float ExpensesValue = Float.valueOf(Expenses);
                     Expense expense_new = new Expense(ExpensesValue, editTextcomment.getText().toString().trim());
                     Person person_new = new Person(editTextname.getText().toString().trim(), editTextphone.getText().toString().trim(), expense_new, editTextGroupname.getText().toString().trim());
-                    MainActivity.getDataForm().getCsvAction().changePerson(person_old,expense_old,person_new, expense_new,Integer.parseInt(My_Position));
+                   // MainActivity.getDataForm().getCsvAction().changePerson(person_old,expense_old,person_new, expense_new,Integer.parseInt(My_Position));
+                    MainActivity.getDataForm().getCsvAction().changePerson(person_old,expense_old,person_new, expense_new);
                     HashMap<String, String> element = new HashMap<String, String>();
                     element.put("text1", "" + person_new.get_name() + " (" + person_new.get_groupname() + ")");
                     String expenditure = editTextexpense.getText().toString() + " €";
@@ -239,8 +264,11 @@ public class Add_Fragment_Expenditure extends Fragment {
                     clear_EditText();
                     editTextphone.setFocusable(true);
                     My_action="0";
-                    Intent ExpenditureActivity = new Intent(getActivity(),LastEntries.class);
-                    startActivity(ExpenditureActivity);
+                  /*  Intent ExpenditureActivity = new Intent(getActivity(),LastEntries.class);
+                    startActivity(ExpenditureActivity);*/
+                    getActivity().finish();
+
+
                 } catch (Exception e) {
                     System.out.println("Expenditure -> OnclickButtonUpdate -> Exception");
                     e.printStackTrace();
@@ -272,12 +300,17 @@ public class Add_Fragment_Expenditure extends Fragment {
                         element.put("text1", "" + person.get_name() + " (" + person.get_groupname() + ")");
                         String expenditure = editTextexpense.getText().toString() + " €";
                         if (expense.getComments().length() > 0) {
-                            expenditure = expenditure.concat(" for " + expense.getComments());
+                            expenditure = expenditure.concat(getString(R.string.add_expenditure_msg) + expense.getComments());
                         }
                         element.put("text2", "" + expenditure);
                         listeHaspMapEntries.add(element);
                         listViewEntries.setAdapter(simpleAdapter);
                         clear_EditText();
+                        if(bargs)
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.add_person_toast_ok), Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
+                        }
                     } catch (Exception e) {
                         System.out.println("Expenditure -> OnclickButtonAdd -> Exception");
                         e.printStackTrace();
@@ -295,6 +328,14 @@ public class Add_Fragment_Expenditure extends Fragment {
             editTextname.getText().clear();
             editTextGroupname.getText().clear();
             editTextcomment.getText().clear();
+            MainActivity.getDataForm().setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(),true));
+            namePerson = MainActivity.getDataForm().getCsvParse().namePerson(MainActivity.getDataForm().getPersons());
+            MainActivity.getDataForm().setGroups(MainActivity.getDataForm().getCsvParse().createGroups(MainActivity.getDataForm().getCsvAction().getCSV()));
+            nameGroup = MainActivity.getDataForm().getCsvParse().nameGroup(MainActivity.getDataForm().getGroups());
+            adaptername = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, namePerson);
+            adaptergroup = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, nameGroup);
+            editTextname.setAdapter(adaptername);
+            editTextGroupname.setAdapter(adaptergroup);
             menu_add_validate.setIcon(R.drawable.ic_action_content_new);
         }
 

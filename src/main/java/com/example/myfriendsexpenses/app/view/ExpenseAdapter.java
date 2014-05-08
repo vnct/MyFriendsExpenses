@@ -23,6 +23,7 @@ public class ExpenseAdapter extends BaseAdapter {
     private List<Balance> balanceList;
     private LayoutInflater mInflater;
     private boolean bexpense;
+    private boolean bconcat;
     private Context mContext;
     public ExpenseAdapter(Context context,boolean expense){
         mContext = context;
@@ -72,18 +73,40 @@ public class ExpenseAdapter extends BaseAdapter {
             TextView textViewName = (TextView) vue.findViewById(R.id.textViewExpenseName);
             TextView textViewValue = (TextView) vue.findViewById(R.id.textViewExpenseValue);
             TextView textViewTitle = (TextView) vue.findViewById(R.id.textViewExpenseTitle);
+
             textViewName.setText("paid by " + personList.get(position).get_name());
-            float v = personList.get(position).getExpenseList().get(0).getExpenses();
-            DecimalFormat df = new DecimalFormat();
-            df.setMaximumFractionDigits(2);
-            df.format(v);
-            textViewValue.setText(df.format(v) + " €");
-            String title = personList.get(position).getExpenseList().get(0).getComments().trim();
-            if(title.equals(""))
+            float v=0;
+
+            if(bconcat)
             {
-                title = "Untitled";
+                for(int iexpenses=0;iexpenses<personList.get(position).getExpenseList().size();iexpenses++)
+                {
+                    v=v+personList.get(position).getExpenseList().get(iexpenses).getExpenses();
+                }
+                DecimalFormat df = new DecimalFormat();
+                df.setMaximumFractionDigits(2);
+                df.format(v);
+                textViewValue.setText(df.format(v) + " €");
+                textViewTitle.setText(personList.get(position).getExpenseList().size() + " items");
             }
-            textViewTitle.setText(title);
+            else
+            {
+                v = personList.get(position).getExpenseList().get(0).getExpenses();
+                DecimalFormat df = new DecimalFormat();
+                df.setMaximumFractionDigits(2);
+                df.format(v);
+                textViewValue.setText(df.format(v) + " €");
+                String title = personList.get(position).getExpenseList().get(0).getComments().trim();
+                if(title.equals(""))
+                {
+                    title = "Untitled";
+                }
+                textViewTitle.setText(title);
+            }
+
+
+
+            /**/
             return vue;
         }
         else
@@ -120,7 +143,12 @@ public class ExpenseAdapter extends BaseAdapter {
         this.personList = personList;
     }
 
+
     public void setBalanceList(List<Balance> balanceList) {
         this.balanceList = balanceList;
+    }
+
+    public void setBconcat(boolean bconcat) {
+        this.bconcat = bconcat;
     }
 }

@@ -1,15 +1,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myfriendsexpenses.app.MainActivity" >
-    <item android:id="@+id/csvread"
+
+
+    <item android:id="@+id/menu_main_csvread"
         android:title="@string/csvread"
         android:icon="@drawable/ic_action_collections_view_as_list"
         android:showAsAction="ifRoom|collapseActionView" />
-    <item android:id="@+id/csvadd"
+    <item android:id="@+id/menu_main_csvadd"
         android:title="@string/csvadd"
         android:icon="@drawable/ic_action_content_new"
         android:showAsAction="ifRoom|collapseActionView" />
+    <item
+        android:id="@+id/menu_main_group_edit"
+        android:icon="@drawable/ic_action_content_edit"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_main_group_edit"
+        android:visible="false"/>
+    <item
+        android:id="@+id/menu_main_group_delete"
 
+        android:icon="@drawable/ic_action_content_discard"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_main_group_delete"
+        android:visible="false"/>
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:showAsAction="never"
