@@ -51,7 +51,7 @@ public class Main_Fragment_Group extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String group="";
     private Group group1=new Group();
-    private int nbExpense=0;
+    private int nbExpense=0,nbBalance=0;
     private MergeAdapter mergeAdapter = new MergeAdapter();
     TextView textViewGroupBaseAdapterExpensesPerson = null;
     TextView textViewGroupBaseAdapterTotalExpense = null;
@@ -221,13 +221,14 @@ public class Main_Fragment_Group extends Fragment {
             expenseAdapterexpense.setBconcat(true);
             expenseAdapterexpense.setPersonList(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(), true), group, true));
         }
-        //nbExpense=expenseAdapterexpense.getCount();
+        nbExpense=expenseAdapterexpense.getCount();
+
         expenseAdapter1.add(expenseAdapterexpense);
         ExpenseAdapter expenseAdapterbalance = new ExpenseAdapter(getActivity(), false);
         expenseAdapterbalance.setBalanceList(MainActivity.getDataForm().getGroups().get(indexgroup).getBalances());
         expenseAdapter1.add(expenseAdapterbalance);
 
-      //  nbBalance=expenseAdapterbalance.getCount();
+        nbBalance=expenseAdapterbalance.getCount();
         for (ExpenseAdapter anExpenseAdapter1 : expenseAdapter1) {
             mergeAdapter.addAdapter(new ListTitleGroupAdapter(getActivity(), anExpenseAdapter1, anExpenseAdapter1.getBooleanExpense()));
             mergeAdapter.addAdapter(anExpenseAdapter1);

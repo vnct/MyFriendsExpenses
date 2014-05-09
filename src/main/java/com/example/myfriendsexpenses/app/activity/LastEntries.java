@@ -247,7 +247,23 @@ public class LastEntries extends Activity {
             // Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
             Intent ExpenditureActivity = new Intent(LastEntries.this,Add.class);
             // ExpenditureActivity.putExtra("CSVLocation",csvAction.getPath_file());
+            if(strings.size()>0) {
+                 ExpenditureActivity.putExtra("Group", strings.get(0));
+                ExpenditureActivity.putExtra("Phone", "");
+                ExpenditureActivity.putExtra("What", "");
+                ExpenditureActivity.putExtra("Cost", "");
+                ExpenditureActivity.putExtra("Name", strings.get(1));
+                ExpenditureActivity.putExtra("Action", "" + 2); // action = 2 --> NEW
+
+                ExpenditureActivity.putExtra("Position", "" + 0);
+                getIntent().putExtra("CommentExpense","");
+             //   getIntent().getExtras().putString("CommentExpense","");
+
+
+            }
             startActivity(ExpenditureActivity);
+
+
             return true;
         }
         if (item.getItemId() == R.id.csvall) {
