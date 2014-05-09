@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Created by lapie on 19/04/14.
  */
+@SuppressWarnings("unused")
 public class Group {
     private float _expensePerPerson;
     private float _totalExpenses;
@@ -77,8 +78,7 @@ public class Group {
     }
     public float expensesPerPerson()
     {
-        float aExpense = _totalExpenses / persons.size();
-        return aExpense;
+        return _totalExpenses / persons.size();
     }
 
     public float get_expensePerPerson() {

@@ -1,4 +1,4 @@
-package com.example.myfriendsexpenses.app;
+package com.example.myfriendsexpenses.app.activity;
 
 import android.app.Activity;
 
@@ -12,8 +12,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.Toast;
 
+import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.controler.ShakeDetector;
 import com.example.myfriendsexpenses.app.fragments.Main_Fragment_EveryBody;
 import com.example.myfriendsexpenses.app.fragments.Main_Fragment_Group;
@@ -41,9 +41,9 @@ public class MainActivity extends Activity
     public static DataForm getDataForm() {
         return dataForm;
     }
-    public static void setDataForm(DataForm dataForm) {
+ /*   public static void setDataForm(DataForm dataForm) {
         MainActivity.dataForm = dataForm;
-    }
+    }*/
 
 
     private SensorManager mSensorManager;
@@ -57,7 +57,7 @@ public class MainActivity extends Activity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle =   getTitle();
-        fillDataForm();
+        fillDataForm(false);
 
 // ShakeDetector initialization
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -91,12 +91,12 @@ public class MainActivity extends Activity
             startActivity(EasterEggActivity);
         }
     }
-    static public void fillDataForm()
+    static public void fillDataForm(boolean personconcatenation)
     {
-        dataForm.getCsvAction().createFile();
-        dataForm.setStrings(dataForm.getCsvAction().getCSV());
+        dataForm.getCsvControl().createCSVFile();
+        dataForm.setStrings(dataForm.getCsvControl().getdataCSV());
         dataForm.setGroups(dataForm.getCsvParse().createGroups(dataForm.getStrings()));
-        dataForm.setPersons(dataForm.getCsvParse().fillPerson(dataForm.getCsvAction().getCSV(),false));
+        dataForm.setPersons(dataForm.getCsvParse().fillPerson(dataForm.getStrings(),personconcatenation));
         dataForm.getCsvParse().fillGroups(dataForm.getCsvParse().fillPerson(dataForm.getStrings(),true), dataForm.getGroups());
         dataForm.fillgroupname();
         operatepayback();
@@ -116,7 +116,7 @@ public class MainActivity extends Activity
     public void onResume()
     {
         super.onResume();
-        fillDataForm();
+        fillDataForm(false);
         mSensorManager.registerListener(mShakeDetector, mAccelerometer,    SensorManager.SENSOR_DELAY_UI);
 
         //    System.out.println("------------- MainActivity - onResume -------------");
@@ -173,6 +173,7 @@ public class MainActivity extends Activity
         }
     }
     // Action principale
+    @SuppressWarnings("unused")
     public void onSectionAttached(int number,String group) {
         mTitle = group;
     }
@@ -203,11 +204,8 @@ public class MainActivity extends Activity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 
 

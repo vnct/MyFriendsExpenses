@@ -16,8 +16,9 @@ import com.example.myfriendsexpenses.app.controler.Group;
 import java.text.DecimalFormat;
 
 /**
- * Created by lapie on 24/04/14.
+ * Created by lapie on 24/04/14
  */
+@SuppressWarnings("unused")
 public class ListTitleAdapter extends BaseAdapter {
 
     private Context context;

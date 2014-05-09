@@ -1,27 +1,20 @@
 package com.example.myfriendsexpenses.app.controler;
 
-import com.example.myfriendsexpenses.app.model.CSVAction;
+
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-/**
- * Created by lapie on 19/04/14.
- */
+import java.util.List;
+
+
 public class CSVParse {
 
     public boolean existPersoninGroup(Person person,List<Person> persons)
     {
-        for(int ipersons=0;ipersons<persons.size();ipersons++)
-        {
-            if(persons.get(ipersons).get_phoneNumber().equals(person.get_phoneNumber())==true)
-            {
-                if(persons.get(ipersons).get_groupname().equals(person.get_groupname())==true)
-                {
-                    if(persons.get(ipersons).get_name().equals(person.get_name())==true)
-                    {
+        for (Person person1 : persons) {
+            if (person1.get_phoneNumber().equals(person.get_phoneNumber())) {
+                if (person1.get_groupname().equals(person.get_groupname())) {
+                    if (person1.get_name().equals(person.get_name())) {
                         return true;
                     }
                 }
@@ -31,16 +24,12 @@ public class CSVParse {
     }
     public boolean existExpenseinGroup(Person person,List<Person> persons)
     {
-        for(int ipersons=0;ipersons<persons.size();ipersons++)
-        {
+        for (Person person1 : persons) {
 
 
-            if(persons.get(ipersons).getExpenseList().get(0).getComments().equals(person.getExpenseList().get(0).getComments())==true)
-            {
-                if(persons.get(ipersons).get_groupname().equals(person.get_groupname())==true)
-                {
-                    if(persons.get(ipersons).get_name().equals(person.get_name())==true)
-                    {
+            if (person1.getExpenseList().get(0).getComments().equals(person.getExpenseList().get(0).getComments())) {
+                if (person1.get_groupname().equals(person.get_groupname())) {
+                    if (person1.get_name().equals(person.get_name())) {
                         return true;
                     }
                 }
@@ -48,25 +37,11 @@ public class CSVParse {
         }
         return false;
     }
-    public void addPerson(Person person,Expense expense, CSVAction csvAction)
-    {
-        try{
-      //  System.out.println("addPerson Try Person = " + person.get_name() + " - " + person.get_phoneNumber());
-        csvAction.addPersonCSV(person,expense);
-        }
-        catch (Exception e)
-        {
-            System.out.println("CSVParse -> addPerson -> Exception");
-            e.printStackTrace();
-        }
-
-    }
-
     public List<Person> parsePersonbyName(List<Person> persons, String nameperson)
     {
         List<Person> personList = new ArrayList<Person>();
         for (Person person : persons) {
-            if (person.get_name().equals(nameperson) == true) {
+            if (person.get_name().equals(nameperson)) {
 
 
                     personList.add(person);
@@ -80,7 +55,7 @@ public class CSVParse {
     {
         List<Person> personList = new ArrayList<Person>();
         for (Person person : persons) {
-            if (person.getExpenseList().get(0).getComments().equals(comments) == true) {
+            if (person.getExpenseList().get(0).getComments().equals(comments)) {
 
 
                 personList.add(person);
@@ -90,7 +65,6 @@ public class CSVParse {
         }
         return personList;
     }
-
     public List<Group> createGroups(List<String[]> strings)
     {
         List<Group> groups = new ArrayList<Group>();
@@ -105,7 +79,7 @@ public class CSVParse {
                 } else {
                     int correspondancegroup = 0;
                     for (Group group1 : groups) {
-                        if (group.get_name().equals(group1.get_name()) == true) {
+                        if (group.get_name().equals(group1.get_name())) {
                             correspondancegroup = 1;
                             break;
                         }
@@ -125,27 +99,26 @@ public class CSVParse {
         }
         return groups;
    }
-
-   public String getPhone(String personname,String groupname, List<Person> persons)
-   {
+    @SuppressWarnings("unused")
+    public String getPhone(String personname,String groupname, List<Person> persons)
+    {
 
        for (Person person : persons) {
-           if (person.get_name().equals(personname) == true) {
+           if (person.get_name().equals(personname)) {
                return person.get_phoneNumber();
            }
        }
     return "";
    }
-
-   public List<Group> fillGroups(List<Person> persons,List<Group> groups)
-   {
+    public List<Group> fillGroups(List<Person> persons,List<Group> groups)
+    {
        // Création des groupes
-       List<Group> groups1 = groups;
+      // List<Group> groups1 = groups;
        try
        {
            for (Person person : persons) {
-               for (Group group : groups1) {
-                   if (group.get_name().equals(person.get_groupname()) == true) {
+               for (Group group : groups) {
+                   if (group.get_name().equals(person.get_groupname())) {
                        group.addPerson(person);
 
                    }
@@ -157,9 +130,10 @@ public class CSVParse {
            System.out.println("CSVParse -> fillGroups -> Exception");
            e.printStackTrace();
        }
-       return groups1;
+       return groups;
 
    }
+    @SuppressWarnings("unused")
     public List<Person> fillPersonbyGroups(List<Group> groups)
     {
         List<Person> persons = new ArrayList<Person>();
@@ -192,7 +166,7 @@ public class CSVParse {
     {
         List<String> stringsnamelist = new ArrayList<String>();
         for (Person person : persons) {
-            if(stringsnamelist.contains(person.get_name())==false)
+            if(!stringsnamelist.contains(person.get_name()))
             stringsnamelist.add(person.get_name());
         }
 
@@ -202,9 +176,9 @@ public class CSVParse {
     {
         List<String> stringsCommentlist = new ArrayList<String>();
         for (Person person : persons) {
-            if(stringsCommentlist.contains(person.getExpenseList().get(0).getComments())==false)
+            if(!stringsCommentlist.contains(person.getExpenseList().get(0).getComments()))
             {
-                if(person.getExpenseList().get(0).getComments().equals("")==false)
+                if(!person.getExpenseList().get(0).getComments().equals(""))
                 {
 
                         stringsCommentlist.add(person.getExpenseList().get(0).getComments());
@@ -221,24 +195,22 @@ public class CSVParse {
     {
         List<String> stringsphonelist = new ArrayList<String>();
         for (Person person : persons) {
-            if(stringsphonelist.contains(person.get_phoneNumber())==false)
+            if(!stringsphonelist.contains(person.get_phoneNumber()))
                 stringsphonelist.add(person.get_phoneNumber());
         }
 
         return  stringsphonelist;
     }
-
     public List<String> nameGroup(List<Group> groups)
     {
         List<String> stringsgrouplist = new ArrayList<String>();
         for (Group group : groups) {
-            if(stringsgrouplist.contains(group.get_name())==false)
+            if(!stringsgrouplist.contains(group.get_name()))
             stringsgrouplist.add(group.get_name());
         }
 
         return  stringsgrouplist;
     }
-
     public List<Person> inverselistperson(List<Person> persons)
     {
         List<Person> personList = new ArrayList<Person>();
@@ -252,7 +224,7 @@ public class CSVParse {
     {
         List<Person> personList = new ArrayList<Person>();
         for (Person person : persons) {
-            if (person.get_groupname().equals(namegroup) == true) {
+            if (person.get_groupname().equals(namegroup)) {
                 if(parseExpenses)
                 {
                     if(person.getExpenseList().get(0).getExpenses()!=0)
@@ -269,7 +241,6 @@ public class CSVParse {
         }
         return personList;
     }
-
     public List<Person> fillPerson(List<String[]> strings,boolean concatenation)
     {
         // La concatenation permet d'additionner les memes dépenses pour une seule personne.

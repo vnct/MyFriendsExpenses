@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.myfriendsexpenses.app.LastEntries" >
+    tools:context="com.example.myfriendsexpenses.app.activity.LastEntries" >
 
     <item android:id="@+id/csvall"
         android:title="@string/csvall"

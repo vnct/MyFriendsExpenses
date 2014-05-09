@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lapie on 19/04/14.
+ * Created by lapie on 19/04/14
  */
 public class Person implements Parcelable {
     private String _name;
@@ -64,15 +64,15 @@ public class Person implements Parcelable {
     public float get_payback() {
         return _payback;
     }
-
+    @SuppressWarnings("unused")
     public void set_payback(float _payback) {
         this._payback = _payback;
     }
-
+    @SuppressWarnings("unused")
     public Group get_group() {
         return _group;
     }
-
+    @SuppressWarnings("unused")
     public void set_group(Group _group) {
         this._group = _group;
     }
@@ -101,7 +101,7 @@ public class Person implements Parcelable {
     public List<Expense> getExpenseList() {
         return expenseList;
     }
-
+    @SuppressWarnings("unused")
     public void setExpenseList(List<Expense> expenseList) {
         this.expenseList = expenseList;
     }

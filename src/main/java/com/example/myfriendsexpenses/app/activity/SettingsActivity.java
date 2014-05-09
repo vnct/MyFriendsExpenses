@@ -1,4 +1,4 @@
-package com.example.myfriendsexpenses.app;
+package com.example.myfriendsexpenses.app.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -18,6 +18,8 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+
+import com.example.myfriendsexpenses.app.R;
 
 import java.util.List;
 

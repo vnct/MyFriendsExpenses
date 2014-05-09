@@ -2,15 +2,11 @@ package com.example.myfriendsexpenses.app.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,14 +16,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myfriendsexpenses.app.Add;
-import com.example.myfriendsexpenses.app.LastEntries;
-import com.example.myfriendsexpenses.app.MainActivity;
+import com.example.myfriendsexpenses.app.activity.Add;
+import com.example.myfriendsexpenses.app.activity.LastEntries;
+import com.example.myfriendsexpenses.app.activity.MainActivity;
 import com.example.myfriendsexpenses.app.R;
 
 import com.example.myfriendsexpenses.app.controler.Balance;
@@ -138,9 +133,11 @@ public class Main_Fragment_Group extends Fragment {
         adb.setPositiveButton(getString(R.string.popup_delete_group_positive_button), new AlertDialog.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                group1.setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false));
+                group1.setPersons(MainActivity.getDataForm().getPersons());
+                //group1.setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false));
                 group1.setPersons(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(group1.getPersons(),group1.get_name(),false));
-                MainActivity.getDataForm().getCsvAction().removeGroup(group1.getPersons());
+           //     MainActivity.getDataForm().getCsvAction().removeGroup(group1.getPersons());
+                MainActivity.getDataForm().getCsvControl().removeGroup(group1.getPersons());
                 Toast.makeText(getActivity().getApplicationContext(),getString(R.string.popup_delete_group_positive_button), Toast.LENGTH_SHORT).show();
                 getActivity().finish();
                 startActivity(getActivity().getIntent());
@@ -166,10 +163,13 @@ public class Main_Fragment_Group extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 String newnamegroup=edittextinput.getText().toString().trim();
 
-                group1.setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false));
+                group1.setPersons(MainActivity.getDataForm().getPersons());
+             //   group1.setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false));
                 group1.setPersons(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(group1.getPersons(),group1.get_name(),false));
-                MainActivity.getDataForm().getCsvAction().changeGroup(group1.getPersons(),newnamegroup);
-                MainActivity.fillDataForm();
+              //  group1.setPersons(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(group1.getPersons(),group1.get_name(),false));
+                MainActivity.getDataForm().getCsvControl().changeGroup(group1.getPersons(),newnamegroup);
+           //     MainActivity.getDataForm().getCsvAction().changeGroup(group1.getPersons(),newnamegroup);
+                MainActivity.fillDataForm(false);
                 getActivity().finish();
                 startActivity(getActivity().getIntent());
                 Toast.makeText(getActivity().getApplicationContext(), getString(R.string.popup_rename_group_positive_button), Toast.LENGTH_SHORT).show();
@@ -183,7 +183,7 @@ public class Main_Fragment_Group extends Fragment {
     public void onResume()
     {
         super.onResume();
-        MainActivity.fillDataForm();
+        MainActivity.fillDataForm(false);
         List<Group> groups = MainActivity.getDataForm().getGroups();
 
         mergeAdapter = new MergeAdapter();
@@ -214,13 +214,14 @@ public class Main_Fragment_Group extends Fragment {
 
         ExpenseAdapter expenseAdapterexpense = new ExpenseAdapter(getActivity(), true);
         MainActivity.getDataForm().getGroups().get(indexgroup).doBalance();
-        expenseAdapterexpense.setPersonList(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false), group, true));
+       // expenseAdapterexpense.setPersonList(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false), group, true));
+        expenseAdapterexpense.setPersonList(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(), false), group, true));
         expenseAdapterexpense.setBconcat(false);
 
         if(expenseAdapterexpense.getCount()>6) {
             //Si trop d'entrée, on concatène
             expenseAdapterexpense.setBconcat(true);
-            expenseAdapterexpense.setPersonList(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), true), group, true));
+            expenseAdapterexpense.setPersonList(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(), true), group, true));
         }
         nbExpense=expenseAdapterexpense.getCount();
         expenseAdapter1.add(expenseAdapterexpense);

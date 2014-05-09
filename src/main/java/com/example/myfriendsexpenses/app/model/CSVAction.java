@@ -3,9 +3,6 @@ package com.example.myfriendsexpenses.app.model;
 
 import android.os.Environment;
 
-import com.example.myfriendsexpenses.app.controler.Expense;
-import com.example.myfriendsexpenses.app.controler.Person;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,8 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lapie on 19/04/14.
+ * Created by lapie on 19/04/14
  */
+@SuppressWarnings("unused")
 public class CSVAction {
     private String path_file="";
     private String filelocation="";
@@ -58,114 +56,7 @@ public class CSVAction {
 
         }
     }
-    public void removeGroup(List<Person> persons)
-    {
-        try
-        {
-            List<String[]> strings1 = getCSV();
-            for(int ipersons=0;ipersons<persons.size();ipersons++)
-            {
-                String[] strings = new String[]{persons.get(ipersons).get_name(),persons.get(ipersons).get_phoneNumber(),Float.toString(persons.get(ipersons).getExpenseList().get(0).getExpenses()),persons.get(ipersons).get_groupname(),persons.get(ipersons).getExpenseList().get(0).getComments()};
-
-                for(int istrings1=0;istrings1<strings1.size();istrings1++) {
-                    if ((strings1.get(istrings1)[0].equals(strings[0])) && (strings1.get(istrings1)[1].equals(strings[1])) && (Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2])) && (strings1.get(istrings1)[3].equals(strings[3])) && (strings1.get(istrings1)[4].equals(strings[4]))) {
-                        strings1.remove(istrings1);
-                    }
-                }
-            }
-            rewritefile(strings1);
-        }
-        catch (Exception e)
-        {
-            System.out.println("CSVAction -> removeGroup -> Exception");
-        }
-
-    }
-    public void removePerson(Person person,Expense expense)
-    {
-        try
-        {
-           // String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(expense.getExpenses()),person.get_groupname(),expense.getComments()};
-
-            String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(expense.getExpenses()),person.get_groupname(),expense.getComments()};
-            List<String[]> strings1 = getCSV();
-            for(int istrings1=0;istrings1<strings1.size();istrings1++)
-            {
-                if((strings1.get(istrings1)[0].equals(strings[0]))&&(strings1.get(istrings1)[1].equals(strings[1]))&&(Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2]))&&(strings1.get(istrings1)[3].equals(strings[3]))&&(strings1.get(istrings1)[4].equals(strings[4])))
-                {
-
-
-                        strings1.remove(istrings1);
-
-
-                }
-            }
-            rewritefile(strings1);
-
-        }
-        catch (Exception e)
-        {
-            System.out.println("CSVAction -> removePerson -> Exception");
-        }
-
-    }
-    public void changeGroup(List<Person> persons,String new_name)
-    {
-        try {
-            List<String[]> strings1 = getCSV();
-            for (int ipersons = 0; ipersons < persons.size(); ipersons++) {
-                String[] strings = new String[]{persons.get(ipersons).get_name(),persons.get(ipersons).get_phoneNumber(),Float.toString(persons.get(ipersons).getExpenseList().get(0).getExpenses()),persons.get(ipersons).get_groupname(),persons.get(ipersons).getExpenseList().get(0).getComments()};
-                for(int istrings1=0;istrings1<strings1.size();istrings1++)
-                {
-                    if ((strings1.get(istrings1)[0].equals(strings[0])) && (strings1.get(istrings1)[1].equals(strings[1])) && (Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2])) && (strings1.get(istrings1)[3].equals(strings[3])) && (strings1.get(istrings1)[4].equals(strings[4]))) {
-                        strings1.get(istrings1)[0] = persons.get(ipersons).get_name();
-                        strings1.get(istrings1)[1] = persons.get(ipersons).get_phoneNumber();
-                        strings1.get(istrings1)[2] = Float.toString(persons.get(ipersons).getExpenseList().get(0).getExpenses());
-                        strings1.get(istrings1)[3] = new_name;
-                        strings1.get(istrings1)[4] = persons.get(ipersons).getExpenseList().get(0).getComments();
-                    }
-                }
-            }
-            rewritefile(strings1);
-        }
-        catch (Exception e)
-        {
-            System.out.println("CSVAction -> changeGroup -> Exception");
-        }
-    }
-    public void changePerson(Person person_old,Expense expense_old,Person person_new,Expense expense_new)
-    {
-        try
-        {
-            // String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(expense.getExpenses()),person.get_groupname(),expense.getComments()};
-
-            String[] strings = new String[]{person_old.get_name(),person_old.get_phoneNumber(),Float.toString(expense_old.getExpenses()),person_old.get_groupname(),expense_old.getComments()};
-            List<String[]> strings1 = getCSV();
-            for(int istrings1=0;istrings1<strings1.size();istrings1++)
-            {
-                if((strings1.get(istrings1)[0].equals(strings[0]))&&(strings1.get(istrings1)[1].equals(strings[1]))&&(Float.toString(Float.parseFloat(strings1.get(istrings1)[2])).equals(strings[2]))&&(strings1.get(istrings1)[3].equals(strings[3]))&&(strings1.get(istrings1)[4].equals(strings[4])))
-                {
-
-
-                        strings1.get(istrings1)[0] = person_new.get_name();
-                        strings1.get(istrings1)[1] = person_new.get_phoneNumber();
-                        strings1.get(istrings1)[2] = Float.toString(expense_new.getExpenses());
-                        strings1.get(istrings1)[3] = person_new.get_groupname();
-                        strings1.get(istrings1)[4] = expense_new.getComments();
-
-
-                }
-            }
-            rewritefile(strings1);
-
-        }
-        catch (Exception e)
-        {
-            System.out.println("CSVAction -> removePerson -> Exception");
-        }
-
-    }
-    private void rewritefile(List<String[]> strings1)
+    public void rewritefile(List<String[]> strings1)
     {
         File file = new File(path_file);
         file.delete();
@@ -183,6 +74,18 @@ public class CSVAction {
             e.printStackTrace();
         }
     }
+    public void appendfile( String[] strings)
+    {
+        try {
+            CSVWriter csvWriter = new CSVWriter(new FileWriter(path_file, true));
+            csvWriter.writeNext(strings);
+            csvWriter.close();
+        }
+        catch (IOException e) {
+                System.out.println("CSVAction -> appendfile -> IOException");
+                e.printStackTrace();
+            }
+    }
     public List<String[]> inversestrings(List<String[]> strings)
     {
         List<String[]> strings1 = new ArrayList<String[]>();
@@ -191,27 +94,6 @@ public class CSVAction {
             strings1.add(strings.get(i));
         }
         return strings1;
-    }
-    public void addPersonCSV(Person person,Expense expense)
-    {
-        try {
-           // System.out.println("addPersonCSV Try 1 ");
-            String[] strings = new String[]{person.get_name(),person.get_phoneNumber(),Float.toString(expense.getExpenses()),person.get_groupname(),expense.getComments()};
-           /* strings[0] = person.get_name();
-            strings[1] = person.get_phoneNumber();
-            strings[2] = Float.toString(person.get_expenses());
-            strings[3] = person.get_groupname();*/
-
-
-            CSVWriter csvWriter = new CSVWriter(new FileWriter(path_file,true));
-            csvWriter.writeNext(strings);
-            csvWriter.close();
-
-        } catch (IOException e) {
-            System.out.println("CSVAction -> addPersonCSV -> IOException");
-            e.printStackTrace();
-        }
-
     }
     public List<String[]> getCSV()
     {

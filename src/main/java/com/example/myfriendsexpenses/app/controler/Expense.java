@@ -3,6 +3,7 @@ package com.example.myfriendsexpenses.app.controler;
 /**
  * Created by lapie on 25/04/14.
  */
+@SuppressWarnings("unused")
 public class Expense {
 
     private float expenses;

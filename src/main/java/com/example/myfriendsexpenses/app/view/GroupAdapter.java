@@ -13,8 +13,9 @@ import com.example.myfriendsexpenses.app.controler.Group;
 import java.util.List;
 
 /**
- * Created by lapie on 24/04/14.
+ * Created by lapie on 24/04/14
  */
+@SuppressWarnings("unused")
 public class GroupAdapter extends BaseAdapter {
     private List<Group> GroupList;
     private LayoutInflater mInflater;

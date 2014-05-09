@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 
-/**
- * Created by lapie on 19/04/14.
- */
+@SuppressWarnings("unused")
 public class CSVWriter {
     private PrintWriter pw;
 

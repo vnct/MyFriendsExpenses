@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lapie on 19/04/14.
+ * Created by lapie on 19/04/14
  */
+@SuppressWarnings("unused")
 public class CSVReader {
 
 
-/**
+/*
  Copyright 2005 Bytecode Pty Ltd.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +43,7 @@ public class CSVReader {
     /**
      * A very simple CSV reader released under a commercial-friendly license.
      *
-     * @author Glen Smith
+     * author Glen Smith
      *
      */
 
@@ -198,6 +199,7 @@ public class CSVReader {
             } while (inQuotes);
             tokensOnThisLine.add(sb.toString());
             return (String[]) tokensOnThisLine.toArray(new String[0]);
+        //    return tokensOnThisLine.toArray(new String[0]);
 
         }
 

@@ -1,12 +1,11 @@
 package com.example.myfriendsexpenses.app.controler;
 
-/**
- * Created by lapie on 23/04/14.
- */
+@SuppressWarnings("unused")
 public class Balance {
     private Person personput;
     private Person personget;
     private float value;
+
     public Balance() {
     }
 
@@ -22,6 +21,7 @@ public class Balance {
         return personget;
     }
 
+
     public void setPersonget(Person personget) {
         this.personget = personget;
     }
@@ -30,6 +30,7 @@ public class Balance {
         return personput;
     }
 
+
     public void setPersonput(Person personput) {
         this.personput = personput;
     }
@@ -37,6 +38,7 @@ public class Balance {
     public float getValue() {
         return value;
     }
+
 
     public void setValue(float value) {
         this.value = value;

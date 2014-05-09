@@ -1,11 +1,7 @@
-package com.example.myfriendsexpenses.app;
+package com.example.myfriendsexpenses.app.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SyncStatusObserver;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -15,8 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.view.LastEntriesAdapter;
 import com.example.myfriendsexpenses.app.controler.Person;
@@ -29,8 +25,6 @@ public class LastEntries extends Activity {
     ListView listViewlastentries = null;
 
     LastEntriesAdapter lastEntriesAdapter = null;
-    boolean selected=true;
-    private final String myArgs = "myArgs";
     ArrayList<String> strings = new ArrayList<String>();
 
     @Override
@@ -47,38 +41,39 @@ public class LastEntries extends Activity {
 
     private List<Person> parsePerson(ArrayList<String> strings1,List<Person> persons) {
         List<Person> personList = new ArrayList<Person>();
-        for(int i=0;i<strings1.size();i++) {
-            switch (i) {
-                case 0:
+        if(strings.size()>0)
+        {
+            for(int i=0;i<strings1.size();i++) {
+                switch (i) {
+                    case 0:
 
-                    if(strings1.get(i).trim().equals("")==false) {
-                        personList = MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(persons, strings1.get(i).trim(), false);
-                    }
-                    break;
-                case 1:
-                    if(strings1.get(i).trim().equals("")==false) {
-                        if (personList.size() > 0) {
+                        if(!strings1.get(i).trim().equals("")) {
+                            personList = MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(persons, strings1.get(i).trim(), false);
+                        }
+                        break;
+                    case 1:
+                        if(!strings1.get(i).trim().equals("")) {
+                            if (personList.size() > 0)
+                                personList = MainActivity.getDataForm().getCsvParse().parsePersonbyName(personList, strings1.get(i).trim());
+                            else
+                                personList = MainActivity.getDataForm().getCsvParse().parsePersonbyName(persons, strings1.get(i).trim());
+                        }
+                        break;
+                    case 2:
+                        if(!strings1.get(i).trim().equals("")) {
 
-                            personList = MainActivity.getDataForm().getCsvParse().parsePersonbyName(personList, strings1.get(i).trim());
-                        } else {
-                            personList = MainActivity.getDataForm().getCsvParse().parsePersonbyName(persons, strings1.get(i).trim());
+                            if (personList.size() > 0)
+                                personList = MainActivity.getDataForm().getCsvParse().parsePersonbyComments(personList, strings1.get(i).trim());
+                            else
+                                personList = MainActivity.getDataForm().getCsvParse().parsePersonbyComments(persons, strings1.get(i).trim());
                         }
-                    }
-                    break;
-                case 2:
-                    if(strings1.get(i).trim().equals("")==false) {
-                        if (personList.size() > 0) {
-                           // System.out.println(strings1.get(i).trim());
-                            personList = MainActivity.getDataForm().getCsvParse().parsePersonbyComments(personList, strings1.get(i).trim());
-                        } else {
-                            personList = MainActivity.getDataForm().getCsvParse().parsePersonbyComments(persons, strings1.get(i).trim());
-                        }
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
 
       //  System.out.println(personList.size());
         return personList;
@@ -95,7 +90,7 @@ public class LastEntries extends Activity {
         lastEntriesAdapter = new LastEntriesAdapter(this);
         Bundle args = getIntent().getExtras();
         strings = new ArrayList<String>();
-        MainActivity.fillDataForm();
+        MainActivity.fillDataForm(false);
         List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false));
 
         if(args != null)
@@ -114,16 +109,24 @@ public class LastEntries extends Activity {
 
     ActionMode actionMode;
     public void changeContextual(View view, final int position_to_remove) {
-        final int positionToRemove = position_to_remove;
+     //   final int positionToRemove = position_to_remove;
         final View view1= view;
 
         actionMode = startActionMode(new ActionMode.Callback() {
 
             @Override
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-                MenuInflater inflater = actionMode.getMenuInflater();
-                inflater.inflate(R.menu.last_entries_contextual, menu);
-                return true;
+                try
+                {
+                    MenuInflater inflater = actionMode.getMenuInflater();
+                    inflater.inflate(R.menu.last_entries_contextual, menu);
+                    return true;
+                }
+                catch (NullPointerException e)
+                {
+                    return false;
+                }
+
             }
 
             @Override
@@ -135,7 +138,7 @@ public class LastEntries extends Activity {
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_last_entries_new:
-                        Person person_new = (Person) lastEntriesAdapter.getItem(positionToRemove);
+                        Person person_new = (Person) lastEntriesAdapter.getItem(position_to_remove);
                         Intent AddActivity_new = new Intent(getApplication(), Add.class);
                         AddActivity_new.putExtra("Group", person_new.get_groupname());
                         AddActivity_new.putExtra("Phone", person_new.get_phoneNumber());
@@ -148,14 +151,16 @@ public class LastEntries extends Activity {
                         startActivity(AddActivity_new);
                         return true;
                     case R.id.menu_last_entries_delete:
-                        Person person_delete = (Person) lastEntriesAdapter.getItem(positionToRemove);
+                        Person person_delete = (Person) lastEntriesAdapter.getItem(position_to_remove);
                         Expense expense_delete = new Expense(person_delete.getExpenseList().get(0).getExpenses(), person_delete.getExpenseList().get(0).getComments());
-                        int real_position = lastEntriesAdapter.getCount() - position_to_remove - 1;
+                   //     int real_position = lastEntriesAdapter.getCount() - position_to_remove - 1;
                         // System.out.println("positionToRemove = " +toto);
                         //      MainActivity.getDataForm().getCsvAction().removePerson(person_delete, expense_delete, real_position);
-                        MainActivity.getDataForm().getCsvAction().removePerson(person_delete, expense_delete);
-                        MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvAction().getCSV());
-                        List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(), false));
+                        MainActivity.getDataForm().getCsvControl().removePerson(person_delete, expense_delete);
+                      //  MainActivity.getDataForm().getCsvAction().removePerson(person_delete, expense_delete);
+                        MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvControl().getdataCSV());
+                      //  MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvAction().getCSV());
+                        List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvControl().getdataCSV(), false));
                         persons= parsePerson(strings,persons);
 
 
@@ -166,7 +171,7 @@ public class LastEntries extends Activity {
                         actionMode.finish();
                         return true;
                     case R.id.menu_last_entries_edit:
-                        Person person_edit = (Person) lastEntriesAdapter.getItem(positionToRemove);
+                        Person person_edit = (Person) lastEntriesAdapter.getItem(position_to_remove);
                         Expense expense_edit = new Expense(person_edit.getExpenseList().get(0).getExpenses(), person_edit.getExpenseList().get(0).getComments());
                         Intent AddActivity = new Intent(getApplication(), Add.class);
                         AddActivity.putExtra("Group", person_edit.get_groupname());

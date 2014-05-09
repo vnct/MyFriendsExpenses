@@ -1,15 +1,14 @@
 package com.example.myfriendsexpenses.app.controler;
 
-import com.example.myfriendsexpenses.app.model.CSVAction;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lapie on 20/04/14.
+ * Created by lapie on 20/04/14
  */
+@SuppressWarnings("unused")
 public class DataForm {
-    private CSVAction csvAction = new CSVAction();
+    private CSVControl csvControl = new CSVControl();
     private CSVParse csvParse = new CSVParse();
     private List<String[]> strings = new ArrayList<String[]>();
     private List<Group> groups = new ArrayList<Group>();
@@ -20,18 +19,11 @@ public class DataForm {
     {
         groupname = new ArrayList<String>();
         groupname.add("Everybody");
-        for(int igroups=0;igroups<groups.size();igroups++)
-        {
-            groupname.add(groups.get(igroups).get_name());
+        for (Group group : groups) {
+            groupname.add(group.get_name());
         }
     }
-    public CSVAction getCsvAction() {
-        return csvAction;
-    }
 
-    public void setCsvAction(CSVAction csvAction) {
-        this.csvAction = csvAction;
-    }
 
     public List<String[]> getStrings() {
         return strings;
@@ -61,6 +53,7 @@ public class DataForm {
         return groupname;
     }
 
+
     public void setGroupname(List<String> groupname) {
         this.groupname = groupname;
     }
@@ -71,5 +64,13 @@ public class DataForm {
 
     public void setCsvParse(CSVParse csvParse) {
         this.csvParse = csvParse;
+    }
+
+    public CSVControl getCsvControl() {
+        return csvControl;
+    }
+
+    public void setCsvControl(CSVControl csvControl) {
+        this.csvControl = csvControl;
     }
 }

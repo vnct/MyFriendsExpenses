@@ -1,30 +1,24 @@
 package com.example.myfriendsexpenses.app.fragments;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.example.myfriendsexpenses.app.LastEntries;
-import com.example.myfriendsexpenses.app.MainActivity;
+import com.example.myfriendsexpenses.app.activity.MainActivity;
 import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.controler.Person;
@@ -342,7 +336,8 @@ public class Add_Fragment_Expenditure extends Fragment {
                 Expense expense_new = new Expense(ExpensesValue, editTextcomment.getText().toString().trim());
                 Person person_new = new Person(editTextname.getText().toString().trim(), editTextphone.getText().toString().trim(), expense_new, editTextGroupname.getText().toString().trim());
 
-                MainActivity.getDataForm().getCsvAction().changePerson(person_old,expense_old,person_new, expense_new);
+          //      MainActivity.getDataForm().getCsvAction().changePerson(person_old,expense_old,person_new, expense_new);
+                MainActivity.getDataForm().getCsvControl().changePerson(person_old,expense_old,person_new, expense_new);
                 HashMap<String, String> element = new HashMap<String, String>();
                 element.put("text1", "" + person_new.get_name() + " (" + person_new.get_groupname() + ")");
                 String expenditure = editTextexpense.getText().toString() + " €";
@@ -381,7 +376,8 @@ public class Add_Fragment_Expenditure extends Fragment {
                 boolean alreadyexist = MainActivity.getDataForm().getCsvParse().existExpenseinGroup(person, MainActivity.getDataForm().getPersons());
                 if (!alreadyexist)
                 {
-                    MainActivity.getDataForm().getCsvParse().addPerson(person, expense, MainActivity.getDataForm().getCsvAction());
+            //        MainActivity.getDataForm().getCsvParse().addPerson(person, expense, MainActivity.getDataForm().getCsvAction());
+                    MainActivity.getDataForm().getCsvControl().addPersonCSV(person, expense);
                     HashMap<String, String> element = new HashMap<String, String>();
                     element.put("text1", "" + person.get_name() + " (" + person.get_groupname() + ")");
                     String expenditure = editTextexpense.getText().toString() + " €";
@@ -437,10 +433,10 @@ public class Add_Fragment_Expenditure extends Fragment {
 
     private void updateDataform()
     {
-        MainActivity.fillDataForm();
-        MainActivity.getDataForm().setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false));
+        MainActivity.fillDataForm(false);
+     //   MainActivity.getDataForm().setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false));
         namePerson = MainActivity.getDataForm().getCsvParse().namePerson(MainActivity.getDataForm().getPersons());
-        MainActivity.getDataForm().setGroups(MainActivity.getDataForm().getCsvParse().createGroups(MainActivity.getDataForm().getCsvAction().getCSV()));
+       // MainActivity.getDataForm().setGroups(MainActivity.getDataForm().getCsvParse().createGroups(MainActivity.getDataForm().getCsvAction().getCSV()));
         nameGroup = MainActivity.getDataForm().getCsvParse().nameGroup(MainActivity.getDataForm().getGroups());
         namePhone = MainActivity.getDataForm().getCsvParse().phonePerson(MainActivity.getDataForm().getPersons());
 

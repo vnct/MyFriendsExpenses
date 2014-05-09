@@ -2,28 +2,22 @@ package com.example.myfriendsexpenses.app.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.view.DragEvent;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myfriendsexpenses.app.MainActivity;
+import com.example.myfriendsexpenses.app.activity.MainActivity;
 import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.controler.Person;
@@ -85,12 +79,17 @@ public class Add_Fragment_Person extends Fragment {
 
     private void updateDataform()
     {
-        MainActivity.fillDataForm();
-        MainActivity.getDataForm().setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false));
+        MainActivity.fillDataForm(false);
+     //   MainActivity.getDataForm().setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(), false));
+        namePerson = MainActivity.getDataForm().getCsvParse().namePerson(MainActivity.getDataForm().getPersons());
+       // MainActivity.getDataForm().setGroups(MainActivity.getDataForm().getCsvParse().createGroups(MainActivity.getDataForm().getStrings()));
+        nameGroup = MainActivity.getDataForm().getCsvParse().nameGroup(MainActivity.getDataForm().getGroups());
+        namePhone = MainActivity.getDataForm().getCsvParse().phonePerson(MainActivity.getDataForm().getPersons());
+   /*     MainActivity.getDataForm().setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false));
         namePerson = MainActivity.getDataForm().getCsvParse().namePerson(MainActivity.getDataForm().getPersons());
         MainActivity.getDataForm().setGroups(MainActivity.getDataForm().getCsvParse().createGroups(MainActivity.getDataForm().getCsvAction().getCSV()));
         nameGroup = MainActivity.getDataForm().getCsvParse().nameGroup(MainActivity.getDataForm().getGroups());
-        namePhone = MainActivity.getDataForm().getCsvParse().phonePerson(MainActivity.getDataForm().getPersons());
+        namePhone = MainActivity.getDataForm().getCsvParse().phonePerson(MainActivity.getDataForm().getPersons());*/
     }
     public void onResume() {
         super.onResume();
@@ -175,9 +174,6 @@ public class Add_Fragment_Person extends Fragment {
             }
         }
     }
-
-
-
     private void generate_widget(ArrayList<String> strings1) {
         for(int i=0;i<strings1.size();i++) {
             switch (i) {
@@ -211,8 +207,6 @@ public class Add_Fragment_Person extends Fragment {
 
 
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle item selection
@@ -229,7 +223,6 @@ public class Add_Fragment_Person extends Fragment {
     }
     public Add_Fragment_Person() {
     }
-
     private void OnclickButtonAdd()
     {
 
@@ -246,7 +239,8 @@ public class Add_Fragment_Person extends Fragment {
                     boolean alreadyexist = MainActivity.getDataForm().getCsvParse().existPersoninGroup(person, MainActivity.getDataForm().getPersons());
                     if (!alreadyexist)
                     {
-                        MainActivity.getDataForm().getCsvParse().addPerson(person, expense, MainActivity.getDataForm().getCsvAction());
+                    //    MainActivity.getDataForm().getCsvParse().addPerson(person, expense, MainActivity.getDataForm().getCsvAction());
+                        MainActivity.getDataForm().getCsvControl().addPersonCSV(person, expense);
                         HashMap<String, String> element = new HashMap<String, String>();
                         element.put("text1", person.get_name());
                         element.put("text2",person.get_groupname());

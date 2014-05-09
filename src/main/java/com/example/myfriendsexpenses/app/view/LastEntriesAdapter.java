@@ -13,8 +13,9 @@ import com.example.myfriendsexpenses.app.controler.Person;
 import java.util.List;
 
 /**
- * Created by lapie on 23/04/14.
+ * Created by lapie on 23/04/14
  */
+@SuppressWarnings("unused")
 public class LastEntriesAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;

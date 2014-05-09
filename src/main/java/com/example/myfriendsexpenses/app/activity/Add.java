@@ -1,4 +1,4 @@
-package com.example.myfriendsexpenses.app;
+package com.example.myfriendsexpenses.app.activity;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -15,8 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.myfriendsexpenses.app.controler.Expense;
-import com.example.myfriendsexpenses.app.controler.Person;
+import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.fragments.Add_Fragment_Expenditure;
 import com.example.myfriendsexpenses.app.fragments.Add_Fragment_Person;
 

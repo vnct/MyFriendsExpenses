@@ -1,10 +1,9 @@
-package com.example.myfriendsexpenses.app;
+package com.example.myfriendsexpenses.app.activity;
 
 
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
-import android.content.Intent;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,7 +20,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.example.myfriendsexpenses.app.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -66,7 +66,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       MainActivity.fillDataForm();
+       MainActivity.fillDataForm(false);
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());

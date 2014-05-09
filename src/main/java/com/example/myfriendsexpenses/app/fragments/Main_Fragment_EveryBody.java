@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.myfriendsexpenses.app.Add;
-import com.example.myfriendsexpenses.app.LastEntries;
-import com.example.myfriendsexpenses.app.MainActivity;
+import com.example.myfriendsexpenses.app.activity.Add;
+import com.example.myfriendsexpenses.app.activity.LastEntries;
+import com.example.myfriendsexpenses.app.activity.MainActivity;
 import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.controler.Person;
 import com.example.myfriendsexpenses.app.view.ListTitleAdapter;
@@ -57,7 +57,7 @@ public class Main_Fragment_EveryBody extends Fragment {
     public void onResume()
     {
         super.onResume();
-        MainActivity.fillDataForm();
+        MainActivity.fillDataForm(false);
         mainAdapter = new ArrayList<MainAdapter>();
         mergeAdapter = new MergeAdapter();
 

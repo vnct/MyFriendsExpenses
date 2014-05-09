@@ -37,11 +37,11 @@ public class ListTitleGroupAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        if(parentAdapter != null){
+        if(parentAdapter != null)
             if(parentAdapter.getCount() == 0){
                 return 0;
             }
-        }
+
         return 1;
     }
 

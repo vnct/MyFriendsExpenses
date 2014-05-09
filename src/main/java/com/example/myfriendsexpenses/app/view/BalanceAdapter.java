@@ -14,17 +14,17 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 /**
- * Created by lapie on 24/04/14.
+ * Created by lapie on 24/04/14
  */
+@SuppressWarnings("unused")
 public class BalanceAdapter extends BaseAdapter {
     private List<Balance> balanceList;
     private LayoutInflater mInflater;
-    private boolean Expense;
     private Context mContext;
 
     public BalanceAdapter(Context context){
         mContext = context;
-        Expense = true;
+        boolean expense = true;
         mInflater = LayoutInflater.from(mContext);
     }
 
@@ -46,7 +46,7 @@ public class BalanceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        View vue = null;
+        View vue;
         if(view != null)
         {
             vue = view;
@@ -55,6 +55,7 @@ public class BalanceAdapter extends BaseAdapter {
         {
             vue = mInflater.inflate(R.layout.balancebaseadapter, viewGroup, false);
         }
+
         TextView textViewName = (TextView) vue.findViewById(R.id.textViewBalanceName);
         TextView textViewPayback = (TextView) vue.findViewById(R.id.textViewBalancePayback);
         TextView textViewGroup = (TextView) vue.findViewById(R.id.textViewBalanceGroup);

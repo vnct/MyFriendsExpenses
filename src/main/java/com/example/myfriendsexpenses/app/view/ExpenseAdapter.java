@@ -16,8 +16,9 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 /**
- * Created by lapie on 25/04/14.
+ * Created by lapie on 25/04/14
  */
+@SuppressWarnings("unused")
 public class ExpenseAdapter extends BaseAdapter {
     private List<Person> personList;
     private List<Balance> balanceList;

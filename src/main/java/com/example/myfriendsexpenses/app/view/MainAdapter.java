@@ -1,27 +1,24 @@
 package com.example.myfriendsexpenses.app.view;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.myfriendsexpenses.app.MainActivity;
 import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.controler.Group;
 import com.example.myfriendsexpenses.app.controler.Person;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lapie on 20/04/14.
+ * Created by lapie on 20/04/14
  */
+@SuppressWarnings("unused")
 public class MainAdapter extends BaseAdapter {
 
     private List<Person> personList;
