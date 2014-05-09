@@ -28,8 +28,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by lapie on 24/04/14.
+ * Created by lapie on 24/04/14
  */
+@SuppressWarnings(value = {"unused", "EqualsBetweenInconvertibleTypes", "UnusedAssignment", "ConstantConditions", "FieldCanBeLocal", "StatementWithEmptyBody"})
+
 public class Add_Fragment_Expenditure extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String iposa = "section_number";
@@ -104,16 +106,7 @@ public class Add_Fragment_Expenditure extends Fragment {
         {
             ArrayList<String> strings1 = args.getStringArrayList(myPerson);
             generate_widget(strings1);
-            if(strings1.size()>0)
-            {
-                bargs=true;
-
-            }
-            else
-            {
-                bargs=false;
-
-            }
+            bargs = strings1.size() > 0;
         }
         //  System.out.println("Mon My_action " + My_action);
         //System.out.println("Mon My_Position " + My_Position);
@@ -256,26 +249,26 @@ public class Add_Fragment_Expenditure extends Fragment {
         for(int i=0;i<strings1.size();i++) {
             switch (i) {
                 case 0:
-                    My_Position = strings1.get(i).toString();
+                    My_Position = strings1.get(i);
                     break;
                 case 1:
-                    My_action = strings1.get(i).toString();
+                    My_action = strings1.get(i);
                     break;
                 case 2:
-                    editTextname.setText(strings1.get(i).toString());
+                    editTextname.setText(strings1.get(i));
                     break;
                 case 3:
-                    editTextphone.setText(strings1.get(i).toString());
+                    editTextphone.setText(strings1.get(i));
 
                     break;
                 case 4:
-                    editTextGroupname.setText(strings1.get(i).toString());
+                    editTextGroupname.setText(strings1.get(i));
                     break;
                 case 5:
-                    editTextexpense.setText(strings1.get(i).toString());
+                    editTextexpense.setText(strings1.get(i));
                     break;
                 case 6:
-                    editTextcomment.setText(strings1.get(i).toString());
+                    editTextcomment.setText(strings1.get(i));
                     break;
             }
 
@@ -327,7 +320,7 @@ public class Add_Fragment_Expenditure extends Fragment {
     private void OnclickButtonUpdate() {
 
 
-        if (editTextexpense.getText().equals("") == true || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
+        if (editTextexpense.getText().equals("") || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
         } else {
             try {
                 String Expenses = editTextexpense.getText().toString();
@@ -361,12 +354,12 @@ public class Add_Fragment_Expenditure extends Fragment {
             }
         }
 
-    };
+    }
 
 
     private void OnclickButtonAdd() {
 
-        if (editTextexpense.getText().equals("") == true || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
+        if (editTextexpense.getText().equals("") || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
         } else {
             try {
                 String Expenses = editTextexpense.getText().toString();
@@ -409,7 +402,7 @@ public class Add_Fragment_Expenditure extends Fragment {
             }
 
         }
-    };
+    }
 
     private void clear_EditText(boolean all) {
 

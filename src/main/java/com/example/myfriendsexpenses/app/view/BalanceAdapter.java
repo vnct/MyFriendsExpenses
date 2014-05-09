@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by lapie on 24/04/14
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedAssignment", "ConstantConditions", "FieldCanBeLocal"})
 public class BalanceAdapter extends BaseAdapter {
     private List<Balance> balanceList;
     private LayoutInflater mInflater;

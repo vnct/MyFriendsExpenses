@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-
+@SuppressWarnings("unused")
 public class CSVParse {
 
     public boolean existPersoninGroup(Person person,List<Person> persons)
@@ -133,7 +133,7 @@ public class CSVParse {
        return groups;
 
    }
-    @SuppressWarnings("unused")
+
     public List<Person> fillPersonbyGroups(List<Group> groups)
     {
         List<Person> persons = new ArrayList<Person>();

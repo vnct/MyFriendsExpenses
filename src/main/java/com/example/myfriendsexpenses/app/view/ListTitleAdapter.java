@@ -5,9 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.R;
@@ -18,7 +15,7 @@ import java.text.DecimalFormat;
 /**
  * Created by lapie on 24/04/14
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedAssignment", "ConstantConditions", "FieldCanBeLocal"})
 public class ListTitleAdapter extends BaseAdapter {
 
     private Context context;

@@ -29,7 +29,6 @@ import com.example.myfriendsexpenses.app.controler.Balance;
 import com.example.myfriendsexpenses.app.controler.Group;
 
 import com.example.myfriendsexpenses.app.controler.Person;
-import com.example.myfriendsexpenses.app.view.BalanceAdapter;
 import com.example.myfriendsexpenses.app.view.ExpenseAdapter;
 
 import com.example.myfriendsexpenses.app.view.ListTitleGroupAdapter;
@@ -41,19 +40,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lapie on 24/04/14.
+ * Created by lapie on 24/04/14
  */
+@SuppressWarnings({"UnusedAssignment", "ConstantConditions", "FieldCanBeLocal"})
 public class Main_Fragment_Group extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private BalanceAdapter balanceAdapter;
-    private ExpenseAdapter expenseAdapter;
     private String group="";
     private Group group1=new Group();
-    private int nbExpense=0,nbBalance=0;
+    private int nbExpense=0;
     private MergeAdapter mergeAdapter = new MergeAdapter();
     TextView textViewGroupBaseAdapterExpensesPerson = null;
     TextView textViewGroupBaseAdapterTotalExpense = null;
@@ -165,7 +163,7 @@ public class Main_Fragment_Group extends Fragment {
 
                 group1.setPersons(MainActivity.getDataForm().getPersons());
              //   group1.setPersons(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvAction().getCSV(), false));
-                group1.setPersons(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(group1.getPersons(),group1.get_name(),false));
+                group1.setPersons(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(group1.getPersons(), group1.get_name(), false));
               //  group1.setPersons(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(group1.getPersons(),group1.get_name(),false));
                 MainActivity.getDataForm().getCsvControl().changeGroup(group1.getPersons(),newnamegroup);
            //     MainActivity.getDataForm().getCsvAction().changeGroup(group1.getPersons(),newnamegroup);
@@ -190,7 +188,7 @@ public class Main_Fragment_Group extends Fragment {
         group = MainActivity.getDataForm().getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1);
 
         for (int igroups = 0; igroups < groups.size(); igroups++) {
-            if (MainActivity.getDataForm().getGroups().get(igroups).get_name().equals(group) == true) {
+            if (MainActivity.getDataForm().getGroups().get(igroups).get_name().equals(group)) {
 
                 group1 = MainActivity.getDataForm().getGroups().get(igroups);
                 mergeAdapter=fillMergeAdapter(igroups);
@@ -223,16 +221,16 @@ public class Main_Fragment_Group extends Fragment {
             expenseAdapterexpense.setBconcat(true);
             expenseAdapterexpense.setPersonList(MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(), true), group, true));
         }
-        nbExpense=expenseAdapterexpense.getCount();
+        //nbExpense=expenseAdapterexpense.getCount();
         expenseAdapter1.add(expenseAdapterexpense);
         ExpenseAdapter expenseAdapterbalance = new ExpenseAdapter(getActivity(), false);
         expenseAdapterbalance.setBalanceList(MainActivity.getDataForm().getGroups().get(indexgroup).getBalances());
         expenseAdapter1.add(expenseAdapterbalance);
 
-        nbBalance=expenseAdapterbalance.getCount();
-        for (int iExpenseAdapter = 0; iExpenseAdapter < expenseAdapter1.size(); iExpenseAdapter++) {
-            mergeAdapter.addAdapter(new ListTitleGroupAdapter(getActivity(), expenseAdapter1.get(iExpenseAdapter), expenseAdapter1.get(iExpenseAdapter).getBooleanExpense()));
-            mergeAdapter.addAdapter(expenseAdapter1.get(iExpenseAdapter));
+      //  nbBalance=expenseAdapterbalance.getCount();
+        for (ExpenseAdapter anExpenseAdapter1 : expenseAdapter1) {
+            mergeAdapter.addAdapter(new ListTitleGroupAdapter(getActivity(), anExpenseAdapter1, anExpenseAdapter1.getBooleanExpense()));
+            mergeAdapter.addAdapter(anExpenseAdapter1);
         }
         mergeAdapter.setNoItemsText(getString(R.string.listview_group_message));
 
@@ -263,7 +261,7 @@ public class Main_Fragment_Group extends Fragment {
             if(i>nbExpense+1)
             {
                 Balance mybalanceAdapter = (Balance) adapterView.getItemAtPosition(i);
-                Intent sendIntent = new Intent();
+
                 Intent sms = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + mybalanceAdapter.getPersonput().get_phoneNumber()));
                 sms.putExtra("sms_body", getString(R.string.sms_body) + " " + mybalanceAdapter.getValue() + " " + getString(R.string.EUR) + " " + getString(R.string.to) + " " + mybalanceAdapter.getPersonget().get_name());
                 startActivity(sms);

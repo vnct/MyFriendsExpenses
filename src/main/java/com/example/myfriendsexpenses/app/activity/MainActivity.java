@@ -21,6 +21,7 @@ import com.example.myfriendsexpenses.app.controler.DataForm;
 
 
 
+@SuppressWarnings("ConstantConditions")
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 

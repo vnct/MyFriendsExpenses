@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by lapie on 20/04/14
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedAssignment", "ConstantConditions", "FieldCanBeLocal"})
 public class MainAdapter extends BaseAdapter {
 
     private List<Person> personList;

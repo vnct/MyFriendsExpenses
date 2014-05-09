@@ -28,6 +28,7 @@ import com.example.myfriendsexpenses.app.R;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
+@SuppressWarnings("ConstantConditions")
 public class NavigationDrawerFragment extends Fragment {
 
     /**
@@ -241,21 +242,13 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+        return mDrawerToggle.onOptionsItemSelected(item) || item.getItemId() == R.id.csvadd || super.onOptionsItemSelected(item);
 
-        if (item.getItemId() == R.id.csvadd) {
-            // Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
           /*  Intent ExpenditureActivity = new Intent(getActivity(),Expenditure.class);
 
 
             startActivity(ExpenditureActivity);*/
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**

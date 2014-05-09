@@ -11,8 +11,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by lapie on 24/04/14.
+ * Created by lapie on 24/04/14
  */
+@SuppressWarnings({"unused", "ConstantConditions"})
 public class MergeAdapter extends BaseAdapter implements SectionIndexer {
         protected ArrayList<ListAdapter> pieces = new ArrayList<ListAdapter>();
         protected String noItemsText;

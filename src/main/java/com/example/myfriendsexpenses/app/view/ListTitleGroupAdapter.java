@@ -8,13 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.R;
-import com.example.myfriendsexpenses.app.controler.Group;
 
-import java.text.DecimalFormat;
 
 /**
- * Created by lapie on 24/04/14.
+ * Created by lapie on 24/04/14
  */
+@SuppressWarnings({"unused","UnusedAssignment", "ConstantConditions", "FieldCanBeLocal"})
 public class ListTitleGroupAdapter extends BaseAdapter {
 
     private Context context;

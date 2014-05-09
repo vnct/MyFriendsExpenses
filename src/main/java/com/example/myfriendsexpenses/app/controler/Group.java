@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lapie on 19/04/14.
+ * Created by lapie on 19/04/14
  */
 @SuppressWarnings("unused")
 public class Group {

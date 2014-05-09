@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.R;
 import com.example.myfriendsexpenses.app.controler.Balance;
-import com.example.myfriendsexpenses.app.controler.Expense;
 import com.example.myfriendsexpenses.app.controler.Person;
 
 import java.text.DecimalFormat;
@@ -18,7 +17,7 @@ import java.util.List;
 /**
  * Created by lapie on 25/04/14
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedAssignment", "ConstantConditions", "FieldCanBeLocal"})
 public class ExpenseAdapter extends BaseAdapter {
     private List<Person> personList;
     private List<Balance> balanceList;

@@ -27,8 +27,9 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by lapie on 24/04/14.
+ * Created by lapie on 24/04/14
  */
+@SuppressWarnings({"ConstantConditions", "StatementWithEmptyBody"})
 public class Add_Fragment_Person extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private EditText editTextphone = null;
@@ -57,15 +58,7 @@ public class Add_Fragment_Person extends Fragment {
         {
             ArrayList<String> strings1 = args.getStringArrayList(myPerson);
             generate_widget(strings1);
-            if(strings1.size()>0)
-            {
-                bargs=true;
-            }
-            else
-            {
-                bargs=false;
-
-            }
+            bargs = strings1.size() > 0;
         }
         listeHaspMapEntries = new ArrayList<HashMap<String, String>>();
         simpleAdapter = new SimpleAdapter(getActivity(),listeHaspMapEntries,android.R.layout.simple_list_item_2,new String[] {"text1", "text2"},new int[] {android.R.id.text1, android.R.id.text2 });
@@ -178,7 +171,7 @@ public class Add_Fragment_Person extends Fragment {
         for(int i=0;i<strings1.size();i++) {
             switch (i) {
                 case 0:
-                    editTextGroupname.setText(strings1.get(i).toString());
+                    editTextGroupname.setText(strings1.get(i));
                     break;
 
             }
@@ -223,6 +216,7 @@ public class Add_Fragment_Person extends Fragment {
     }
     public Add_Fragment_Person() {
     }
+
     private void OnclickButtonAdd()
     {
 
@@ -269,7 +263,7 @@ public class Add_Fragment_Person extends Fragment {
                 }
              }
 
-    };
+    }
     private void clear_EditText()
     {
 

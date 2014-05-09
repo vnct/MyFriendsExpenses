@@ -20,6 +20,7 @@ import com.example.myfriendsexpenses.app.controler.Person;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("ConstantConditions")
 public class LastEntries extends Activity {
 
     ListView listViewlastentries = null;
@@ -161,7 +162,9 @@ public class LastEntries extends Activity {
                         MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvControl().getdataCSV());
                       //  MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvAction().getCSV());
                         List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getCsvControl().getdataCSV(), false));
-                        persons= parsePerson(strings,persons);
+                        if(strings.size()>0) {
+                            persons = parsePerson(strings, persons);
+                        }
 
 
                         lastEntriesAdapter.setPersonList(persons);//  List<Person> persons = MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false);

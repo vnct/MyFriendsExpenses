@@ -20,6 +20,7 @@ import com.example.myfriendsexpenses.app.fragments.Add_Fragment_Expenditure;
 import com.example.myfriendsexpenses.app.fragments.Add_Fragment_Person;
 
 
+@SuppressWarnings("ConstantConditions")
 public class Add extends Activity implements ActionBar.TabListener {
 
     /**

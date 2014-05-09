@@ -25,8 +25,9 @@ import com.example.myfriendsexpenses.app.view.MergeAdapter;
 import java.util.ArrayList;
 
 /**
- * Created by lapie on 24/04/14.
+ * Created by lapie on 24/04/14
  */
+@SuppressWarnings({"ConstantConditions", "FieldCanBeLocal"})
 public class Main_Fragment_EveryBody extends Fragment {
     /**
      * The fragment argument representing the section number for this
@@ -69,10 +70,9 @@ public class Main_Fragment_EveryBody extends Fragment {
             mainAdapter.add(mainAdapter1);
 
         }
-        for(int iMainadapter=0;iMainadapter<mainAdapter.size();iMainadapter++)
-        {
-            mergeAdapter.addAdapter(new ListTitleAdapter(getActivity(), mainAdapter.get(iMainadapter).getGroup() , mainAdapter.get(iMainadapter)));
-            mergeAdapter.addAdapter(mainAdapter.get(iMainadapter));
+        for (MainAdapter aMainAdapter : mainAdapter) {
+            mergeAdapter.addAdapter(new ListTitleAdapter(getActivity(), aMainAdapter.getGroup(), aMainAdapter));
+            mergeAdapter.addAdapter(aMainAdapter);
         }
         //System.out.println("mergeAdapter.addAdapter = " + mergeAdapter.getCount());
         mergeAdapter.setNoItemsText(getString(R.string.listview_everybody_message));
@@ -136,7 +136,7 @@ public class Main_Fragment_EveryBody extends Fragment {
               startActivity(ExpenditureActivity);
               return true;
           }
-          catch (Exception e)
+          catch (Exception ignored)
           {
 
           }

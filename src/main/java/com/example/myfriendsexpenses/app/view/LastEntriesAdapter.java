@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by lapie on 23/04/14
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedAssignment", "ConstantConditions", "FieldCanBeLocal"})
 public class LastEntriesAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
