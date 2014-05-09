@@ -68,5 +68,15 @@
     <string name="popup_info">Long click on item to send a sms</string>
     <string name="add_person_toast_ok">Created</string>
     <string name="add_expenditure_toast_ok">Created</string>
+    <string name="add_person_toast_phone">This phone is already used</string>
+    <string name="add_person_toast_phone_ok">This person already exists ! Impossible to change the number</string>
+    <string name="add_person_toast_fail">This person already exists in this group</string>
+    <string name="add_expenditure_toast_phone_ok">This person already exists ! Impossible to change the number</string>
+    <string name="add_expenditure_toast_fail">This reason already exists in this group</string>
+    <string name="csvall">See All</string>
+    <string name="mainadapter_is_owed_from">is owed from</string>
+    <string name="mainadapter_owes_to">owes to</string>
+    <string name="items">items</string>
+    <string name="expenseadapter_paid_by">paid by</string>
 
 </resources>

@@ -31,6 +31,7 @@ public class LastEntries extends Activity {
     LastEntriesAdapter lastEntriesAdapter = null;
     boolean selected=true;
     private final String myArgs = "myArgs";
+    ArrayList<String> strings = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +92,9 @@ public class LastEntries extends Activity {
         {
             actionMode.finish();
         }
-
+        lastEntriesAdapter = new LastEntriesAdapter(this);
         Bundle args = getIntent().getExtras();
-        ArrayList<String> strings = new ArrayList<String>();
+        strings = new ArrayList<String>();
         MainActivity.fillDataForm();
         List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false));
 
@@ -105,7 +106,7 @@ public class LastEntries extends Activity {
 
             persons= parsePerson(strings,persons);
         }
-        lastEntriesAdapter = new LastEntriesAdapter(this);
+
         lastEntriesAdapter.setPersonList(persons);
         listViewlastentries.setAdapter(lastEntriesAdapter);
     }
@@ -155,8 +156,11 @@ public class LastEntries extends Activity {
                         MainActivity.getDataForm().getCsvAction().removePerson(person_delete, expense_delete);
                         MainActivity.getDataForm().setStrings(MainActivity.getDataForm().getCsvAction().getCSV());
                         List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(), false));
-                        //  List<Person> persons = MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false);
-                        lastEntriesAdapter.setPersonList(persons);
+                        persons= parsePerson(strings,persons);
+
+
+                        lastEntriesAdapter.setPersonList(persons);//  List<Person> persons = MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false);
+
                         listViewlastentries.setAdapter(lastEntriesAdapter);
                         listViewlastentries.setOnItemClickListener(OnItemClickListenerlastentries);
                         actionMode.finish();
@@ -185,7 +189,6 @@ public class LastEntries extends Activity {
             public void onDestroyActionMode(ActionMode actionMode) {
                 view1.setBackgroundColor(Color.TRANSPARENT);
 
-                //   System.out.println("FINISH");
             }
         });
 
@@ -207,7 +210,7 @@ public class LastEntries extends Activity {
             view.setBackgroundColor(Color.LTGRAY);
             changeContextual(view, position);
             position1=position;
-          /* */
+
         }
     };
 
@@ -239,6 +242,20 @@ public class LastEntries extends Activity {
             startActivity(ExpenditureActivity);
             return true;
         }
+        if (item.getItemId() == R.id.csvall) {
+            // Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+
+            List<Person> persons = MainActivity.getDataForm().getCsvParse().inverselistperson(MainActivity.getDataForm().getCsvParse().fillPerson(MainActivity.getDataForm().getStrings(),false));
+            //System.out.println(persons.size());
+            strings = new ArrayList<String>();
+
+            lastEntriesAdapter.setPersonList(persons);
+            listViewlastentries.setAdapter(lastEntriesAdapter);
+            return true;
+        }
+
+
+
         return super.onOptionsItemSelected(item);
     }
 

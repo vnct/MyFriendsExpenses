@@ -79,12 +79,13 @@ public class MainAdapter extends BaseAdapter {
             df.format(v);
             if (v <= 0) {
                 textViewPayback.setTextColor(Color.parseColor("#088A08"));
-                textViewGroup.setText("is owed from " + personList.get(position).get_groupname());
+
+                textViewGroup.setText(vue.getResources().getString(R.string.mainadapter_is_owed_from) + " " + personList.get(position).get_groupname());
             } else {
                 textViewPayback.setTextColor(Color.RED);
-                textViewGroup.setText("owes to " + personList.get(position).get_groupname() + "");
+                textViewGroup.setText(vue.getResources().getString(R.string.mainadapter_owes_to) + " " + personList.get(position).get_groupname() + "");
             }
-            textViewPayback.setText(df.format(v) + " €");
+            textViewPayback.setText(df.format(v) +  " " +vue.getResources().getString(R.string.EUR));
 
         return vue;
 

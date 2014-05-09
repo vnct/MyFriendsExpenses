@@ -74,7 +74,7 @@ public class ExpenseAdapter extends BaseAdapter {
             TextView textViewValue = (TextView) vue.findViewById(R.id.textViewExpenseValue);
             TextView textViewTitle = (TextView) vue.findViewById(R.id.textViewExpenseTitle);
 
-            textViewName.setText("paid by " + personList.get(position).get_name());
+            textViewName.setText(vue.getResources().getString(R.string.expenseadapter_paid_by) + " " + personList.get(position).get_name());
             float v=0;
 
             if(bconcat)
@@ -86,8 +86,8 @@ public class ExpenseAdapter extends BaseAdapter {
                 DecimalFormat df = new DecimalFormat();
                 df.setMaximumFractionDigits(2);
                 df.format(v);
-                textViewValue.setText(df.format(v) + " €");
-                textViewTitle.setText(personList.get(position).getExpenseList().size() + " items");
+                textViewValue.setText(df.format(v) + " " +vue.getResources().getString(R.string.EUR));
+                textViewTitle.setText(personList.get(position).getExpenseList().size() + " " + vue.getResources().getString(R.string.items));
             }
             else
             {
@@ -95,11 +95,11 @@ public class ExpenseAdapter extends BaseAdapter {
                 DecimalFormat df = new DecimalFormat();
                 df.setMaximumFractionDigits(2);
                 df.format(v);
-                textViewValue.setText(df.format(v) + " €");
+                textViewValue.setText(df.format(v) +  " " +vue.getResources().getString(R.string.EUR));
                 String title = personList.get(position).getExpenseList().get(0).getComments().trim();
                 if(title.equals(""))
                 {
-                    title = "Untitled";
+                    title = vue.getResources().getString(R.string.expenseUntitled);
                 }
                 textViewTitle.setText(title);
             }
@@ -127,7 +127,7 @@ public class ExpenseAdapter extends BaseAdapter {
             DecimalFormat df = new DecimalFormat();
             df.setMaximumFractionDigits(2);
             df.format(v);
-            textViewPayback.setText(df.format(v) + " € to " + balanceList.get(position).getPersonget().get_name());
+            textViewPayback.setText(df.format(v) + " " + vue.getResources().getString(R.string.EUR) +  " " + vue.getResources().getString(R.string.to) +  " " + balanceList.get(position).getPersonget().get_name());
             textViewGroup.setText(R.string.balancetextpay);
             return vue;
         }

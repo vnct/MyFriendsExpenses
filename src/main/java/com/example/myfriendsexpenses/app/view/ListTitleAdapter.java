@@ -76,8 +76,8 @@ public class ListTitleAdapter extends BaseAdapter {
         float v = group.get_expensePerPerson();
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
-        textViewGroupExpensesPerson.setText(df.format(v) + " €");
-        textViewGroupTotalExpenses.setText(df.format(group.get_totalExpenses())+ " €");
+        textViewGroupExpensesPerson.setText(df.format(v) + " " + vue.getResources().getString(R.string.EUR));
+        textViewGroupTotalExpenses.setText(df.format(group.get_totalExpenses()) + " " + vue.getResources().getString(R.string.EUR));
         return vue;
     }
 }

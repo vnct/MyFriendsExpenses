@@ -6,6 +6,10 @@
         android:title="@string/csvadd"
         android:icon="@drawable/ic_action_content_new"
         android:showAsAction="ifRoom|collapseActionView" />
+    <item android:id="@+id/csvall"
+        android:title="@string/csvall"
+        android:icon="@drawable/ic_action_content_select_all"
+        android:showAsAction="ifRoom|collapseActionView" />
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

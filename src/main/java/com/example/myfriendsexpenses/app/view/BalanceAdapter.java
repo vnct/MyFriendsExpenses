@@ -64,7 +64,7 @@ public class BalanceAdapter extends BaseAdapter {
         df.setMaximumFractionDigits(2);
         df.format(v);
 
-        textViewPayback.setText(df.format(v) + " € to " + balanceList.get(position).getPersonget().get_name());
+        textViewPayback.setText(df.format(v) +  " " + vue.getResources().getString(R.string.EUR) +  " " + vue.getResources().getString(R.string.to) +  " " + balanceList.get(position).getPersonget().get_name());
         textViewGroup.setText(R.string.balancetextpay);
         return vue;
     }

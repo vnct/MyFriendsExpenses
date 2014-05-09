@@ -78,6 +78,7 @@ public class Main_Fragment_EveryBody extends Fragment {
         listViewMergeAdapter.setAdapter(mergeAdapter);
 
 
+
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle item selection
@@ -108,8 +109,6 @@ public class Main_Fragment_EveryBody extends Fragment {
         menu_edit.setVisible(false);
         menu_delete.setVisible(false);
         menu_read.setVisible(true);
-
-
     }
 
     @Override
@@ -117,34 +116,9 @@ public class Main_Fragment_EveryBody extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-     /*   TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-            System.out.println("---> getArguments()" + getArguments().getInt(ARG_SECTION_NUMBER));
-            System.out.println("---> getArguments()" + dataForm.getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER)-1));*/
-        listViewMergeAdapter =  ((ListView)rootView.findViewById(R.id.listViewMainAdapter));
+         listViewMergeAdapter =  ((ListView)rootView.findViewById(R.id.listViewMainAdapter));
 
-      /*  mainAdapter = new ArrayList<MainAdapter>();
-        mergeAdapter = new MergeAdapter();
-
-        for(int iGroups=0;iGroups<MainActivity.getDataForm().getGroups().size();iGroups++)
-        {
-            MainAdapter mainAdapter1 = new MainAdapter(getActivity());
-            mainAdapter1.setPersonList(MainActivity.getDataForm().getGroups().get(iGroups).getPersons());
-            mainAdapter1.setGroup(MainActivity.getDataForm().getGroups().get(iGroups));
-            mainAdapter.add(mainAdapter1);
-
-        }
-        for(int iMainadapter=0;iMainadapter<mainAdapter.size();iMainadapter++)
-        {
-            mergeAdapter.addAdapter(new ListTitleAdapter(getActivity(), mainAdapter.get(iMainadapter).getGroup() , mainAdapter.get(iMainadapter)));
-            mergeAdapter.addAdapter(mainAdapter.get(iMainadapter));
-        }
-        //System.out.println("mergeAdapter.addAdapter = " + mergeAdapter.getCount());
-        mergeAdapter.setNoItemsText(getString(R.string.listview_everybody_message));
-
-        listViewMergeAdapter.setAdapter(mergeAdapter);*/
-
-        return rootView;
+    return rootView;
     }
 
     @Override

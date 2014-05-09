@@ -12,6 +12,42 @@ import java.util.Set;
  */
 public class CSVParse {
 
+    public boolean existPersoninGroup(Person person,List<Person> persons)
+    {
+        for(int ipersons=0;ipersons<persons.size();ipersons++)
+        {
+            if(persons.get(ipersons).get_phoneNumber().equals(person.get_phoneNumber())==true)
+            {
+                if(persons.get(ipersons).get_groupname().equals(person.get_groupname())==true)
+                {
+                    if(persons.get(ipersons).get_name().equals(person.get_name())==true)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public boolean existExpenseinGroup(Person person,List<Person> persons)
+    {
+        for(int ipersons=0;ipersons<persons.size();ipersons++)
+        {
+
+
+            if(persons.get(ipersons).getExpenseList().get(0).getComments().equals(person.getExpenseList().get(0).getComments())==true)
+            {
+                if(persons.get(ipersons).get_groupname().equals(person.get_groupname())==true)
+                {
+                    if(persons.get(ipersons).get_name().equals(person.get_name())==true)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     public void addPerson(Person person,Expense expense, CSVAction csvAction)
     {
         try{
@@ -152,31 +188,52 @@ public class CSVParse {
         }
         return position;
     }
-    public String[] namePerson(List<Person> persons)
+    public List<String> namePerson(List<Person> persons)
     {
         List<String> stringsnamelist = new ArrayList<String>();
         for (Person person : persons) {
+            if(stringsnamelist.contains(person.get_name())==false)
             stringsnamelist.add(person.get_name());
         }
-        String[] strings = new String[stringsnamelist.size()];
-        for(int istrings=0;istrings<stringsnamelist.size();istrings++)
-        {
-            strings[istrings]=stringsnamelist.get(istrings);
-        }
-        return  strings;
+
+        return  stringsnamelist;
     }
-    public String[] nameGroup(List<Group> groups)
+    public List<String> nameComment(List<Person> persons)
+    {
+        List<String> stringsCommentlist = new ArrayList<String>();
+        for (Person person : persons) {
+            if(stringsCommentlist.contains(person.getExpenseList().get(0).getComments())==false)
+            {
+                if(person.getExpenseList().get(0).getComments().equals("")==false)
+                {
+                    stringsCommentlist.add(person.getExpenseList().get(0).getComments());
+                 }
+
+            }
+        }
+
+        return  stringsCommentlist;
+    }
+    public List<String> phonePerson(List<Person> persons)
+    {
+        List<String> stringsphonelist = new ArrayList<String>();
+        for (Person person : persons) {
+            if(stringsphonelist.contains(person.get_phoneNumber())==false)
+                stringsphonelist.add(person.get_phoneNumber());
+        }
+
+        return  stringsphonelist;
+    }
+
+    public List<String> nameGroup(List<Group> groups)
     {
         List<String> stringsgrouplist = new ArrayList<String>();
         for (Group group : groups) {
+            if(stringsgrouplist.contains(group.get_name())==false)
             stringsgrouplist.add(group.get_name());
         }
-        String[] strings = new String[stringsgrouplist.size()];
-        for(int istrings=0;istrings<stringsgrouplist.size();istrings++)
-        {
-            strings[istrings]=stringsgrouplist.get(istrings);
-        }
-        return  strings;
+
+        return  stringsgrouplist;
     }
 
     public List<Person> inverselistperson(List<Person> persons)
