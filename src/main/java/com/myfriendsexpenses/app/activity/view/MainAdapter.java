@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.myfriendsexpenses.app.R;
-import com.myfriendsexpenses.app.activity.controler.Group;
-import com.myfriendsexpenses.app.activity.controler.Person;
+import com.myfriendsexpenses.app.activity.classes.Group;
+import com.myfriendsexpenses.app.activity.classes.Person;
 
 import java.text.DecimalFormat;
 import java.util.List;

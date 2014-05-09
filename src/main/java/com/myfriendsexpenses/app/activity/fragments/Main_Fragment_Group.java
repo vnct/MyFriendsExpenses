@@ -25,10 +25,10 @@ import com.myfriendsexpenses.app.activity.activity.LastEntries;
 import com.myfriendsexpenses.app.activity.activity.MainActivity;
 import com.example.myfriendsexpenses.app.R;
 
-import com.myfriendsexpenses.app.activity.controler.Balance;
-import com.myfriendsexpenses.app.activity.controler.Group;
+import com.myfriendsexpenses.app.activity.classes.Balance;
+import com.myfriendsexpenses.app.activity.classes.Group;
 
-import com.myfriendsexpenses.app.activity.controler.Person;
+import com.myfriendsexpenses.app.activity.classes.Person;
 import com.myfriendsexpenses.app.activity.view.ExpenseAdapter;
 
 import com.myfriendsexpenses.app.activity.view.ListTitleGroupAdapter;

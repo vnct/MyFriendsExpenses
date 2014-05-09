@@ -1,4 +1,4 @@
-package com.myfriendsexpenses.app.activity.controler;
+package com.myfriendsexpenses.app.activity.controller;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

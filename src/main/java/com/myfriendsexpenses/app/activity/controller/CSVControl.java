@@ -1,5 +1,7 @@
-package com.myfriendsexpenses.app.activity.controler;
+package com.myfriendsexpenses.app.activity.controller;
 
+import com.myfriendsexpenses.app.activity.classes.Expense;
+import com.myfriendsexpenses.app.activity.classes.Person;
 import com.myfriendsexpenses.app.activity.model.CSVAction;
 
 import java.util.List;

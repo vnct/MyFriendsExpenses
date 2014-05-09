@@ -13,9 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.myfriendsexpenses.app.R;
-import com.myfriendsexpenses.app.activity.controler.Expense;
+import com.myfriendsexpenses.app.activity.classes.Expense;
 import com.myfriendsexpenses.app.activity.view.LastEntriesAdapter;
-import com.myfriendsexpenses.app.activity.controler.Person;
+import com.myfriendsexpenses.app.activity.classes.Person;
 
 import java.util.ArrayList;
 import java.util.List;

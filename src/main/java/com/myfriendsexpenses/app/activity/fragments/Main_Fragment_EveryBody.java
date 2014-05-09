@@ -17,7 +17,7 @@ import com.myfriendsexpenses.app.activity.activity.Add;
 import com.myfriendsexpenses.app.activity.activity.LastEntries;
 import com.myfriendsexpenses.app.activity.activity.MainActivity;
 import com.example.myfriendsexpenses.app.R;
-import com.myfriendsexpenses.app.activity.controler.Person;
+import com.myfriendsexpenses.app.activity.classes.Person;
 import com.myfriendsexpenses.app.activity.view.ListTitleAdapter;
 import com.myfriendsexpenses.app.activity.view.MainAdapter;
 import com.myfriendsexpenses.app.activity.view.MergeAdapter;

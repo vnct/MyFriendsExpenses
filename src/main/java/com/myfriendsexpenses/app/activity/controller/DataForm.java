@@ -1,4 +1,7 @@
-package com.myfriendsexpenses.app.activity.controler;
+package com.myfriendsexpenses.app.activity.controller;
+
+import com.myfriendsexpenses.app.activity.classes.Group;
+import com.myfriendsexpenses.app.activity.classes.Person;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -14,10 +14,10 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
 import com.example.myfriendsexpenses.app.R;
-import com.myfriendsexpenses.app.activity.controler.ShakeDetector;
+import com.myfriendsexpenses.app.activity.controller.ShakeDetector;
 import com.myfriendsexpenses.app.activity.fragments.Main_Fragment_EveryBody;
 import com.myfriendsexpenses.app.activity.fragments.Main_Fragment_Group;
-import com.myfriendsexpenses.app.activity.controler.DataForm;
+import com.myfriendsexpenses.app.activity.controller.DataForm;
 
 
 

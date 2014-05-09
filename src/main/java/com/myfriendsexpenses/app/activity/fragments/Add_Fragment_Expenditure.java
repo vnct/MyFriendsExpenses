@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.myfriendsexpenses.app.activity.activity.MainActivity;
 import com.example.myfriendsexpenses.app.R;
-import com.myfriendsexpenses.app.activity.controler.Expense;
-import com.myfriendsexpenses.app.activity.controler.Person;
+import com.myfriendsexpenses.app.activity.classes.Expense;
+import com.myfriendsexpenses.app.activity.classes.Person;
 
 import java.util.ArrayList;
 import java.util.HashMap;

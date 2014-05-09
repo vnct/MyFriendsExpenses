@@ -1,4 +1,4 @@
-package com.myfriendsexpenses.app.activity.controler;
+package com.myfriendsexpenses.app.activity.classes;
 
 /**
  * Created by lapie on 25/04/14
