@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.myfriendsexpenses.app.activity.Add" >
+    tools:context="com.myfriendsexpenses.app.activity.activity.Add" >
     <item android:id="@+id/csvread"
         android:title="@string/csvread"
         android:icon="@drawable/ic_action_collections_view_as_list"

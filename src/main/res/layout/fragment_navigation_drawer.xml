@@ -6,4 +6,4 @@
     android:divider="@android:color/transparent"
     android:dividerHeight="0dp"
     android:background="#cccc"
-    tools:context="com.example.myfriendsexpenses.app.activity.NavigationDrawerFragment" />
+    tools:context="com.myfriendsexpenses.app.activity.activity.NavigationDrawerFragment" />
