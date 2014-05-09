@@ -4,12 +4,17 @@ import android.app.Activity;
 
 import android.app.ActionBar;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.Toast;
 
+import com.example.myfriendsexpenses.app.controler.ShakeDetector;
 import com.example.myfriendsexpenses.app.fragments.Main_Fragment_EveryBody;
 import com.example.myfriendsexpenses.app.fragments.Main_Fragment_Group;
 import com.example.myfriendsexpenses.app.controler.DataForm;
@@ -29,6 +34,9 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
 
+    public MainActivity() {
+    }
+
 
     public static DataForm getDataForm() {
         return dataForm;
@@ -36,6 +44,11 @@ public class MainActivity extends Activity
     public static void setDataForm(DataForm dataForm) {
         MainActivity.dataForm = dataForm;
     }
+
+
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +59,38 @@ public class MainActivity extends Activity
         mTitle =   getTitle();
         fillDataForm();
 
-      //  System.out.println("------------- MainActivity - onCreate -------------");
+// ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
 
-
-        // Set up the drawer.
-
+            @Override
+            public void onShake(int count) {
+                /*
+                 * The following method, "handleShakeEvent(count):" is a stub //
+                 * method you would use to setup whatever you want done once the
+                 * device has been shook.
+                 */
+                             handleShakeEvent(count);
+            }
+        });
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
     }
 
+    private void  handleShakeEvent(int count)
+    {
+        if(count==3)
+        {
+            Intent EasterEggActivity = new Intent(this,EasterEgg.class);
+            // ExpenditureActivity.putExtra("CSVLocation",csvAction.getPath_file());
+            startActivity(EasterEggActivity);
+        }
+    }
     static public void fillDataForm()
     {
         dataForm.getCsvAction().createFile();
@@ -73,6 +107,8 @@ public class MainActivity extends Activity
 
     public void onPause()
     {
+
+        mSensorManager.unregisterListener(mShakeDetector);
         super.onPause();
         //    System.out.println("------------- MainActivity - onPause -------------");
     }
@@ -81,6 +117,8 @@ public class MainActivity extends Activity
     {
         super.onResume();
         fillDataForm();
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,    SensorManager.SENSOR_DELAY_UI);
+
         //    System.out.println("------------- MainActivity - onResume -------------");
     }
 

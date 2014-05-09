@@ -78,5 +78,6 @@
     <string name="mainadapter_owes_to">owes to</string>
     <string name="items">items</string>
     <string name="expenseadapter_paid_by">paid by</string>
+    <string name="title_activity_easter_egg">EasterEgg</string>
 
 </resources>

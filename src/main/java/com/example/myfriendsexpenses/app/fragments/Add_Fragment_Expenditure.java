@@ -64,7 +64,7 @@ public class Add_Fragment_Expenditure extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.add, menu);
-       // System.out.println("onCreateOptionsMenu");
+        // System.out.println("onCreateOptionsMenu");
         menu_add_update = menu.findItem(R.id.menu_add_update);
         menu_add_validate = menu.findItem(R.id.menu_add_validate);
         menu_add_person = menu.findItem(R.id.menu_add_person);
@@ -86,7 +86,7 @@ public class Add_Fragment_Expenditure extends Fragment {
         // handle item selection
         switch (item.getItemId()) {
             case R.id.menu_add_validate:
-               OnclickButtonAdd();
+                OnclickButtonAdd();
                 return true;
             case R.id.menu_add_update:
                 OnclickButtonUpdate();
@@ -121,7 +121,7 @@ public class Add_Fragment_Expenditure extends Fragment {
 
             }
         }
-      //  System.out.println("Mon My_action " + My_action);
+        //  System.out.println("Mon My_action " + My_action);
         //System.out.println("Mon My_Position " + My_Position);
 
         listeHaspMapEntries = new ArrayList<HashMap<String, String>>();
@@ -135,8 +135,11 @@ public class Add_Fragment_Expenditure extends Fragment {
         editTextname.setOnClickListener(onClickListenertextname);
         editTextphone.setOnFocusChangeListener(onFocusChangetextphone);
         editTextphone.setOnClickListener(onClickListenertextphone);
+
+
         editTextcomment.setOnClickListener(onItemClickListenertextcomment);
         editTextcomment.setOnFocusChangeListener(onFocusChangetextcomment);
+
 
         return rootView;
     }
@@ -190,29 +193,35 @@ public class Add_Fragment_Expenditure extends Fragment {
 
             editTextphone.setText(MainActivity.getDataForm().getCsvParse().getPhone(editTextname.getText().toString().trim(), editTextGroupname.getText().toString().trim(), MainActivity.getDataForm().getPersons()));
             Testingtextname();
-       }
+        }
     };
 
     private void Testingtextcomment()
     {
+        // if (My_action.equals("1")==false) {
+
+
         List<Person> personList = new ArrayList<Person>();
-        personList=MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getPersons(),editTextGroupname.getText().toString().trim(),false);
-        personList=MainActivity.getDataForm().getCsvParse().parsePersonbyName(personList,editTextname.getText().toString().trim());
+        personList = MainActivity.getDataForm().getCsvParse().parsePersonbyGroups(MainActivity.getDataForm().getPersons(), editTextGroupname.getText().toString().trim(), false);
+        personList = MainActivity.getDataForm().getCsvParse().parsePersonbyName(personList, editTextname.getText().toString().trim());
         nameComments = MainActivity.getDataForm().getCsvParse().nameComment(personList);
-        if(nameComments.contains(editTextcomment.getText().toString().trim()))
-        {   Toast.makeText(getActivity().getApplicationContext(), getString(R.string.add_expenditure_toast_fail), Toast.LENGTH_SHORT).show();
-            String new_name_comment=editTextcomment.getText().toString().trim();
-            int i=1;
-            while(nameComments.contains(editTextcomment.getText().toString().trim()))
-            {
-               editTextcomment.setText(new_name_comment+" "+i);
+        if (My_action.equals("1"))
+        {
+            nameComments.remove(nameComments.indexOf(person_old.getExpenseList().get(0).getComments()));
+        }
+        if (nameComments.contains(editTextcomment.getText().toString().trim())) {
+            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.add_expenditure_toast_fail), Toast.LENGTH_SHORT).show();
+            String new_name_comment = editTextcomment.getText().toString().trim();
+            int i = 1;
+            while (nameComments.contains(editTextcomment.getText().toString().trim())) {
+                editTextcomment.setText(new_name_comment + " " + i);
                 i++;
-                if(i>20)
-                {
+                if (i > 20) {
                     break;
                 }
             }
         }
+
     }
     private void Testingtextphone()
     {
@@ -277,22 +286,22 @@ public class Add_Fragment_Expenditure extends Fragment {
             }
 
         }
-            if (My_action.equals("1")) {
+        if (My_action.equals("1")) {
 
 
-                String Expenses = editTextexpense.getText().toString();
-                editTextphone.setFocusable(false);
-                float ExpensesValue = Float.valueOf(Expenses);
-                expense_old = new Expense(ExpensesValue, editTextcomment.getText().toString().trim());
-                person_old = new Person(editTextname.getText().toString().trim(), editTextphone.getText().toString().trim(), expense_old, editTextGroupname.getText().toString().trim());
+            String Expenses = editTextexpense.getText().toString();
+            editTextphone.setFocusable(false);
+            float ExpensesValue = Float.valueOf(Expenses);
+            expense_old = new Expense(ExpensesValue, editTextcomment.getText().toString().trim());
+            person_old = new Person(editTextname.getText().toString().trim(), editTextphone.getText().toString().trim(), expense_old, editTextGroupname.getText().toString().trim());
 
-            }
-            if (My_action.equals("2")) {
+        }
+        if (My_action.equals("2")) {
 
 
-                editTextexpense.getText().clear();
+            editTextexpense.getText().clear();
 
-            }
+        }
 
 
 
@@ -324,106 +333,107 @@ public class Add_Fragment_Expenditure extends Fragment {
     private void OnclickButtonUpdate() {
 
 
-            if (editTextexpense.getText().equals("") == true || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
-            } else {
-                try {
-                    String Expenses = editTextexpense.getText().toString();
-                    float ExpensesValue = Float.valueOf(Expenses);
-                    Expense expense_new = new Expense(ExpensesValue, editTextcomment.getText().toString().trim());
-                    Person person_new = new Person(editTextname.getText().toString().trim(), editTextphone.getText().toString().trim(), expense_new, editTextGroupname.getText().toString().trim());
-                   // MainActivity.getDataForm().getCsvAction().changePerson(person_old,expense_old,person_new, expense_new,Integer.parseInt(My_Position));
-                    MainActivity.getDataForm().getCsvAction().changePerson(person_old,expense_old,person_new, expense_new);
-                    HashMap<String, String> element = new HashMap<String, String>();
-                    element.put("text1", "" + person_new.get_name() + " (" + person_new.get_groupname() + ")");
-                    String expenditure = editTextexpense.getText().toString() + " €";
-                    if (expense_new.getComments().length() > 0) {
-                        expenditure = expenditure.concat(" for " + expense_new.getComments());
-                    }
-                    element.put("text2", "" + expenditure);
-                    listeHaspMapEntries.add(element);
-                    listViewEntries.setAdapter(simpleAdapter);
-                    clear_EditText(true);
-                    editTextphone.setFocusable(true);
-                    My_action="0";
-                    getActivity().finish();
+        if (editTextexpense.getText().equals("") == true || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
+        } else {
+            try {
+                String Expenses = editTextexpense.getText().toString();
+                float ExpensesValue = Float.valueOf(Expenses);
+                Testingtextcomment();
+                Expense expense_new = new Expense(ExpensesValue, editTextcomment.getText().toString().trim());
+                Person person_new = new Person(editTextname.getText().toString().trim(), editTextphone.getText().toString().trim(), expense_new, editTextGroupname.getText().toString().trim());
 
-
-                } catch (Exception e) {
-                    System.out.println("Expenditure -> OnclickButtonUpdate -> Exception");
-                    e.printStackTrace();
-                    editTextexpense.getText().clear();
-                    editTextexpense.setHint("10.0");
+                MainActivity.getDataForm().getCsvAction().changePerson(person_old,expense_old,person_new, expense_new);
+                HashMap<String, String> element = new HashMap<String, String>();
+                element.put("text1", "" + person_new.get_name() + " (" + person_new.get_groupname() + ")");
+                String expenditure = editTextexpense.getText().toString() + " €";
+                if (expense_new.getComments().length() > 0) {
+                    expenditure = expenditure.concat(" for " + expense_new.getComments());
                 }
+                element.put("text2", "" + expenditure);
+                listeHaspMapEntries.add(element);
+                listViewEntries.setAdapter(simpleAdapter);
+                clear_EditText(true);
+                editTextphone.setFocusable(true);
+                My_action="0";
+                getActivity().finish();
+
+
+            } catch (Exception e) {
+                System.out.println("Expenditure -> OnclickButtonUpdate -> Exception");
+                e.printStackTrace();
+                editTextexpense.getText().clear();
+                editTextexpense.setHint("10.0");
             }
+        }
 
     };
 
 
     private void OnclickButtonAdd() {
 
-                if (editTextexpense.getText().equals("") == true || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
-                } else {
-                    try {
-                        String Expenses = editTextexpense.getText().toString();
-                        float ExpensesValue = Float.valueOf(Expenses);
-                        Expense expense = new Expense(ExpensesValue, editTextcomment.getText().toString().trim());
-                        Person person = new Person(editTextname.getText().toString().trim(), editTextphone.getText().toString().trim(), expense, editTextGroupname.getText().toString().trim());
-                        boolean alreadyexist = MainActivity.getDataForm().getCsvParse().existExpenseinGroup(person, MainActivity.getDataForm().getPersons());
-                        if (!alreadyexist)
-                        {
-                            MainActivity.getDataForm().getCsvParse().addPerson(person, expense, MainActivity.getDataForm().getCsvAction());
-                            HashMap<String, String> element = new HashMap<String, String>();
-                            element.put("text1", "" + person.get_name() + " (" + person.get_groupname() + ")");
-                            String expenditure = editTextexpense.getText().toString() + " €";
-                            if (expense.getComments().length() > 0) {
-                                expenditure = expenditure.concat(getString(R.string.add_expenditure_msg) + expense.getComments());
-                            }
-                            element.put("text2", "" + expenditure);
-                            listeHaspMapEntries.add(element);
-                            listViewEntries.setAdapter(simpleAdapter);
-                            clear_EditText(true);
-                            if (bargs) {
-                                Toast.makeText(getActivity().getApplicationContext(), getString(R.string.add_expenditure_toast_ok), Toast.LENGTH_SHORT).show();
-                                getActivity().finish();
-                            }
-                        }
-                        else
-                        {
-                            clear_EditText(false);
-                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.add_expenditure_toast_fail), Toast.LENGTH_SHORT).show();
-                        }
-
-
-                    } catch (Exception e) {
-                        System.out.println("Expenditure -> OnclickButtonAdd -> Exception");
-                        e.printStackTrace();
-                        editTextexpense.getText().clear();
-                        editTextexpense.setHint("10.0");
-
+        if (editTextexpense.getText().equals("") == true || editTextphone.getText().equals("") || editTextname.getText().equals("") || editTextGroupname.getText().equals("")) {
+        } else {
+            try {
+                String Expenses = editTextexpense.getText().toString();
+                float ExpensesValue = Float.valueOf(Expenses);
+                Expense expense = new Expense(ExpensesValue, editTextcomment.getText().toString().trim());
+                Person person = new Person(editTextname.getText().toString().trim(), editTextphone.getText().toString().trim(), expense, editTextGroupname.getText().toString().trim());
+                boolean alreadyexist = MainActivity.getDataForm().getCsvParse().existExpenseinGroup(person, MainActivity.getDataForm().getPersons());
+                if (!alreadyexist)
+                {
+                    MainActivity.getDataForm().getCsvParse().addPerson(person, expense, MainActivity.getDataForm().getCsvAction());
+                    HashMap<String, String> element = new HashMap<String, String>();
+                    element.put("text1", "" + person.get_name() + " (" + person.get_groupname() + ")");
+                    String expenditure = editTextexpense.getText().toString() + " €";
+                    if (expense.getComments().length() > 0) {
+                        expenditure = expenditure.concat(getString(R.string.add_expenditure_msg) + expense.getComments());
                     }
+                    element.put("text2", "" + expenditure);
+                    listeHaspMapEntries.add(element);
+                    listViewEntries.setAdapter(simpleAdapter);
+                    clear_EditText(true);
+                    if (bargs) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.add_expenditure_toast_ok), Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                    }
+                }
+                else
+                {
+                    clear_EditText(false);
+                    Toast.makeText(getActivity().getApplicationContext(), getString(R.string.add_expenditure_toast_fail), Toast.LENGTH_SHORT).show();
+                }
 
-            }
-        };
 
-        private void clear_EditText(boolean all) {
-
-            editTextcomment.getText().clear();
-            if(all)
-            {
+            } catch (Exception e) {
+                System.out.println("Expenditure -> OnclickButtonAdd -> Exception");
+                e.printStackTrace();
                 editTextexpense.getText().clear();
-                editTextphone.getText().clear();
-                editTextname.getText().clear();
-                editTextGroupname.getText().clear();
+                editTextexpense.setHint("10.0");
 
             }
 
-            updateDataform();
-            adaptername = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, namePerson);
-            adaptergroup = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, nameGroup);
-            editTextname.setAdapter(adaptername);
-            editTextGroupname.setAdapter(adaptergroup);
-            menu_add_validate.setIcon(R.drawable.ic_action_content_new);
         }
+    };
+
+    private void clear_EditText(boolean all) {
+
+        editTextcomment.getText().clear();
+        if(all)
+        {
+            editTextexpense.getText().clear();
+            editTextphone.getText().clear();
+            editTextname.getText().clear();
+            editTextGroupname.getText().clear();
+
+        }
+
+        updateDataform();
+        adaptername = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, namePerson);
+        adaptergroup = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, nameGroup);
+        editTextname.setAdapter(adaptername);
+        editTextGroupname.setAdapter(adaptergroup);
+        menu_add_validate.setIcon(R.drawable.ic_action_content_new);
+    }
 
     private void updateDataform()
     {
@@ -437,17 +447,17 @@ public class Add_Fragment_Expenditure extends Fragment {
         nameComments = MainActivity.getDataForm().getCsvParse().nameComment(MainActivity.getDataForm().getPersons());
     }
 
-        private void initialization_widget(View rootView) {
-            editTextexpense = (EditText) rootView.findViewById(R.id.addexpense);
-            editTextphone = (EditText) rootView.findViewById(R.id.addphone);
-            editTextname = (AutoCompleteTextView) rootView.findViewById(R.id.addname);
-            editTextcomment = (EditText) rootView.findViewById(R.id.addcomment);
-            editTextGroupname = (AutoCompleteTextView) rootView.findViewById(R.id.addgroupe);
+    private void initialization_widget(View rootView) {
+        editTextexpense = (EditText) rootView.findViewById(R.id.addexpense);
+        editTextphone = (EditText) rootView.findViewById(R.id.addphone);
+        editTextname = (AutoCompleteTextView) rootView.findViewById(R.id.addname);
+        editTextcomment = (EditText) rootView.findViewById(R.id.addcomment);
+        editTextGroupname = (AutoCompleteTextView) rootView.findViewById(R.id.addgroupe);
 
-            listViewEntries = (ListView) rootView.findViewById(R.id.addlistView);
-            //     buttonaddValidate = (Button) rootView.findViewById(R.id.menu_add_validate);
+        listViewEntries = (ListView) rootView.findViewById(R.id.addlistView);
+        //     buttonaddValidate = (Button) rootView.findViewById(R.id.menu_add_validate);
 
-        }
+    }
 
 
 

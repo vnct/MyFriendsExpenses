@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -38,6 +42,14 @@
         <activity
             android:name="com.example.myfriendsexpenses.app.Add"
             android:label="@string/title_activity_add"
+            android:parentActivityName="com.example.myfriendsexpenses.app.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfriendsexpenses.app.EasterEgg"
+            android:label="@string/title_activity_easter_egg"
             android:parentActivityName="com.example.myfriendsexpenses.app.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

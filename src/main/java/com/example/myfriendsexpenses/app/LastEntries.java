@@ -142,7 +142,7 @@ public class LastEntries extends Activity {
                         AddActivity_new.putExtra("What", "");
                         AddActivity_new.putExtra("Cost", "");
                         AddActivity_new.putExtra("Name", person_new.get_name());
-                        AddActivity_new.putExtra("Action", "" + 2); // action = 1 --> NEW
+                        AddActivity_new.putExtra("Action", "" + 2); // action = 2 --> NEW
                         int real_position_new = lastEntriesAdapter.getCount() - position_to_remove - 1;
                         AddActivity_new.putExtra("Position", "" + real_position_new);
                         startActivity(AddActivity_new);

@@ -10,12 +10,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.myfriendsexpenses.app.Add;
 import com.example.myfriendsexpenses.app.LastEntries;
 import com.example.myfriendsexpenses.app.MainActivity;
 import com.example.myfriendsexpenses.app.R;
+import com.example.myfriendsexpenses.app.controler.Person;
 import com.example.myfriendsexpenses.app.view.ListTitleAdapter;
 import com.example.myfriendsexpenses.app.view.MainAdapter;
 import com.example.myfriendsexpenses.app.view.MergeAdapter;
@@ -117,10 +119,30 @@ public class Main_Fragment_EveryBody extends Fragment {
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
          listViewMergeAdapter =  ((ListView)rootView.findViewById(R.id.listViewMainAdapter));
-
+        listViewMergeAdapter.setOnItemLongClickListener(onItemLongClickListener);
     return rootView;
     }
 
+  private AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
+      @Override
+      public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+          try {
+              Person mypersonAdapter = (Person) adapterView.getItemAtPosition(i);
+
+              Intent ExpenditureActivity = new Intent(getActivity(), LastEntries.class);
+              ExpenditureActivity.putExtra("GroupName", mypersonAdapter.get_groupname());
+              ExpenditureActivity.putExtra("PersonName", mypersonAdapter.get_name());
+              ExpenditureActivity.putExtra("CommentExpense","");
+              startActivity(ExpenditureActivity);
+              return true;
+          }
+          catch (Exception e)
+          {
+
+          }
+          return false;
+      }
+  };
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

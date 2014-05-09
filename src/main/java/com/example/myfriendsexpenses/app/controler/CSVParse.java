@@ -206,7 +206,10 @@ public class CSVParse {
             {
                 if(person.getExpenseList().get(0).getComments().equals("")==false)
                 {
-                    stringsCommentlist.add(person.getExpenseList().get(0).getComments());
+
+                        stringsCommentlist.add(person.getExpenseList().get(0).getComments());
+
+
                  }
 
             }
