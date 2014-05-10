@@ -23,6 +23,8 @@ import android.widget.ListView;
 
 import com.example.myfriendsexpenses.app.R;
 
+import java.util.List;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -59,14 +61,19 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
-
+    private SharedPreferences sharedPref;
+    private ArrayAdapter<String> listview;
     public NavigationDrawerFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        System.out.println("NavigationDrawerFragment --> onCreate");
+        MainActivity.getDataForm().getCsvControl().setCSVName(sharedPref.getBoolean(SettingsActivity.CSV_FILE_DEFAULT, true),sharedPref.getString(SettingsActivity.CSV_FILE_NAME, ""));
 
+        //fillDataForm(false);
         MainActivity.fillDataForm(false);
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
@@ -91,22 +98,39 @@ public class NavigationDrawerFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
-
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        System.out.println("NavigationDrawerFragment --> onResume");
+        MainActivity.getDataForm().getCsvControl().setCSVName(sharedPref.getBoolean(SettingsActivity.CSV_FILE_DEFAULT, true), sharedPref.getString(SettingsActivity.CSV_FILE_NAME, ""));
         MainActivity.fillDataForm(false);
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+        if(!listview.equals(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,MainActivity.getDataForm().getGroupname()));
+                android.R.id.text1,MainActivity.getDataForm().getGroupname())))
+        {
+            listview=new ArrayAdapter<String>(
+                    getActionBar().getThemedContext(),
+                    android.R.layout.simple_list_item_activated_1,
+                    android.R.id.text1,MainActivity.getDataForm().getGroupname());
+            mDrawerListView.setAdapter(listview);
+        }
+        /*listview = new ArrayAdapter<String>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,MainActivity.getDataForm().getGroupname());*/
+      /*  mDrawerListView.setAdapter(new ArrayAdapter<String>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,MainActivity.getDataForm().getGroupname()));*/
+        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
-
-       if(mDrawerListView.getCount()>=mCurrentSelectedPosition)
+/*       if(mDrawerListView.getCount()>=mCurrentSelectedPosition)
        {
            mDrawerListView.setItemChecked(1, true);
        }
         else
        {
-           mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-       }
+
+       }*/
 
     }
     @Override
@@ -121,12 +145,15 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+        listview = new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,MainActivity.getDataForm().getGroupname()));
-
+                android.R.id.text1,MainActivity.getDataForm().getGroupname());
+  /*      mDrawerListView.setAdapter(new ArrayAdapter<String>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,MainActivity.getDataForm().getGroupname()));*/
+                mDrawerListView.setAdapter(listview);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }

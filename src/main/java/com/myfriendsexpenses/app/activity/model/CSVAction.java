@@ -17,7 +17,7 @@ import java.util.List;
 public class CSVAction {
     private String path_file="";
     private String filelocation="";
-    private String filename="expenses.csv";
+    private String filename="";
     private String[] stringsTitleCSV = new String[]{"Name","Phone","Amount","Group","Comment"};
     public void createFile()
     {
@@ -101,7 +101,7 @@ public class CSVAction {
 
 
         try {
-
+            System.out.println("path_file" + path_file);
             FileReader fileReader = new FileReader(path_file);
             CSVReader csvReader = new CSVReader(fileReader);
 
@@ -133,7 +133,7 @@ public class CSVAction {
     }
 
     public void setFilename(String filename) {
-        this.filename = filename;
+        this.filename = filename+".csv";
     }
 
     public String getFilelocation() {

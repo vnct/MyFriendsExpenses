@@ -6,9 +6,11 @@ import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -46,7 +48,9 @@ public class MainActivity extends Activity
         MainActivity.dataForm = dataForm;
     }*/
 
-
+    private String CSV_FILE_NAME;
+    private boolean CSV_FILE_DEFAULT;
+    private SharedPreferences sharedPref;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
@@ -58,7 +62,10 @@ public class MainActivity extends Activity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle =   getTitle();
-        fillDataForm(false);
+       /* sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        System.out.println("Main Activity --> onCreate");
+        dataForm.getCsvControl().setCSVName(sharedPref.getBoolean(SettingsActivity.CSV_FILE_DEFAULT, true),sharedPref.getString(SettingsActivity.CSV_FILE_NAME, "expenses"));
+        fillDataForm(false);*/
 
 // ShakeDetector initialization
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -80,6 +87,9 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
+
 
     }
 
@@ -104,6 +114,7 @@ public class MainActivity extends Activity
 
 
 
+
     }
 
     public void onPause()
@@ -117,6 +128,9 @@ public class MainActivity extends Activity
     public void onResume()
     {
         super.onResume();
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        dataForm.getCsvControl().setCSVName(sharedPref.getBoolean(SettingsActivity.CSV_FILE_DEFAULT, false),sharedPref.getString(SettingsActivity.CSV_FILE_NAME, ""));
         fillDataForm(false);
         mTitle =   getTitle();
         mSensorManager.registerListener(mShakeDetector, mAccelerometer,    SensorManager.SENSOR_DELAY_UI);
@@ -206,7 +220,13 @@ public class MainActivity extends Activity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        if(id == R.id.action_settings)
+        {
+            Intent intent = new Intent(this,SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 

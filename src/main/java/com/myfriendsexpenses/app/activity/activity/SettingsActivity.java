@@ -2,6 +2,7 @@ package com.myfriendsexpenses.app.activity.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -35,7 +36,7 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 @SuppressWarnings("ConstantConditions")
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity  implements SharedPreferences.OnSharedPreferenceChangeListener {
     /**
      * Determines whether to always show the simplified settings UI, where
      * settings are presented in a single list. When false, settings are shown
@@ -43,6 +44,8 @@ public class SettingsActivity extends PreferenceActivity {
      * shown on tablets.
      */
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
+    public static final String CSV_FILE_NAME = "settings_CSV_file_name";
+    public static final String CSV_FILE_DEFAULT = "settings_CSV_file_default_file";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +105,10 @@ public class SettingsActivity extends PreferenceActivity {
         // use the older PreferenceActivity APIs.
 
         // Add 'general' preferences.
-        addPreferencesFromResource(R.xml.pref_general);
+       // addPreferencesFromResource(R.xml.pref_general);
 
         // Add 'notifications' preferences, and a corresponding header.
-        PreferenceCategory fakeHeader = new PreferenceCategory(this);
+       /* PreferenceCategory fakeHeader = new PreferenceCategory(this);
         fakeHeader.setTitle(R.string.pref_header_notifications);
         getPreferenceScreen().addPreference(fakeHeader);
         addPreferencesFromResource(R.xml.pref_notification);
@@ -121,7 +124,7 @@ public class SettingsActivity extends PreferenceActivity {
         bindPreferenceSummaryToValue(findPreference("example_text"));
         bindPreferenceSummaryToValue(findPreference("example_list"));
         bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
-        bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+        bindPreferenceSummaryToValue(findPreference("sync_frequency"));*/
     }
 
     /** {@inheritDoc} */
@@ -233,6 +236,33 @@ public class SettingsActivity extends PreferenceActivity {
                         .getString(preference.getKey(), ""));
     }
 
+      @Override
+      public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+          if (key.equals(CSV_FILE_NAME)) {
+              Preference csvname = findPreference(key);
+              // Set summary to be the user-description for the selected value
+              csvname.setSummary(sharedPreferences.getString(key, ""));
+          }
+          if (key.equals(CSV_FILE_DEFAULT)) {
+              Preference csvdefault = findPreference(key);
+              sharedPreferences.getBoolean(key,true);
+              // Set summary to be the user-description for the selected value
+              //csvdefault.setSummary(sharedPreferences.getBoolean(key,true));
+          }
+      }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
     /**
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.

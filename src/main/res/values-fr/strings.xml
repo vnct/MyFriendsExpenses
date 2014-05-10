@@ -78,6 +78,11 @@
     <string name="mainadapter_owes_to">doit à</string>
     <string name="items">éléments</string>
     <string name="expenseadapter_paid_by">payé par</string>
+    <string name="title_activity_easter_egg">EasterEgg</string>
+    <string name="settings_CSV_title">CSV</string>
+    <string name="settings_CSV_file_name">Nom du fichier à utliliser</string>
+    <string name="settings_CSV_file_name_default">expenses</string>
+    <string name="settings_CSV_file_default_file">Utiliser le nom par défaut</string>
 
 
 </resources>

@@ -79,5 +79,10 @@
     <string name="items">items</string>
     <string name="expenseadapter_paid_by">paid by</string>
     <string name="title_activity_easter_egg">EasterEgg</string>
+    <string name="settings_CSV_title">CSV</string>
+    <string name="settings_CSV_file_name">Name file to use</string>
+    <string name="settings_CSV_file_name_default">expenses</string>
+    <string name="settings_CSV_file_default_file">Use default name</string>
+
 
 </resources>

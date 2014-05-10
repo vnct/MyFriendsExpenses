@@ -9,10 +9,26 @@ import java.util.List;
 
 public class CSVControl {
 
-    CSVAction csvAction = new CSVAction();
+    private CSVAction csvAction = new CSVAction();
 
+    public void setCSVName(boolean default_file,String name_file)
+    {
+        System.out.println("CSVControl -> setCSVName -> " + default_file + " " + name_file );
+        if(default_file)
+        {
+
+            csvAction.setFilename("expenses");
+        }
+        else
+        {
+
+            csvAction.setFilename(name_file.toLowerCase().trim().replace(" ",""));
+        }
+
+    }
     public void createCSVFile()
     {
+        System.out.println("CSVControl -> createCSVFile -> " + csvAction.getFilename());
         csvAction.createFile();
     }
     public List<String[]> getdataCSV()
