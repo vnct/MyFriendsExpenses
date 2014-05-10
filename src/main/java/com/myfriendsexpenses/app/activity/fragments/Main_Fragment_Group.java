@@ -2,6 +2,7 @@ package com.myfriendsexpenses.app.activity.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -185,23 +186,49 @@ public class Main_Fragment_Group extends Fragment {
         List<Group> groups = MainActivity.getDataForm().getGroups();
 
         mergeAdapter = new MergeAdapter();
-        group = MainActivity.getDataForm().getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1);
 
-        for (int igroups = 0; igroups < groups.size(); igroups++) {
-            if (MainActivity.getDataForm().getGroups().get(igroups).get_name().equals(group)) {
+        try {
+            String old_name_group=""+group;
+            group = MainActivity.getDataForm().getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1);
 
-                group1 = MainActivity.getDataForm().getGroups().get(igroups);
-                mergeAdapter=fillMergeAdapter(igroups);
-                float v = group1.get_expensePerPerson();
-                DecimalFormat df = new DecimalFormat();
-                df.setMaximumFractionDigits(2);
-                textViewGroupBaseAdapterExpensesPerson.setText(df.format(v) + " €");
-                textViewGroupBaseAdapterTotalExpense.setText(df.format(group1.get_totalExpenses()) + " €");
 
+            for (int igroups = 0; igroups < groups.size(); igroups++) {
+                if (MainActivity.getDataForm().getGroups().get(igroups).get_name().equals(group)) {
+
+
+
+                    group1 = MainActivity.getDataForm().getGroups().get(igroups);
+                    mergeAdapter = fillMergeAdapter(igroups);
+                    float v = group1.get_expensePerPerson();
+                    DecimalFormat df = new DecimalFormat();
+                    df.setMaximumFractionDigits(2);
+                    textViewGroupBaseAdapterExpensesPerson.setText(df.format(v) + " €");
+                    textViewGroupBaseAdapterTotalExpense.setText(df.format(group1.get_totalExpenses()) + " €");
+
+                }
             }
+
+            listViewMergeAdapter.setAdapter(mergeAdapter);
+
+            // Si cas retour sur fragment et groupe vide, on réoriente chez tout le monde
+            if(!old_name_group.equals(""))
+            {
+                if(!old_name_group.equals(group))
+                {
+                    FragmentTransaction tr = getFragmentManager().beginTransaction();
+                    tr.replace(R.id.container, Main_Fragment_EveryBody.newInstance(0 + 1),"everybody")
+                            .commit();
+                }
+            }
+
+        }
+        catch (Exception e)
+        {
+            FragmentTransaction tr = getFragmentManager().beginTransaction();
+            tr.replace(R.id.container, Main_Fragment_EveryBody.newInstance(0 + 1),"everybody")
+                    .commit();
         }
 
-        listViewMergeAdapter.setAdapter(mergeAdapter);
 
        //System.out.println("------------- Add_Fragment_Person - onResume -------------");
 
@@ -305,8 +332,11 @@ public class Main_Fragment_Group extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER),MainActivity.getDataForm().getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER)-1));
-    }
+
+            ((MainActivity) activity).onSectionAttached(
+                    getArguments().getInt(ARG_SECTION_NUMBER),MainActivity.getDataForm().getGroupname().get(getArguments().getInt(ARG_SECTION_NUMBER)-1));
+
+
+       }
 }
 

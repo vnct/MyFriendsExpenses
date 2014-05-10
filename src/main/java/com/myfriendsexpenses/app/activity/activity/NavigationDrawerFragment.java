@@ -67,7 +67,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       MainActivity.fillDataForm(false);
+        MainActivity.fillDataForm(false);
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -77,7 +77,6 @@ public class NavigationDrawerFragment extends Fragment {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
-
        // System.out.println("------------- NavigationDrawerFragment - onCreate -------------" + mCurrentSelectedPosition);
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
@@ -90,6 +89,26 @@ public class NavigationDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    public void onResume() {
+        super.onResume();
+
+        MainActivity.fillDataForm(false);
+        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+                getActionBar().getThemedContext(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,MainActivity.getDataForm().getGroupname()));
+
+
+       if(mDrawerListView.getCount()>=mCurrentSelectedPosition)
+       {
+           mDrawerListView.setItemChecked(1, true);
+       }
+        else
+       {
+           mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+       }
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,6 +120,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+
 
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),

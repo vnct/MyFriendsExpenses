@@ -118,6 +118,7 @@ public class MainActivity extends Activity
     {
         super.onResume();
         fillDataForm(false);
+        mTitle =   getTitle();
         mSensorManager.registerListener(mShakeDetector, mAccelerometer,    SensorManager.SENSOR_DELAY_UI);
 
         //    System.out.println("------------- MainActivity - onResume -------------");
