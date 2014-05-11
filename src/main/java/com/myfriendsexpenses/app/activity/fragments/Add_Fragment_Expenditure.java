@@ -375,7 +375,7 @@ public class Add_Fragment_Expenditure extends Fragment {
                     element.put("text1", "" + person.get_name() + " (" + person.get_groupname() + ")");
                     String expenditure = editTextexpense.getText().toString() + " €";
                     if (expense.getComments().length() > 0) {
-                        expenditure = expenditure.concat(getString(R.string.add_expenditure_msg) + expense.getComments());
+                        expenditure = expenditure.concat(" " + getString(R.string.add_expenditure_msg) + " " + expense.getComments());
                     }
                     element.put("text2", "" + expenditure);
                     listeHaspMapEntries.add(element);

@@ -70,7 +70,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        System.out.println("NavigationDrawerFragment --> onCreate");
+     //   System.out.println("NavigationDrawerFragment --> onCreate");
         MainActivity.getDataForm().getCsvControl().setCSVName(sharedPref.getBoolean(SettingsActivity.CSV_FILE_DEFAULT, true),sharedPref.getString(SettingsActivity.CSV_FILE_NAME, ""));
 
         //fillDataForm(false);
@@ -99,7 +99,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        System.out.println("NavigationDrawerFragment --> onResume");
+  //      System.out.println("NavigationDrawerFragment --> onResume");
         MainActivity.getDataForm().getCsvControl().setCSVName(sharedPref.getBoolean(SettingsActivity.CSV_FILE_DEFAULT, true), sharedPref.getString(SettingsActivity.CSV_FILE_NAME, ""));
         MainActivity.fillDataForm(false);
         if(!listview.equals(new ArrayAdapter<String>(

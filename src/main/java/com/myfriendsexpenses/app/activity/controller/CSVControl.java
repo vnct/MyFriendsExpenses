@@ -13,7 +13,7 @@ public class CSVControl {
 
     public void setCSVName(boolean default_file,String name_file)
     {
-        System.out.println("CSVControl -> setCSVName -> " + default_file + " " + name_file );
+      //  System.out.println("CSVControl -> setCSVName -> " + default_file + " " + name_file );
         if(default_file)
         {
 
@@ -28,7 +28,7 @@ public class CSVControl {
     }
     public void createCSVFile()
     {
-        System.out.println("CSVControl -> createCSVFile -> " + csvAction.getFilename());
+      //  System.out.println("CSVControl -> createCSVFile -> " + csvAction.getFilename());
         csvAction.createFile();
     }
     public List<String[]> getdataCSV()

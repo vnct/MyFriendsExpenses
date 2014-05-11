@@ -43,4 +43,8 @@ public class EasterEgg extends Activity {
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
+    public void onDestroy() {
+        this.finish();
+        super.onDestroy();
+    }
 }

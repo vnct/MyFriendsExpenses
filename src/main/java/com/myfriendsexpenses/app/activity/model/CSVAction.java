@@ -101,7 +101,7 @@ public class CSVAction {
 
 
         try {
-            System.out.println("path_file" + path_file);
+        //    System.out.println("path_file" + path_file);
             FileReader fileReader = new FileReader(path_file);
             CSVReader csvReader = new CSVReader(fileReader);
 

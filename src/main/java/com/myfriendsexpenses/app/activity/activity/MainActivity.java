@@ -124,7 +124,10 @@ public class MainActivity extends Activity
         super.onPause();
         //    System.out.println("------------- MainActivity - onPause -------------");
     }
-
+    public void onDestroy() {
+        this.finish();
+        super.onDestroy();
+    }
     public void onResume()
     {
         super.onResume();
