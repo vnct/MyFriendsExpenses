@@ -26,6 +26,7 @@
         android:visible="false"/>
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:showAsAction="never"
+        android:icon="@drawable/ic_action_action_settings"
+        android:showAsAction="ifRoom"
         android:visible="true"/>
 </menu>
